@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2007 sp2 (http://www.altova.com) by Ken Sloane (Terso Solutions, Inc.) -->
+<xs:schema xmlns="http://Jetstream.TersoSolutions.com/v1.0/CommandResponse" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://Jetstream.TersoSolutions.com/v1.0/CommandResponse" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="Jetstream">
+		<xs:annotation>
+			<xs:documentation>Root node for all Jetstream messages</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Header">
+					<xs:annotation>
+						<xs:documentation>Header for the DeviceSpecificCommand Response</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:anyAttribute namespace="##any"/>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="CommandResponse">
+					<xs:annotation>
+						<xs:documentation>Wrapper node for all DeviceSpecificCommand data</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:any namespace="##any" minOccurs="0" maxOccurs="unbounded"/>
+						</xs:sequence>
+						<xs:attribute name="CommandId" use="required">
+							<xs:annotation>
+								<xs:documentation>The unique identifier returned from Jetstream for this command</xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:minLength value="36"/>
+									<xs:maxLength value="36"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:attribute>
+						<xs:anyAttribute namespace="##any"/>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

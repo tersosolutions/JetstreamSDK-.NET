@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2007 sp2 (http://www.altova.com) by Ken Sloane (Terso Solutions, Inc.) -->
+<xs:schema xmlns="http://Jetstream.TersoSolutions.com/v1.0/Device/HeartbeatEvent" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://Jetstream.TersoSolutions.com/v1.0/Device/HeartbeatEvent" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="Jetstream">
+		<xs:annotation>
+			<xs:documentation>Root element for all Jetstream messaging</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Header">
+					<xs:annotation>
+						<xs:documentation>The header for the AddEventLogEntries</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:attribute name="EventTime" type="xs:dateTime" use="required">
+							<xs:annotation>
+								<xs:documentation>The UTC date and time that the event occurred</xs:documentation>
+							</xs:annotation>
+						</xs:attribute>
+						<xs:attribute name="DeviceSerialNumber" use="required">
+							<xs:annotation>
+								<xs:documentation>The DeviceSerialNumber that is sending the HeartbeatEvent</xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:minLength value="1"/>
+									<xs:maxLength value="256"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:attribute>
+						<xs:anyAttribute namespace="##any"/>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="HeartbeatEvent">
+					<xs:annotation>
+						<xs:documentation>Wrapper element for the LogEntryAddedEvent</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:any namespace="##any" minOccurs="0" maxOccurs="unbounded"/>
+						</xs:sequence>
+						<xs:anyAttribute namespace="##any"/>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

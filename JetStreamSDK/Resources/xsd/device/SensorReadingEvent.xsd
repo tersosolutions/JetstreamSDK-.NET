@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2007 sp2 (http://www.altova.com) by Ken Sloane (Terso Solutions, Inc.) -->
+<xs:schema xmlns="http://Jetstream.TersoSolutions.com/v1.0/Device/SensorReadingEvent" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://Jetstream.TersoSolutions.com/v1.0/Device/SensorReadingEvent" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="Jetstream">
+		<xs:annotation>
+			<xs:documentation>Root Element for all Jetstream event messages</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Header">
+					<xs:annotation>
+						<xs:documentation>Header for the Jetstream SensorReadingEvent</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:attribute name="EventTime" type="xs:dateTime" use="required">
+							<xs:annotation>
+								<xs:documentation>The UTC time that the event occurred</xs:documentation>
+							</xs:annotation>
+						</xs:attribute>
+						<xs:attribute name="DeviceSerialNumber" use="required">
+							<xs:annotation>
+								<xs:documentation>The serial number for the device.</xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:minLength value="1"/>
+									<xs:maxLength value="256"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:attribute>
+						<xs:anyAttribute namespace="##any"/>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="SensorReadingEvent">
+					<xs:annotation>
+						<xs:documentation>Wrapper element for the SensorReadingEvent data</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="ReadingList">
+								<xs:annotation>
+									<xs:documentation>List or Reading</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="Reading" maxOccurs="unbounded">
+											<xs:annotation>
+												<xs:documentation>An individual reading</xs:documentation>
+											</xs:annotation>
+											<xs:complexType>
+												<xs:attribute name="Name" use="required">
+													<xs:annotation>
+														<xs:documentation>Name of the reading type</xs:documentation>
+													</xs:annotation>
+													<xs:simpleType>
+														<xs:restriction base="xs:string">
+															<xs:minLength value="1"/>
+															<xs:maxLength value="64"/>
+														</xs:restriction>
+													</xs:simpleType>
+												</xs:attribute>
+												<xs:attribute name="Value" use="required">
+													<xs:annotation>
+														<xs:documentation>Value of the reading type</xs:documentation>
+													</xs:annotation>
+													<xs:simpleType>
+														<xs:restriction base="xs:string">
+															<xs:minLength value="1"/>
+															<xs:maxLength value="256"/>
+														</xs:restriction>
+													</xs:simpleType>
+												</xs:attribute>
+												<xs:attribute name="ReadingTime" type="xs:dateTime" use="required">
+													<xs:annotation>
+														<xs:documentation>UTC date and time that the reading occurred</xs:documentation>
+													</xs:annotation>
+												</xs:attribute>
+												<xs:anyAttribute namespace="##any"/>
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+									<xs:anyAttribute namespace="##any"/>
+								</xs:complexType>
+							</xs:element>
+							<xs:any namespace="##any" minOccurs="0" maxOccurs="unbounded"/>
+						</xs:sequence>
+						<xs:anyAttribute namespace="##any"/>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

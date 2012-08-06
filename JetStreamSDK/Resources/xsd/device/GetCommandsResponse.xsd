@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2007 sp2 (http://www.altova.com) by Ken Sloane (Terso Solutions, Inc.) -->
+<xs:schema xmlns="http://Jetstream.TersoSolutions.com/v1.0/Device/GetCommandsResponse" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://Jetstream.TersoSolutions.com/v1.0/Device/GetCommandsResponse" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="Jetstream">
+		<xs:annotation>
+			<xs:documentation>Root element for all Jetstream messaging</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Header">
+					<xs:annotation>
+						<xs:documentation>Header element for all Jetstream documentation</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:anyAttribute namespace="##any"/>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="GetCommandsResponse">
+					<xs:annotation>
+						<xs:documentation>Wrapper node for all GetCommandsResponse data</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="CommandList">
+								<xs:annotation>
+									<xs:documentation>List of commands to execute. Commands should be executed in the order of the array</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="Command" minOccurs="0" maxOccurs="unbounded">
+											<xs:annotation>
+												<xs:documentation>A command to execute</xs:documentation>
+											</xs:annotation>
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="ParameterList">
+														<xs:annotation>
+															<xs:documentation>A list of any parameters for the execution of the command</xs:documentation>
+														</xs:annotation>
+														<xs:complexType>
+															<xs:sequence>
+																<xs:element name="Parameter" minOccurs="0" maxOccurs="unbounded">
+																	<xs:annotation>
+																		<xs:documentation>A parameter for execution</xs:documentation>
+																	</xs:annotation>
+																	<xs:complexType>
+																		<xs:attribute name="Name" type="xs:string" use="required">
+																			<xs:annotation>
+																				<xs:documentation>The name of the parameter</xs:documentation>
+																			</xs:annotation>
+																		</xs:attribute>
+																		<xs:attribute name="Value" type="xs:string" use="required">
+																			<xs:annotation>
+																				<xs:documentation>The value of the parameter</xs:documentation>
+																			</xs:annotation>
+																		</xs:attribute>
+																	</xs:complexType>
+																</xs:element>
+															</xs:sequence>
+														</xs:complexType>
+													</xs:element>
+												</xs:sequence>
+												<xs:attribute name="CommandId" type="xs:string" use="required">
+													<xs:annotation>
+														<xs:documentation>A unique identifier for the command. Once comand execution has completed a CommandCompletionEvent should be sent to Jetstream with the CommandId</xs:documentation>
+													</xs:annotation>
+												</xs:attribute>
+												<xs:attribute name="Name" type="xs:string" use="required">
+													<xs:annotation>
+														<xs:documentation>The name of the command to execute</xs:documentation>
+													</xs:annotation>
+												</xs:attribute>
+												<xs:anyAttribute namespace="##any"/>
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+									<xs:anyAttribute namespace="##any"/>
+								</xs:complexType>
+							</xs:element>
+							<xs:any namespace="##any" minOccurs="0" maxOccurs="unbounded"/>
+						</xs:sequence>
+						<xs:anyAttribute namespace="##any"/>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

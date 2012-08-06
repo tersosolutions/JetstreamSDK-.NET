@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2007 rel. 3 sp1 (http://www.altova.com) by Michelle Scott (Terso Solutions) -->
+<xs:schema xmlns="http://Jetstream.TersoSolutions.com/v1.1/GetPoliciesResponse" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://Jetstream.TersoSolutions.com/v1.1/GetPoliciesResponse" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="Jetstream">
+		<xs:annotation>
+			<xs:documentation>Root node for all Jetstream messaging</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Header">
+					<xs:annotation>
+						<xs:documentation>Header for the GetPolicies Response</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:anyAttribute namespace="##any"/>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="GetPoliciesResponse">
+					<xs:annotation>
+						<xs:documentation>Wrapper node for the GetPoliciesResponse data</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="PolicyList">
+								<xs:annotation>
+									<xs:documentation>List of all Policies added to the application</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="Policy" minOccurs="0" maxOccurs="unbounded">
+											<xs:annotation>
+												<xs:documentation>An added policy</xs:documentation>
+											</xs:annotation>
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="ParameterList">
+														<xs:annotation>
+															<xs:documentation>List of parameters that apply to the policy</xs:documentation>
+														</xs:annotation>
+														<xs:complexType>
+															<xs:sequence>
+																<xs:element name="Parameter" minOccurs="0" maxOccurs="unbounded">
+																	<xs:complexType>
+																		<xs:attribute name="Name" use="required">
+																			<xs:annotation>
+																				<xs:documentation>The name of the parameter</xs:documentation>
+																			</xs:annotation>
+																			<xs:simpleType>
+																				<xs:restriction base="xs:string">
+																					<xs:minLength value="1"/>
+																					<xs:maxLength value="255"/>
+																				</xs:restriction>
+																			</xs:simpleType>
+																		</xs:attribute>
+																		<xs:attribute name="Value" use="required">
+																			<xs:annotation>
+																				<xs:documentation>The value that all devices using this policy should have for this parameter</xs:documentation>
+																			</xs:annotation>
+																			<xs:simpleType>
+																				<xs:restriction base="xs:string">
+																					<xs:minLength value="1"/>
+																					<xs:maxLength value="255"/>
+																				</xs:restriction>
+																			</xs:simpleType>
+																		</xs:attribute>
+																		<xs:anyAttribute namespace="##any"/>
+																	</xs:complexType>
+																</xs:element>
+															</xs:sequence>
+														</xs:complexType>
+													</xs:element>
+													<xs:element name="LogicalDeviceList">
+														<xs:annotation>
+															<xs:documentation>List of devices that are added to the policy</xs:documentation>
+														</xs:annotation>
+														<xs:complexType>
+															<xs:sequence>
+																<xs:element name="LogicalDevice" minOccurs="0" maxOccurs="unbounded">
+																	<xs:annotation>
+																		<xs:documentation>Device that have been added to the policy</xs:documentation>
+																	</xs:annotation>
+																	<xs:complexType>
+																		<xs:sequence>
+																			<xs:element name="ParameterList">
+																				<xs:annotation>
+																					<xs:documentation>List of parameter overrides for the device</xs:documentation>
+																				</xs:annotation>
+																				<xs:complexType>
+																					<xs:sequence>
+																						<xs:element name="Parameter" minOccurs="0" maxOccurs="unbounded">
+																							<xs:annotation>
+																								<xs:documentation>An override parameter for the policy</xs:documentation>
+																							</xs:annotation>
+																							<xs:complexType>
+																								<xs:attribute name="Name" use="required">
+																									<xs:annotation>
+																										<xs:documentation>The name of the parameter</xs:documentation>
+																									</xs:annotation>
+																									<xs:simpleType>
+																										<xs:restriction base="xs:string">
+																											<xs:minLength value="1"/>
+																											<xs:maxLength value="255"/>
+																										</xs:restriction>
+																									</xs:simpleType>
+																								</xs:attribute>
+																								<xs:attribute name="Value" use="required">
+																									<xs:annotation>
+																										<xs:documentation>The value that this device using this policy should have for this parameter</xs:documentation>
+																									</xs:annotation>
+																									<xs:simpleType>
+																										<xs:restriction base="xs:string">
+																											<xs:minLength value="1"/>
+																											<xs:maxLength value="255"/>
+																										</xs:restriction>
+																									</xs:simpleType>
+																								</xs:attribute>
+																								<xs:anyAttribute namespace="##any"/>
+																							</xs:complexType>
+																						</xs:element>
+																					</xs:sequence>
+																				</xs:complexType>
+																			</xs:element>
+																		</xs:sequence>
+																		<xs:attribute name="LogicalDeviceId" use="required">
+																			<xs:annotation>
+																				<xs:documentation>The unique identifier for the logical device</xs:documentation>
+																			</xs:annotation>
+																			<xs:simpleType>
+																				<xs:restriction base="xs:string">
+																					<xs:minLength value="1"/>
+																					<xs:maxLength value="127"/>
+																				</xs:restriction>
+																			</xs:simpleType>
+																		</xs:attribute>
+																		<xs:anyAttribute namespace="##any"/>
+																	</xs:complexType>
+																</xs:element>
+															</xs:sequence>
+														</xs:complexType>
+													</xs:element>
+													<xs:any namespace="##any" minOccurs="0" maxOccurs="unbounded"/>
+												</xs:sequence>
+												<xs:attribute name="Id" use="required">
+													<xs:annotation>
+														<xs:documentation>The Id of the Policy</xs:documentation>
+													</xs:annotation>
+													<xs:simpleType>
+														<xs:restriction base="xs:string">
+															<xs:minLength value="36"/>
+															<xs:maxLength value="36"/>
+														</xs:restriction>
+													</xs:simpleType>
+												</xs:attribute>
+												<xs:attribute name="Name" use="required">
+													<xs:annotation>
+														<xs:documentation>The name of the policy</xs:documentation>
+													</xs:annotation>
+													<xs:simpleType>
+														<xs:restriction base="xs:string">
+															<xs:minLength value="1"/>
+															<xs:maxLength value="255"/>
+														</xs:restriction>
+													</xs:simpleType>
+												</xs:attribute>
+												<xs:attribute name="DeviceDefinitionId" use="required">
+													<xs:annotation>
+														<xs:documentation>The device definition the policy applies to</xs:documentation>
+													</xs:annotation>
+													<xs:simpleType>
+														<xs:restriction base="xs:string">
+															<xs:minLength value="36"/>
+															<xs:maxLength value="36"/>
+														</xs:restriction>
+													</xs:simpleType>
+												</xs:attribute>
+												<xs:anyAttribute namespace="##any"/>
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:any namespace="##any" minOccurs="0" maxOccurs="unbounded"/>
+						</xs:sequence>
+						<xs:anyAttribute namespace="##any"/>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

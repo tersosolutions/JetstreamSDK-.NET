@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2007 sp2 (http://www.altova.com) by Ken Sloane (Terso Solutions, Inc.) -->
+<xs:schema xmlns="http://Jetstream.TersoSolutions.com/v1.0/Device/ObjectEvent" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://Jetstream.TersoSolutions.com/v1.0/Device/ObjectEvent" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="Jetstream">
+		<xs:annotation>
+			<xs:documentation>Root Node for all Jetstream Event messages</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Header">
+					<xs:annotation>
+						<xs:documentation>Header for the Jetstream ObjectEvent event type</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:attribute name="DeviceSerialNumber" use="required">
+							<xs:annotation>
+								<xs:documentation>The logical device Id assigned using AddLogicalDevice</xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:minLength value="1"/>
+									<xs:maxLength value="256"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:attribute>
+						<xs:attribute name="EventTime" type="xs:dateTime" use="required">
+							<xs:annotation>
+								<xs:documentation>The UTC date and time that the event occurred</xs:documentation>
+							</xs:annotation>
+						</xs:attribute>
+						<xs:anyAttribute namespace="##any"/>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="ObjectEvent">
+					<xs:annotation>
+						<xs:documentation>The wrapper element for the Object event data</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="ActionEPCList">
+								<xs:annotation>
+									<xs:documentation>A list of EPC elements and the action that has happened to the EPCs</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="EPC" minOccurs="0" maxOccurs="unbounded">
+											<xs:annotation>
+												<xs:documentation>The EPC that has had the action occur</xs:documentation>
+											</xs:annotation>
+											<xs:complexType>
+												<xs:simpleContent>
+													<xs:extension base="xs:string">
+														<xs:anyAttribute namespace="##any"/>
+													</xs:extension>
+												</xs:simpleContent>
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+									<xs:attribute name="Type" use="required">
+										<xs:annotation>
+											<xs:documentation>The type of action that has happened to the list of EPCs.  This is always OBSERVE for ObjectEvent</xs:documentation>
+										</xs:annotation>
+										<xs:simpleType>
+											<xs:restriction base="xs:string">
+												<xs:enumeration value="OBSERVE"/>
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:attribute>
+									<xs:anyAttribute namespace="##any"/>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="DeviceExtensionList">
+								<xs:annotation>
+									<xs:documentation>List of device extensions that are applicable to an Object event</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="DeviceExtension" minOccurs="0" maxOccurs="unbounded">
+											<xs:annotation>
+												<xs:documentation>A device specific extension for the ObjectEvent.  See the specific device documentation for concrete implementations</xs:documentation>
+											</xs:annotation>
+											<xs:complexType>
+												<xs:attribute name="Name" use="required">
+													<xs:annotation>
+														<xs:documentation>Name of the extension</xs:documentation>
+													</xs:annotation>
+													<xs:simpleType>
+														<xs:restriction base="xs:string">
+															<xs:minLength value="1"/>
+															<xs:maxLength value="64"/>
+														</xs:restriction>
+													</xs:simpleType>
+												</xs:attribute>
+												<xs:attribute name="Value" use="required">
+													<xs:annotation>
+														<xs:documentation>Value of the extension</xs:documentation>
+													</xs:annotation>
+													<xs:simpleType>
+														<xs:restriction base="xs:string">
+															<xs:minLength value="1"/>
+															<xs:maxLength value="256"/>
+														</xs:restriction>
+													</xs:simpleType>
+												</xs:attribute>
+												<xs:anyAttribute namespace="##any"/>
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+									<xs:anyAttribute namespace="##any"/>
+								</xs:complexType>
+							</xs:element>
+							<xs:any namespace="##any" minOccurs="0" maxOccurs="unbounded"/>
+						</xs:sequence>
+						<xs:anyAttribute namespace="##any"/>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>
