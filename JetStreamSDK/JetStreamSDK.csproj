@@ -41,15 +41,14 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
-    <DocumentationFile>bin\Release\JetstreamSDK.XML</DocumentationFile>
+    <DocumentationFile>
+    </DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AWSSDK, Version=1.4.12.2, Culture=neutral, PublicKeyToken=cd2d24cd2bace800, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\ThirdParty\AWSSDK.dll</HintPath>
-    </Reference>
-    <Reference Include="AWSUtilities">
-      <HintPath>..\ThirdParty\AWSUtilities.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\ThirdParty\Newtonsoft.Json.dll</HintPath>
@@ -113,6 +112,9 @@
     <Compile Include="Application\SQS\LogEntryEvent.cs" />
     <Compile Include="Application\SQS\LogicalDeviceAddedEvent.cs" />
     <Compile Include="Application\SQS\LogicalDeviceRemovedEvent.cs" />
+    <Compile Include="Application\SQS\MessageEqualityComparer.cs" />
+    <Compile Include="Application\SQS\MessageSentTimeStampComparer.cs" />
+    <Compile Include="Application\SQS\NewWindowEventArgs.cs" />
     <Compile Include="Application\SQS\ObjectEvent.cs" />
     <Compile Include="Application\SQS\SensorReadingEvent.cs" />
     <Compile Include="Device\AggregateEvent.cs" />
