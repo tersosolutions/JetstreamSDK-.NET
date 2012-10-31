@@ -14,7 +14,7 @@ TersoSolutions.Application.SQS.JetstreamSQSService Setup
 3. Change from 4.0 client framework to 4.0 framework
 4. Add a reference to the 4.0 System.Configuration
 5. Add AWSAccessKey, AWSSecretAccessKey and QueueUrl to your app.config appSettings keys
-6. Update your Service class to inherit from JetstreamSQSservice
+6. Update your Service class to inherit from JetstreamSQSService
 7. Override the Process* methods for the events you want to process
 8. create an EventLog source using the command line /runas admin for logging
 	eventcreate /ID 1 /L APPLICATION /T INFORMATION  /SO JetstreamSDK /D "Created JetstreamSDK Event Log Source"
