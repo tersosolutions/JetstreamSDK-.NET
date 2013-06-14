@@ -60,6 +60,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Application\Events\AggregateEvent.cs" />
+    <Compile Include="Application\Events\AmazonSNSMessage.cs" />
+    <Compile Include="Application\Events\CommandCompletionEvent.cs" />
+    <Compile Include="Application\Events\CommandQueuedEvent.cs" />
+    <Compile Include="Application\Events\DeviceFailureEvent.cs" />
+    <Compile Include="Application\Events\DeviceRestoreEvent.cs" />
+    <Compile Include="Application\Events\HeartbeatEvent.cs" />
+    <Compile Include="Application\Events\JetstreamEventService.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Application\Events\LogEntryEvent.cs" />
+    <Compile Include="Application\Events\LogicalDeviceAddedEvent.cs" />
+    <Compile Include="Application\Events\LogicalDeviceRemovedEvent.cs" />
+    <Compile Include="Application\Events\MessageEqualityComparer.cs" />
+    <Compile Include="Application\Events\MessageSentTimeStampComparer.cs" />
+    <Compile Include="Application\Events\NewWindowEventArgs.cs" />
+    <Compile Include="Application\Events\ObjectEvent.cs" />
+    <Compile Include="Application\Events\SensorReadingEvent.cs" />
     <Compile Include="Application\JetstreamResponseException.cs" />
     <Compile Include="Application\Model\AddDeviceToPolicyResponse.cs" />
     <Compile Include="Application\Model\AddDeviceToPolicyRequest.cs" />
