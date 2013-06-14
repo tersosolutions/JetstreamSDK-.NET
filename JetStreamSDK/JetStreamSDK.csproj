@@ -82,6 +82,9 @@
     <Compile Include="Application\Model\GetEPCListCommandRequest.cs" />
     <Compile Include="Application\Model\DeviceSpecificCommands\TS\LockdownRequest.cs" />
     <Compile Include="Application\Model\GetEPCListCommandResponse.cs" />
+    <Compile Include="Application\Model\GetEventsRequest.cs" />
+    <Compile Include="Application\Model\GetEventsResponse.cs" />
+    <Compile Include="Application\Model\GetEventsResponse\GetEventsResponse.cs" />
     <Compile Include="Application\Model\GetPoliciesRequest.cs" />
     <Compile Include="Application\Model\GetPoliciesResponse.cs" />
     <Compile Include="Application\Model\GetPoliciesResponse\GetPoliciesResponse.cs" />
@@ -89,6 +92,8 @@
     <Compile Include="Application\Model\JetstreamResponse.cs" />
     <Compile Include="Application\Model\RemoveDeviceFromPolicyRequest.cs" />
     <Compile Include="Application\Model\RemoveDeviceFromPolicyResponse.cs" />
+    <Compile Include="Application\Model\RemoveEventsRequest.cs" />
+    <Compile Include="Application\Model\RemoveEventsResponse.cs" />
     <Compile Include="Application\Model\RemoveLogicalDeviceResponse.cs" />
     <Compile Include="Application\Model\RemovePolicyRequest.cs" />
     <Compile Include="Application\Model\RemovePolicyResponse.cs" />
