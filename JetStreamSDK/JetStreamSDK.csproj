@@ -61,7 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Application\Events\AggregateEvent.cs" />
-    <Compile Include="Application\Events\AmazonSNSMessage.cs" />
+    <Compile Include="Application\Events\EventsMessage.cs" />
     <Compile Include="Application\Events\CommandCompletionEvent.cs" />
     <Compile Include="Application\Events\CommandQueuedEvent.cs" />
     <Compile Include="Application\Events\DeviceFailureEvent.cs" />

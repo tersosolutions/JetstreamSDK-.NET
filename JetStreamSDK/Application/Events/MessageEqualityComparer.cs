@@ -19,7 +19,7 @@ using System.Linq;
 using System.Text;
 using Amazon.SQS.Model;
 
-namespace TersoSolutions.Jetstream.Application.SQS
+namespace TersoSolutions.Jetstream.Application.Events
 {
     /// <summary>
     /// IEqualityComparer used for filtering duplicate SQS messages

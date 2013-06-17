@@ -566,7 +566,7 @@ namespace TersoSolutions.Jetstream.Application.Events
 
 
                         // use Newtonsoft.json to parse the message because the JSON serializer from MS doesn't work
-                        AmazonSNSMessage b = JsonConvert.DeserializeObject<AmazonSNSMessage>(messageBody);
+                        EventsMessage b = JsonConvert.DeserializeObject<EventsMessage>(messageBody);
 
                         // unzip the message if gzip is enabled for my application
                         String message;
