@@ -43,11 +43,11 @@ namespace TersoSolutions.Jetstream.Application.Model
         /// <summary>
         /// 
         /// </summary>
-        public List<object> Events
+        public List<TersoSolutions.Jetstream.Application.SQS.JetstreamEvent> Events
         {
             get
             {
-                List<object> returnList = new List<object>();
+                List<TersoSolutions.Jetstream.Application.SQS.JetstreamEvent> returnList = new List<TersoSolutions.Jetstream.Application.SQS.JetstreamEvent>();
 
                 // load the full body into an xml document
                 XmlDocument doc = new XmlDocument();
@@ -74,66 +74,99 @@ namespace TersoSolutions.Jetstream.Application.Model
                         case "aggregateevent":
                             {
                                 AE.Jetstream evt = Deserialize<AE.Jetstream>(eventDocXML);
+                                evt.EventType = evtType.Trim();
+                                evt.EventId = evt.Header.EventId;
+                                evt.EventTime = evt.Header.ReceivedTime;
                                 returnList.Add(evt);
                                 break;
                             }
                         case "commandcompletionevent":
                             {
                                 CCE.Jetstream evt = Deserialize<CCE.Jetstream>(eventDocXML);
+                                evt.EventType = evtType.Trim();
+                                evt.EventId = evt.Header.EventId;
+                                evt.EventTime = evt.Header.ReceivedTime;
                                 returnList.Add(evt);
                                 break;
                             }
                         case "commandqueuedevent":
                             {
                                 CQE.Jetstream evt = Deserialize<CQE.Jetstream>(eventDocXML);
+                                evt.EventType = evtType.Trim();
+                                evt.EventId = evt.Header.EventId;
+                                evt.EventTime = evt.Header.EventTime;
                                 returnList.Add(evt);
                                 break;
                             }
                         case "devicefailureevent":
                             {
                                 DFE.Jetstream evt = Deserialize<DFE.Jetstream>(eventDocXML);
+                                evt.EventType = evtType.Trim();
+                                evt.EventId = evt.Header.EventId;
+                                evt.EventTime = evt.Header.EventTime;
                                 returnList.Add(evt);
                                 break;
                             }
                         case "devicerestoreevent":
                             {
                                 DRE.Jetstream evt = Deserialize<DRE.Jetstream>(eventDocXML);
+                                evt.EventType = evtType.Trim();
+                                evt.EventId = evt.Header.EventId;
+                                evt.EventTime = evt.Header.EventTime;
                                 returnList.Add(evt);
                                 break;
                             }
                         case "heartbeatevent":
                             {
                                 HE.Jetstream evt = Deserialize<HE.Jetstream>(eventDocXML);
+                                evt.EventType = evtType.Trim();
+                                evt.EventId = evt.Header.EventId;
+                                evt.EventTime = evt.Header.ReceivedTime;
                                 returnList.Add(evt);
                                 break;
                             }
                         case "logentryevent":
                             {
                                 LEE.Jetstream evt = Deserialize<LEE.Jetstream>(eventDocXML);
+                                evt.EventType = evtType.Trim();
+                                evt.EventId = evt.Header.EventId;
+                                evt.EventTime = evt.Header.ReceivedTime;
                                 returnList.Add(evt);
                                 break;
                             }
                         case "logicaldeviceaddedevent":
                             {
                                 LDAE.Jetstream evt = Deserialize<LDAE.Jetstream>(eventDocXML);
+                                evt.EventType = evtType.Trim();
+                                evt.EventId = evt.Header.EventId;
+                                evt.EventTime = evt.Header.EventTime;
                                 returnList.Add(evt);
                                 break;
                             }
                         case "logicaldeviceremovedevent":
                             {
                                 LDRE.Jetstream evt = Deserialize<LDRE.Jetstream>(eventDocXML);
+                                evt.EventType = evtType.Trim();
+                                evt.EventId = evt.Header.EventId;
+                                evt.EventTime = evt.Header.EventTime;
                                 returnList.Add(evt);
                                 break;
                             }
                         case "objectevent":
                             {
                                 OE.Jetstream evt = Deserialize<OE.Jetstream>(eventDocXML);
+                                evt.EventType = evtType.Trim();
+                                evt.EventId = evt.Header.EventId;
+                                evt.EventTime = evt.Header.ReceivedTime;
                                 returnList.Add(evt);
                                 break;
                             }
                         case "sensorreadingevent":
                             {
                                 SRE.Jetstream evt = Deserialize<SRE.Jetstream>(eventDocXML);
+                                evt.EventType = evtType.Trim();
+                                evt.EventId = evt.Header.EventId;
+                                evt.EventTime = evt.Header.ReceivedTime;
                                 returnList.Add(evt);
                                 break;
                             }

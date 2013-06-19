@@ -17,7 +17,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Amazon.SQS.Model;
+using TersoSolutions.Jetstream.Application.SQS;
 
 namespace TersoSolutions.Jetstream.Application.Events
 {
@@ -31,7 +31,7 @@ namespace TersoSolutions.Jetstream.Application.Events
         /// Constructor for the custom EventArgs
         /// </summary>
         /// <param name="messages"></param>
-        internal NewWindowEventArgs(IEnumerable<object> messages)
+        internal NewWindowEventArgs(IEnumerable<JetstreamEvent> messages)
             : base()
         {
             if (messages == null) throw new ArgumentNullException("messages");
@@ -42,6 +42,6 @@ namespace TersoSolutions.Jetstream.Application.Events
         /// <summary>
         /// Ordered window of SQS messages received
         /// </summary>
-        public IEnumerable<object> Messages { get; private set; }
+        public IEnumerable<JetstreamEvent> Messages { get; private set; }
     }
 }

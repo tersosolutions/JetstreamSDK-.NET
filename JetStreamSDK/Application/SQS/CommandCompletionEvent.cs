@@ -22,7 +22,8 @@ namespace TersoSolutions.Jetstream.Application.SQS.CommandCompletionEvent {
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://Jetstream.TersoSolutions.com/v1.0/CommandCompletionEvent")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace="http://Jetstream.TersoSolutions.com/v1.0/CommandCompletionEvent", IsNullable=false)]
-    public partial class Jetstream {
+    public partial class Jetstream : TersoSolutions.Jetstream.Application.SQS.JetstreamEvent
+    {
         
         private JetstreamHeader headerField;
         

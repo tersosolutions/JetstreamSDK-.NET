@@ -26,8 +26,6 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
-//using Amazon.SQS;
-//using Amazon.SQS.Model;
 using Newtonsoft.Json;
 using AE = TersoSolutions.Jetstream.Application.SQS.AggregateEvent;
 using CCE = TersoSolutions.Jetstream.Application.SQS.CommandCompletionEvent;
@@ -41,6 +39,7 @@ using LEE = TersoSolutions.Jetstream.Application.SQS.LogEntryEvent;
 using OE = TersoSolutions.Jetstream.Application.SQS.ObjectEvent;
 using SRE = TersoSolutions.Jetstream.Application.SQS.SensorReadingEvent;
 using TersoSolutions.Jetstream.Application.Model;
+using TersoSolutions.Jetstream.Application.SQS;
 
 namespace TersoSolutions.Jetstream.Application.Events
 {
@@ -58,10 +57,9 @@ namespace TersoSolutions.Jetstream.Application.Events
         private Object _windowLock = new object();
         private CancellationTokenSource _cts;
         private Object _setLock = new object();
-        private List<object> _set = new List<object>(); //use a  Red-Black tree for the producer-consumer data store
-        private string _currentBatchId = string.Empty;
+        private SortedSet<JetstreamEvent> _set = new SortedSet<JetstreamEvent>(new JetstreamEventTimeStampComparer()); //use a  Red-Black tree for the producer-consumer data store
+
         private volatile bool _isWindowing = false;
-        private const String c_DEFAULTAWSSQSSERVICEURL = "sqs.us-east-1.amazonaws.com";
         private event EventHandler<NewWindowEventArgs> NewWindow;
 
         #endregion
@@ -256,16 +254,16 @@ namespace TersoSolutions.Jetstream.Application.Events
         /// Task for Receiving messages from SQS
         /// </summary>
         /// <param name="state"></param>
-        private void ReceiveTask(CancellationToken ct, int numberOfMessages)
+        private string ReceiveTask(CancellationToken ct)
         {
             try
             {
                 JetstreamServiceClient client = new JetstreamServiceClient(this.JetstreamUrl, this.UserAccessKey);
                 GetEventsRequest request = new GetEventsRequest();
                 GetEventsResponse response = client.GetEvents(request);
-                _currentBatchId = response.BatchId;
-                List<object> messages = new List<object>();
-                foreach (var message in response.Events)
+                string currentBatchId = response.BatchId;
+                List<TersoSolutions.Jetstream.Application.SQS.JetstreamEvent> messages = new List<TersoSolutions.Jetstream.Application.SQS.JetstreamEvent>();
+                foreach (TersoSolutions.Jetstream.Application.SQS.JetstreamEvent message in response.Events)
                 {
                     messages.Add(message);
                 }
@@ -285,6 +283,7 @@ namespace TersoSolutions.Jetstream.Application.Events
                         }
                     }
                 }
+                return currentBatchId;
             }
             catch (Exception ex)
             {
@@ -292,20 +291,21 @@ namespace TersoSolutions.Jetstream.Application.Events
                     ex.Message + "\n" + ex.StackTrace,
                     EventLogEntryType.Error);
             }
+            return string.Empty;
         }
 
         /// <summary>
         /// Task for deleting messages from SQS
         /// </summary>
         /// <param name="state"></param>
-        private void DeleteTask(CancellationToken ct, List<object> messages, Tuple<int, int> range)
+        private void DeleteTask(CancellationToken ct, string batchId)
         {
             try
             {
                 JetstreamServiceClient client = new JetstreamServiceClient(this.JetstreamUrl, this.UserAccessKey);
                 RemoveEventsRequest request = new RemoveEventsRequest();
-                request.BatchId = _currentBatchId;
-                //RemoveEventsResponse response = client.RemoveEvents(request);
+                request.BatchId = batchId;
+                RemoveEventsResponse response = client.RemoveEvents(request);
             }
             catch (Exception ex)
             {
@@ -324,7 +324,8 @@ namespace TersoSolutions.Jetstream.Application.Events
             try
             {
                 CancellationToken ct = (CancellationToken)state;
-                List<object> messages = new List<object>();
+                List<JetstreamEvent> messages = new List<JetstreamEvent>();
+                string BatchId = String.Empty;
 
                 // syncronize the processing of windows
                 if ((!ct.IsCancellationRequested) &
@@ -333,10 +334,10 @@ namespace TersoSolutions.Jetstream.Application.Events
                     try
                     {
                         long epochWindowTime = ToEpochTimeInMilliseconds(DateTime.UtcNow.Subtract(this.MessageCheckWindow));
-                        int numberOfMessages = 0;
+                        BatchId = ReceiveTask(ct);
 
                         // just do it inline it's less expensive than spinning threads
-                        ReceiveTask(ct, numberOfMessages);
+                        //ReceiveTask(ct, numberOfMessages);
 
                         // ok so all messages have been Receieved and ordered or no more messages can be popped
                         if (!ct.IsCancellationRequested)
@@ -348,15 +349,15 @@ namespace TersoSolutions.Jetstream.Application.Events
 
                             // remove duplicates
                             //TODO Find a better way to dedup that doesn't destroy the order of the array
-                            //IEnumerable<object> dedupMessages = messages.Distinct(new MessageEqualityComparer());
+                            IEnumerable<JetstreamEvent> dedupMessages = messages.Distinct(new JetstreamEventEqualityComparer());
 
                             // distinct doesn't presever order so we need to reorder the window
-                            //IEnumerable<object> orderedMessages = dedupMessages.OrderBy(m => m, new MessageSentTimeStampComparer());
+                            IEnumerable<JetstreamEvent> orderedMessages = dedupMessages.OrderBy(m => m, new JetstreamEventTimeStampComparer());
 
                             // raise the WindowEvent with the results
                             if (!ct.IsCancellationRequested)
                             {
-                                OnNewWindow(messages);
+                                OnNewWindow(orderedMessages);
                             }
                         }
 
@@ -368,10 +369,9 @@ namespace TersoSolutions.Jetstream.Application.Events
                 }
 
                 // check if we should delete the messages
-                if ((!ct.IsCancellationRequested) &
-                    (messages.Count > 0))
+                if ((!ct.IsCancellationRequested) && (messages.Count > 0))
                 {
-                    DeleteTask(ct, messages, new Tuple<int, int>(0, messages.Count));
+                    DeleteTask(ct, BatchId);
                 }
             }
             catch (Exception ex)
@@ -421,7 +421,7 @@ namespace TersoSolutions.Jetstream.Application.Events
         /// On* event raising pattern implementation for the NewWindow event
         /// </summary>
         /// <param name="messages"></param>
-        private void OnNewWindow(IEnumerable<object> messages)
+        private void OnNewWindow(IEnumerable<JetstreamEvent> messages)
         {
             if (NewWindow != null)
             {
@@ -439,78 +439,76 @@ namespace TersoSolutions.Jetstream.Application.Events
             // lock so we process all events in order
             lock (_newWindowLock)
             {
-                foreach (var m in e.Messages)
+                foreach (TersoSolutions.Jetstream.Application.SQS.JetstreamEvent m in e.Messages)
                 {
                     try
                     {
-                        string x = m.GetType().ToString();
-
-                        Debug.WriteLine("Jetstream Message: " + x);
+                        Debug.WriteLine("Jetstream Message: " + m.EventType);
 
                         // now we can deserialize the XML message into the appropriate message
-                        switch (x.Trim().ToLower())
+                        switch (m.EventType.Trim().ToLower())
                         {
-                            case "tersosolutions.jetstream.application.sqs.aggregateevent.jetstream":
+                            case "aggregateevent":
                                 {
                                     AE.Jetstream message = (AE.Jetstream)m;
                                     ProcessAggregateEvent(message);
                                     break;
                                 }
-                            case "tersosolutions.jetstream.application.sqs.commandcompletionevent.jetstream":
+                            case "commandcompletionevent":
                                 {
                                     CCE.Jetstream message = (CCE.Jetstream)m;
                                     ProcessCommandCompletionEvent(message);
                                     break;
                                 }
-                            case "tersosolutions.jetstream.application.sqs.commandqueuedevent.jetstream":
+                            case "commandqueuedevent":
                                 {
                                     CQE.Jetstream message = (CQE.Jetstream)m;
                                     ProcessCommandQueuedEvent(message);
                                     break;
                                 }
-                            case "tersosolutions.jetstream.application.sqs.devicefailureevent.jetstream":
+                            case "devicefailureevent":
                                 {
                                     DFE.Jetstream message = (DFE.Jetstream)m;
                                     ProcessDeviceFailureEvent(message);
                                     break;
                                 }
-                            case "tersosolutions.jetstream.application.sqs.devicerestoreevent.jetstream":
+                            case "devicerestoreevent":
                                 {
                                     DRE.Jetstream message = (DRE.Jetstream)m;
                                     ProcessDeviceRestoreEvent(message);
                                     break;
                                 }
-                            case "tersosolutions.jetstream.application.sqs.heartbeatevent.jetstream":
+                            case "heartbeatevent":
                                 {
                                     HE.Jetstream message = (HE.Jetstream)m;
                                     ProcessHeartbeatEvent(message);
                                     break;
                                 }
-                            case "tersosolutions.jetstream.application.sqs.logentryevent.jetstream":
+                            case "logentryevent":
                                 {
                                     LEE.Jetstream message = (LEE.Jetstream)m;
                                     ProcessLogEntryEvent(message);
                                     break;
                                 }
-                            case "tersosolutions.jetstream.application.sqs.logicaldeviceaddedevent.jetstream":
+                            case "logicaldeviceaddedevent":
                                 {
                                     LDAE.Jetstream message = (LDAE.Jetstream)m;
                                     ProcessLogicalDeviceAddedEvent(message);
                                     break;
                                 }
-                            case "tersosolutions.jetstream.application.sqs.logicaldeviceremovedevent.jetstream":
+                            case "logicaldeviceremovedevent":
                                 {
                                     LDRE.Jetstream message = (LDRE.Jetstream)m;
                                     ProcessLogicalDeviceRemovedEvent(message);
                                     break;
                                 }
-                            case "tersosolutions.jetstream.application.sqs.objectevent.jetstream":
+                            case "objectevent":
                                 {
                                     OE.Jetstream message = (OE.Jetstream)m;
                                     ProcessObjectEvent(message);
                                     break;
                                 }
-                            case "tersosolutions.jetstream.application.sqs.sensorreadingevent.jetstream":
+                            case "sensorreadingevent":
                                 {
                                     SRE.Jetstream message = (SRE.Jetstream)m;
                                     ProcessSensorReadingEvent(message);
