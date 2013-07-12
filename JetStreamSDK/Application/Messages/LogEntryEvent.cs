@@ -16,9 +16,7 @@ namespace TersoSolutions.Jetstream.SDK.Application.Messages.LogEntryEvent
     using System.Xml.Serialization;
     /// <summary>
     /// LogEntryEvent event data indicates when a device has added a record or multiple records to its syslog or eventlog. 
-    /// </summary>
-
-    
+    /// </summary>    
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.1")]
     [System.SerializableAttribute()]
@@ -26,7 +24,7 @@ namespace TersoSolutions.Jetstream.SDK.Application.Messages.LogEntryEvent
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://Jetstream.TersoSolutions.com/v1.0/LogEntryEvent")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace="http://Jetstream.TersoSolutions.com/v1.0/LogEntryEvent", IsNullable=false)]
-    public partial class Jetstream : TersoSolutions.Jetstream.SDK.Application.SQS.JetstreamEvent
+    public partial class Jetstream : TersoSolutions.Jetstream.SDK.Application.Messages.JetstreamEvent
     {
         
         private JetstreamHeader headerField;

@@ -29,17 +29,17 @@ using System.Xml.Serialization;
 using Amazon.SQS;
 using Amazon.SQS.Model;
 using Newtonsoft.Json;
-using AE = TersoSolutions.Jetstream.SDK.Application.SQS.AggregateEvent;
-using CCE = TersoSolutions.Jetstream.SDK.Application.SQS.CommandCompletionEvent;
-using CQE = TersoSolutions.Jetstream.SDK.Application.SQS.CommandQueuedEvent;
-using DFE = TersoSolutions.Jetstream.SDK.Application.SQS.DeviceFailureEvent;
-using DRE = TersoSolutions.Jetstream.SDK.Application.SQS.DeviceRestoreEvent;
-using HE = TersoSolutions.Jetstream.SDK.Application.SQS.HeartbeatEvent;
-using LDAE = TersoSolutions.Jetstream.SDK.Application.SQS.LogicalDeviceAddedEvent;
-using LDRE = TersoSolutions.Jetstream.SDK.Application.SQS.LogicalDeviceRemovedEvent;
-using LEE = TersoSolutions.Jetstream.SDK.Application.SQS.LogEntryEvent;
-using OE = TersoSolutions.Jetstream.SDK.Application.SQS.ObjectEvent;
-using SRE = TersoSolutions.Jetstream.SDK.Application.SQS.SensorReadingEvent;
+using AE = TersoSolutions.Jetstream.SDK.Application.Messages.AggregateEvent;
+using CCE = TersoSolutions.Jetstream.SDK.Application.Messages.CommandCompletionEvent;
+using CQE = TersoSolutions.Jetstream.SDK.Application.Messages.CommandQueuedEvent;
+using DFE = TersoSolutions.Jetstream.SDK.Application.Messages.DeviceFailureEvent;
+using DRE = TersoSolutions.Jetstream.SDK.Application.Messages.DeviceRestoreEvent;
+using HE = TersoSolutions.Jetstream.SDK.Application.Messages.HeartbeatEvent;
+using LDAE = TersoSolutions.Jetstream.SDK.Application.Messages.LogicalDeviceAddedEvent;
+using LDRE = TersoSolutions.Jetstream.SDK.Application.Messages.LogicalDeviceRemovedEvent;
+using LEE = TersoSolutions.Jetstream.SDK.Application.Messages.LogEntryEvent;
+using OE = TersoSolutions.Jetstream.SDK.Application.Model.ObjectEvent;
+using SRE = TersoSolutions.Jetstream.SDK.Application.Messages.SensorReadingEvent;
 
 namespace TersoSolutions.Jetstream.SDK.Application.SQS
 {
