@@ -15,7 +15,7 @@
  */
 using System;
 
-namespace TersoSolutions.Jetstream.Application.Model
+namespace TersoSolutions.Jetstream.SDK.Application.Model
 {
     /// <summary>
     /// GetPolicies returns all policies you have added to your application. 

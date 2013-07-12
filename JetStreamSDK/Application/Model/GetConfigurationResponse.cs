@@ -15,9 +15,9 @@
  */
 using System;
 using System.Collections.Generic;
-using CR = TersoSolutions.Jetstream.Application.Model.Deserialized.GetConfigurationResponse;
+using CR = TersoSolutions.Jetstream.SDK.Application.Model.Deserialized.GetConfigurationResponse;
 
-namespace TersoSolutions.Jetstream.Application.Model
+namespace TersoSolutions.Jetstream.SDK.Application.Model
 {
     /// <summary>
     /// GetConfiguration returns the current Jetstream® configuration for your application. 

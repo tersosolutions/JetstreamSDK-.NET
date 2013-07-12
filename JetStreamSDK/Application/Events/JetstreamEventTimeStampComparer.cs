@@ -18,9 +18,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using TersoSolutions.Jetstream.Application.SQS;
+using TersoSolutions.Jetstream.SDK.Application.Messages;
 
-namespace TersoSolutions.Jetstream.Application.Events
+namespace TersoSolutions.Jetstream.SDK.Application.Events
 {
     /// <summary>
     /// IComparer implementation for sorting messages by SentTimestamp epoch.

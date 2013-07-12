@@ -16,7 +16,7 @@
 using System;
 using System.Web;
 
-namespace TersoSolutions.Jetstream.Application.Model
+namespace TersoSolutions.Jetstream.SDK.Application.Model
 {
     /// <summary>
     /// GetEPCListCommand instructs the device to scan for RFID tags.

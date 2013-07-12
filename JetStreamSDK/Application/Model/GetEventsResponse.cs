@@ -16,23 +16,23 @@
 using System;
 using System.Collections.Generic;
 
-using GE = TersoSolutions.Jetstream.Application.Model.Deserialized.GetEventsResponse;
-using AE = TersoSolutions.Jetstream.Application.SQS.AggregateEvent;
-using CCE = TersoSolutions.Jetstream.Application.SQS.CommandCompletionEvent;
-using CQE = TersoSolutions.Jetstream.Application.SQS.CommandQueuedEvent;
-using DFE = TersoSolutions.Jetstream.Application.SQS.DeviceFailureEvent;
-using DRE = TersoSolutions.Jetstream.Application.SQS.DeviceRestoreEvent;
-using HE = TersoSolutions.Jetstream.Application.SQS.HeartbeatEvent;
-using LDAE = TersoSolutions.Jetstream.Application.SQS.LogicalDeviceAddedEvent;
-using LDRE = TersoSolutions.Jetstream.Application.SQS.LogicalDeviceRemovedEvent;
-using LEE = TersoSolutions.Jetstream.Application.SQS.LogEntryEvent;
-using OE = TersoSolutions.Jetstream.Application.SQS.ObjectEvent;
-using SRE = TersoSolutions.Jetstream.Application.SQS.SensorReadingEvent;
+using GE = TersoSolutions.Jetstream.SDK.Application.Model.Deserialized.GetEventsResponse;
+using AE = TersoSolutions.Jetstream.SDK.Application.Messages.AggregateEvent;
+using CCE = TersoSolutions.Jetstream.SDK.Application.Messages.CommandCompletionEvent;
+using CQE = TersoSolutions.Jetstream.SDK.Application.Messages.CommandQueuedEvent;
+using DFE = TersoSolutions.Jetstream.SDK.Application.Messages.DeviceFailureEvent;
+using DRE = TersoSolutions.Jetstream.SDK.Application.Messages.DeviceRestoreEvent;
+using HE = TersoSolutions.Jetstream.SDK.Application.Messages.HeartbeatEvent;
+using LDAE = TersoSolutions.Jetstream.SDK.Application.Messages.LogicalDeviceAddedEvent;
+using LDRE = TersoSolutions.Jetstream.SDK.Application.Messages.LogicalDeviceRemovedEvent;
+using LEE = TersoSolutions.Jetstream.SDK.Application.Messages.LogEntryEvent;
+using OE = TersoSolutions.Jetstream.SDK.Application.Model.ObjectEvent;
+using SRE = TersoSolutions.Jetstream.SDK.Application.Messages.SensorReadingEvent;
 using System.Xml;
 using System.IO;
 using System.Xml.Serialization;
 
-namespace TersoSolutions.Jetstream.Application.Model
+namespace TersoSolutions.Jetstream.SDK.Application.Model
 {
     /// <summary>
     /// GetEvents returns but does not dequeue the oldest pending event messages 
@@ -47,11 +47,11 @@ namespace TersoSolutions.Jetstream.Application.Model
         /// <summary>
         /// 
         /// </summary>
-        public List<TersoSolutions.Jetstream.Application.SQS.JetstreamEvent> Events
+        public List<TersoSolutions.Jetstream.SDK.Application.Messages.JetstreamEvent> Events
         {
             get
             {
-                List<TersoSolutions.Jetstream.Application.SQS.JetstreamEvent> returnList = new List<TersoSolutions.Jetstream.Application.SQS.JetstreamEvent>();
+                List<TersoSolutions.Jetstream.SDK.Application.Messages.JetstreamEvent> returnList = new List<TersoSolutions.Jetstream.SDK.Application.Messages.JetstreamEvent>();
 
                 // load the full body into an xml document
                 XmlDocument doc = new XmlDocument();

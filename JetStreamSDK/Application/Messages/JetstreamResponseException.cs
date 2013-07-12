@@ -15,7 +15,7 @@
  */
 using System;
 
-namespace TersoSolutions.Jetstream.Application
+namespace TersoSolutions.Jetstream.SDK.Application
 {
     /// <summary>
     /// Custom exception class for non HTTP 200 responses from Jetstream 

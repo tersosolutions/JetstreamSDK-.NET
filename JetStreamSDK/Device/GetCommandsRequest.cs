@@ -13,7 +13,7 @@
    See the License for the specific language governing permissions and
    limitations under the License.
  */
-namespace TersoSolutions.Jetstream.Device
+namespace TersoSolutions.Jetstream.SDK.Device
 {
     /// <summary>
     /// Request object for calling the device interface for GetCommands

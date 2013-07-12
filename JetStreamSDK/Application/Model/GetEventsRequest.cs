@@ -17,7 +17,7 @@
 using System;
 using System.Web;
 
-namespace TersoSolutions.Jetstream.Application.Model
+namespace TersoSolutions.Jetstream.SDK.Application.Model
 {
     /// <summary>
     /// GetEvents returns but does not dequeue the oldest pending event messages 

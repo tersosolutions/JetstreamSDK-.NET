@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace TersoSolutions.Jetstream.Application.SQS
+namespace TersoSolutions.Jetstream.SDK.Application.Messages
 {
     public abstract class JetstreamEvent
     {

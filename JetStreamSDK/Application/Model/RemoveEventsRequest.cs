@@ -16,7 +16,7 @@
 using System;
 using System.Web;
 
-namespace TersoSolutions.Jetstream.Application.Model
+namespace TersoSolutions.Jetstream.SDK.Application.Model
 {
     /// <summary>
     /// RemoveEvents removes event messages associated with a batch of events from the user’s queue.

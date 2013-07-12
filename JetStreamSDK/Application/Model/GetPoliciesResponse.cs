@@ -15,9 +15,9 @@
  */
 using System;
 using System.Collections.Generic;
-using GP = TersoSolutions.Jetstream.Application.Model.Deserialized.GetPoliciesResponse;
+using GP = TersoSolutions.Jetstream.SDK.Application.Model.Deserialized.GetPoliciesResponse;
 
-namespace TersoSolutions.Jetstream.Application.Model
+namespace TersoSolutions.Jetstream.SDK.Application.Model
 {
     /// <summary>
     /// GetPolicies returns all policies you have added to your application. 

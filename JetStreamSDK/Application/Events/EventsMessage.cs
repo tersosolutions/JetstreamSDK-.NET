@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace TersoSolutions.Jetstream.Application.Events
+namespace TersoSolutions.Jetstream.SDK.Application.Events
 {
     /// <summary>
     /// This class defines the properties of a JetStream

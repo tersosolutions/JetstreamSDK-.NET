@@ -14,9 +14,9 @@
    limitations under the License.
  */
 using System;
-using CR = TersoSolutions.Jetstream.Application.Model.Deserialized.ConfigureResponse;
+using CR = TersoSolutions.Jetstream.SDK.Application.Model.Deserialized.ConfigureResponse;
 
-namespace TersoSolutions.Jetstream.Application.Model
+namespace TersoSolutions.Jetstream.SDK.Application.Model
 {
     /// <summary>
     /// AddPolicy adds a policy to Jetstream® for managing your device's

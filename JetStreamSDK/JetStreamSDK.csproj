@@ -67,7 +67,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Application\Events\NewWindowEventArgs.cs" />
-    <Compile Include="Application\JetstreamResponseException.cs" />
+    <Compile Include="Application\Messages\JetstreamResponseException.cs" />
     <Compile Include="Application\Model\AddDeviceToPolicyResponse.cs" />
     <Compile Include="Application\Model\AddDeviceToPolicyRequest.cs" />
     <Compile Include="Application\Model\AddLogicalDeviceResponse.cs" />
@@ -112,23 +112,23 @@
     <Compile Include="Application\Model\AddLogicalDeviceRequest.cs" />
     <Compile Include="Application\Model\GetConfigurationRequest.cs" />
     <Compile Include="Application\Model\Regions.cs" />
-    <Compile Include="Application\JetStreamServiceClient.cs" />
+    <Compile Include="Application\Model\JetStreamServiceClient.cs" />
     <Compile Include="Application\Model\UpdateFirmwareCommandResponse.cs" />
-    <Compile Include="Application\SQS\AggregateEvent.cs" />
-    <Compile Include="Application\SQS\CommandCompletionEvent.cs" />
-    <Compile Include="Application\SQS\CommandQueuedEvent.cs" />
-    <Compile Include="Application\SQS\DeviceFailureEvent.cs" />
-    <Compile Include="Application\SQS\DeviceRestoreEvent.cs" />
-    <Compile Include="Application\SQS\HeartbeatEvent.cs" />
-    <Compile Include="Application\SQS\JetstreamEvent.cs" />
-    <Compile Include="Application\SQS\LogEntryEvent.cs" />
-    <Compile Include="Application\SQS\LogicalDeviceAddedEvent.cs" />
-    <Compile Include="Application\SQS\LogicalDeviceRemovedEvent.cs" />
+    <Compile Include="Application\Messages\AggregateEvent.cs" />
+    <Compile Include="Application\Messages\CommandCompletionEvent.cs" />
+    <Compile Include="Application\Messages\CommandQueuedEvent.cs" />
+    <Compile Include="Application\Messages\DeviceFailureEvent.cs" />
+    <Compile Include="Application\Messages\DeviceRestoreEvent.cs" />
+    <Compile Include="Application\Messages\HeartbeatEvent.cs" />
+    <Compile Include="Application\Messages\JetstreamEvent.cs" />
+    <Compile Include="Application\Messages\LogEntryEvent.cs" />
+    <Compile Include="Application\Messages\LogicalDeviceAddedEvent.cs" />
+    <Compile Include="Application\Messages\LogicalDeviceRemovedEvent.cs" />
     <Compile Include="Application\SQS\MessageEqualityComparer.cs" />
     <Compile Include="Application\SQS\MessageSentTimeStampComparer.cs" />
     <Compile Include="Application\SQS\NewWindowEventArgs.cs" />
     <Compile Include="Application\Model\ObjectEvent.cs" />
-    <Compile Include="Application\SQS\SensorReadingEvent.cs" />
+    <Compile Include="Application\Messages\SensorReadingEvent.cs" />
     <Compile Include="Device\AggregateEvent.cs" />
     <Compile Include="Device\CommandCompletionEvent.cs" />
     <Compile Include="Device\GetCommandsResponse.cs" />

@@ -16,7 +16,7 @@
 using System;
 using System.Web;
 
-namespace TersoSolutions.Jetstream.Application.Model
+namespace TersoSolutions.Jetstream.SDK.Application.Model
 {
     /// <summary>
     /// AddLogicalDevice adds a device to Jetstream® making it ready 

@@ -14,9 +14,9 @@
    limitations under the License.
  */
 using System;
-using CR = TersoSolutions.Jetstream.Application.Model.Deserialized.CommandResponse;
+using CR = TersoSolutions.Jetstream.SDK.Application.Model.Deserialized.CommandResponse;
 
-namespace TersoSolutions.Jetstream.Application.Model
+namespace TersoSolutions.Jetstream.SDK.Application.Model
 {
     /// <summary>
     /// GetConfigValuesCommand instructs the device to return its current configuration values. 

@@ -15,7 +15,7 @@
  */
 using System;
 
-namespace TersoSolutions.Jetstream.Application.Model
+namespace TersoSolutions.Jetstream.SDK.Application.Model
 {
     /// <summary>
     /// Request object for the TS-* enclosures DeviceSpecificCommand GetPasses

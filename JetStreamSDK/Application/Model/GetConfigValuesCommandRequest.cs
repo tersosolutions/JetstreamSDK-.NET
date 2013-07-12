@@ -17,7 +17,7 @@ using System;
 using System.Collections.Generic;
 using System.Web;
 
-namespace TersoSolutions.Jetstream.Application.Model
+namespace TersoSolutions.Jetstream.SDK.Application.Model
 {
     /// <summary>
     /// GetConfigValuesCommand instructs the device to return its current configuration values. 

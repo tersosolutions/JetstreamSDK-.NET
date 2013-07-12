@@ -27,21 +27,21 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 using Newtonsoft.Json;
-using AE = TersoSolutions.Jetstream.Application.SQS.AggregateEvent;
-using CCE = TersoSolutions.Jetstream.Application.SQS.CommandCompletionEvent;
-using CQE = TersoSolutions.Jetstream.Application.SQS.CommandQueuedEvent;
-using DFE = TersoSolutions.Jetstream.Application.SQS.DeviceFailureEvent;
-using DRE = TersoSolutions.Jetstream.Application.SQS.DeviceRestoreEvent;
-using HE = TersoSolutions.Jetstream.Application.SQS.HeartbeatEvent;
-using LDAE = TersoSolutions.Jetstream.Application.SQS.LogicalDeviceAddedEvent;
-using LDRE = TersoSolutions.Jetstream.Application.SQS.LogicalDeviceRemovedEvent;
-using LEE = TersoSolutions.Jetstream.Application.SQS.LogEntryEvent;
-using OE = TersoSolutions.Jetstream.Application.SQS.ObjectEvent;
-using SRE = TersoSolutions.Jetstream.Application.SQS.SensorReadingEvent;
-using TersoSolutions.Jetstream.Application.Model;
-using TersoSolutions.Jetstream.Application.SQS;
+using AE = TersoSolutions.Jetstream.SDK.Application.Messages.AggregateEvent;
+using CCE = TersoSolutions.Jetstream.SDK.Application.Messages.CommandCompletionEvent;
+using CQE = TersoSolutions.Jetstream.SDK.Application.Messages.CommandQueuedEvent;
+using DFE = TersoSolutions.Jetstream.SDK.Application.Messages.DeviceFailureEvent;
+using DRE = TersoSolutions.Jetstream.SDK.Application.Messages.DeviceRestoreEvent;
+using HE = TersoSolutions.Jetstream.SDK.Application.Messages.HeartbeatEvent;
+using LDAE = TersoSolutions.Jetstream.SDK.Application.Messages.LogicalDeviceAddedEvent;
+using LDRE = TersoSolutions.Jetstream.SDK.Application.Messages.LogicalDeviceRemovedEvent;
+using LEE = TersoSolutions.Jetstream.SDK.Application.Messages.LogEntryEvent;
+using OE = TersoSolutions.Jetstream.SDK.Application.Model;
+using SRE = TersoSolutions.Jetstream.SDK.Application.Messages.SensorReadingEvent;
+using TersoSolutions.Jetstream.SDK.Application.Model;
+using TersoSolutions.Jetstream.SDK.Application.Messages;
 
-namespace TersoSolutions.Jetstream.Application.Events
+namespace TersoSolutions.Jetstream.SDK.Application.Events
 {
     /// <summary>
     /// An abstract windows service class that pops messages from Jetstream Ground.
@@ -267,8 +267,8 @@ namespace TersoSolutions.Jetstream.Application.Events
                 GetEventsRequest request = new GetEventsRequest();
                 GetEventsResponse response = client.GetEvents(request);
                 string currentBatchId = response.BatchId;
-                List<TersoSolutions.Jetstream.Application.SQS.JetstreamEvent> messages = new List<TersoSolutions.Jetstream.Application.SQS.JetstreamEvent>();
-                foreach (TersoSolutions.Jetstream.Application.SQS.JetstreamEvent message in response.Events)
+                List<TersoSolutions.Jetstream.SDK.Application.Messages.JetstreamEvent> messages = new List<TersoSolutions.Jetstream.SDK.Application.Messages.JetstreamEvent>();
+                foreach (TersoSolutions.Jetstream.SDK.Application.Messages.JetstreamEvent message in response.Events)
                 {
                     messages.Add(message);
                 }
@@ -444,7 +444,7 @@ namespace TersoSolutions.Jetstream.Application.Events
             // lock so we process all events in order
             lock (_newWindowLock)
             {
-                foreach (TersoSolutions.Jetstream.Application.SQS.JetstreamEvent m in e.Messages)
+                foreach (TersoSolutions.Jetstream.SDK.Application.Messages.JetstreamEvent m in e.Messages)
                 {
                     try
                     {

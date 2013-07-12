@@ -16,9 +16,9 @@
 using System;
 using System.Collections.Generic;
 
-using DD = TersoSolutions.Jetstream.Application.Model.Deserialized.GetDeviceDefinitionsResponse;
+using DD = TersoSolutions.Jetstream.SDK.Application.Model.Deserialized.GetDeviceDefinitionsResponse;
 
-namespace TersoSolutions.Jetstream.Application.Model
+namespace TersoSolutions.Jetstream.SDK.Application.Model
 {
     /// <summary>
     /// GetDeviceDefinitions returns all of the available device configurations 

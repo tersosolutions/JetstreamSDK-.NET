@@ -15,7 +15,7 @@
  */
 using System;
 
-namespace TersoSolutions.Jetstream.Application.Model
+namespace TersoSolutions.Jetstream.SDK.Application.Model
 {
     /// <summary>
     /// GetDeviceDefinitions returns all of the available device configurations 

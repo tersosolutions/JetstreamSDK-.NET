@@ -18,7 +18,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Web;
 
-namespace TersoSolutions.Jetstream.Application.Model
+namespace TersoSolutions.Jetstream.SDK.Application.Model
 {
     /// <summary>
     /// SetConfigValuesCommand instructs the device to set its configuration parameters to user provided values. 

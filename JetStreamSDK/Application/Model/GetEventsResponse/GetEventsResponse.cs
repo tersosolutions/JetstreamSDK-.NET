@@ -1,6 +1,6 @@
 ﻿
 
-namespace TersoSolutions.Jetstream.Application.Model.Deserialized.GetEventsResponse
+namespace TersoSolutions.Jetstream.SDK.Application.Model.Deserialized.GetEventsResponse
 {
     using System.Collections.Generic;
     using System.IO;

@@ -18,9 +18,9 @@ using System.IO;
 using System.Net;
 using System.Text;
 
-using TersoSolutions.Jetstream.Application.Model;
+using TersoSolutions.Jetstream.SDK.Application.Model;
 
-namespace TersoSolutions.Jetstream.Application
+namespace TersoSolutions.Jetstream.SDK.Application
 {
     /// <summary>
     /// Client proxy object for the Jetstream Web Service

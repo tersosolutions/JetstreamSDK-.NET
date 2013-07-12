@@ -14,7 +14,7 @@
    limitations under the License.
  */
 
-namespace TersoSolutions.Jetstream.Application.Model
+namespace TersoSolutions.Jetstream.SDK.Application.Model
 {
     /// <summary>
     /// AddDeviceToPolicy adds a device to a policy and will monitor the 
