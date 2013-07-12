@@ -16,7 +16,9 @@
 namespace TersoSolutions.Jetstream.Application.Model
 {
     /// <summary>
-    /// Response object for the Jetstream version 1.1 RemovePolicy endpoint
+    /// RemovePolicy removes a policy from your application. 
+    ///
+    /// Response object for the version 1.1 RemovePolicy ReST endpoint
     /// </summary>
     /// <remarks>Author Mike Lohmeier</remarks>
     public class RemovePolicyResponse : JetstreamResponse

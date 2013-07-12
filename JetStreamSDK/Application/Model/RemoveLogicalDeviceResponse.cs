@@ -16,7 +16,10 @@
 namespace TersoSolutions.Jetstream.Application.Model
 {
     /// <summary>
-    /// Response object for the Jetstream version 1.0 RemoveLogicalDevice endpoint
+    /// RemoveLogicalDevice removes a logical device from the Jetstream®. 
+    /// Devices removed will no longer publish events or allow commands to be queued. 
+    ///
+    /// Response class for RemoveLogicalDeviceRequest.
     /// </summary>
     /// <remarks>Author Mike Lohmeier</remarks>
     public class RemoveLogicalDeviceResponse : JetstreamResponse

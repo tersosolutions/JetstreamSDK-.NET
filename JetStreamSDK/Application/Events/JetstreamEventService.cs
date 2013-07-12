@@ -44,9 +44,9 @@ using TersoSolutions.Jetstream.Application.SQS;
 namespace TersoSolutions.Jetstream.Application.Events
 {
     /// <summary>
-    /// abstract windows service class that pops messages from a SQS queue that is a subscriber of a Jetstream SNS topic
+    /// An abstract windows service class that pops messages from Jetstream Ground.
     /// </summary>
-    /// <remarks>Author Mike Lohmeie</remarks>
+    /// <remarks>Author Mark Neustadt</remarks>
     public abstract class JetstreamEventService : ServiceBase
     {
 
@@ -67,7 +67,9 @@ namespace TersoSolutions.Jetstream.Application.Events
         #region Properties
 
         /// <summary>
-        /// Get to determine if Gzip is enabled for the application.  Defaults to false.  Settable by putting an appSettings boolean with key GzipEnabled.
+        /// Get to determine if Gzip is enabled for the application.  
+        /// Defaults to false.  Settable by putting an appSettings boolean 
+        /// with key GzipEnabled.
         /// </summary>
         private bool GzipEnabled
         {
@@ -83,7 +85,8 @@ namespace TersoSolutions.Jetstream.Application.Events
         }
 
         /// <summary>
-        /// The TimeSpan that all results from SQS are windowed and sorted before firing the NewWindow event
+        /// The TimeSpan that all results Jetstream Ground are windowed 
+        /// and sorted to before firing the NewWindow event.
         /// </summary>
         protected TimeSpan MessageCheckWindow
         {
@@ -115,8 +118,9 @@ namespace TersoSolutions.Jetstream.Application.Events
         }
 
         /// <summary>
-        /// The Amazon Simple Queue Service Url
+        /// The Jetstream Ground subscribe url.
         /// </summary>
+        /// 
         protected String JetstreamUrl
         {
             get
@@ -126,8 +130,9 @@ namespace TersoSolutions.Jetstream.Application.Events
         }
 
         /// <summary>
-        /// The Amazon access key to access SQS with
+        /// An access key used to authenticate to Jetstream Ground.
         /// </summary>
+        /// 
         protected String UserAccessKey
         {
             get
@@ -139,8 +144,9 @@ namespace TersoSolutions.Jetstream.Application.Events
 
 
         /// <summary>
-        /// Indicates if the SQSService is currently polling/windowing events
+        /// Indicates if this Events service is currently polling/windowing events.
         /// </summary>
+
         public bool IsWindowing
         {
             get
@@ -158,7 +164,7 @@ namespace TersoSolutions.Jetstream.Application.Events
         #region Service Events
 
         /// <summary>
-        /// override the OnStart for the windows service to hook the NewWindow event
+        /// override the OnStart for the windows service to hook the NewWindow event.
         /// </summary>
         /// <param name="args"></param>
         protected override void OnStart(string[] args)
@@ -178,7 +184,7 @@ namespace TersoSolutions.Jetstream.Application.Events
         }
 
         /// <summary>
-        /// Override of the WindowsService Stop
+        /// Override of the WindowsService Stop.
         /// </summary>
         protected override void OnStop()
         {
@@ -189,7 +195,7 @@ namespace TersoSolutions.Jetstream.Application.Events
         }
 
         /// <summary>
-        /// Override of the Pause
+        /// Override of the Pause.
         /// </summary>
         protected override void OnPause()
         {
@@ -200,7 +206,7 @@ namespace TersoSolutions.Jetstream.Application.Events
         }
 
         /// <summary>
-        /// Override of the Continue
+        /// Override of the Continue.
         /// </summary>
         protected override void OnContinue()
         {
@@ -211,7 +217,7 @@ namespace TersoSolutions.Jetstream.Application.Events
         }
 
         /// <summary>
-        /// Override of the Power Event
+        /// Override of the Power Event.
         /// </summary>
         /// <param name="powerStatus"></param>
         /// <returns></returns>
@@ -236,7 +242,7 @@ namespace TersoSolutions.Jetstream.Application.Events
         }
 
         /// <summary>
-        /// Override of the Shutdown
+        /// Override of the Shutdown.
         /// </summary>
         protected override void OnShutdown()
         {
@@ -251,9 +257,8 @@ namespace TersoSolutions.Jetstream.Application.Events
         #region Methods
 
         /// <summary>
-        /// Task for Receiving messages from SQS
+        /// Task for Receiving messages from Jetstream Ground.
         /// </summary>
-        /// <param name="state"></param>
         private string ReceiveTask(CancellationToken ct)
         {
             try
@@ -295,7 +300,7 @@ namespace TersoSolutions.Jetstream.Application.Events
         }
 
         /// <summary>
-        /// Task for deleting messages from SQS
+        /// Task for deleting messages from Jetstream Ground.
         /// </summary>
         /// <param name="state"></param>
         private void DeleteTask(CancellationToken ct, string batchId)
@@ -316,7 +321,7 @@ namespace TersoSolutions.Jetstream.Application.Events
         }
 
         /// <summary>
-        /// Callback for windowing the SQS messages ordered by time queued
+        /// Callback for windowing the messages ordered by time queued.
         /// </summary>
         /// <param name="state"></param>
         private void WindowCallback(Object state)
@@ -383,7 +388,7 @@ namespace TersoSolutions.Jetstream.Application.Events
         }
 
         /// <summary>
-        /// Starts all of the background processing
+        /// Starts all of the background processing.
         /// </summary>
         private void StartProcesses()
         {
@@ -398,7 +403,7 @@ namespace TersoSolutions.Jetstream.Application.Events
         }
 
         /// <summary>
-        /// Cancels all of the background processing
+        /// Cancels all of the background processing.
         /// </summary>
         private void StopProcesses()
         {
@@ -418,7 +423,7 @@ namespace TersoSolutions.Jetstream.Application.Events
         }
 
         /// <summary>
-        /// On* event raising pattern implementation for the NewWindow event
+        /// On* event raising pattern implementation for the NewWindow event.
         /// </summary>
         /// <param name="messages"></param>
         private void OnNewWindow(IEnumerable<JetstreamEvent> messages)
@@ -430,9 +435,9 @@ namespace TersoSolutions.Jetstream.Application.Events
         }
 
         /// <summary>
-        /// Event handler for the NewWindow event
+        /// Event handler for the NewWindow event.
         /// </summary>
-        /// <param name="sender">SQSService</param>
+        /// <param name="sender">Events Service</param>
         /// <param name="e">The NewWindow event args</param>
         private void JetstreamService_NewWindow(object sender, NewWindowEventArgs e)
         {
@@ -514,12 +519,6 @@ namespace TersoSolutions.Jetstream.Application.Events
                                     ProcessSensorReadingEvent(message);
                                     break;
                                 }
-                            //case "aws notification - subscription confirmation":
-                            //    {
-                            //        AE.Jetstream message = (AE.Jetstream)m;
-                            //        ProcessSNSControlMessage(message);
-                            //        break;
-                            //    }
                             default:
                                 {
                                     ProcessUnknownMessage(m.ToString());
@@ -541,7 +540,7 @@ namespace TersoSolutions.Jetstream.Application.Events
         /// Method for processing a new <paramref name="aggregateEvent"/>
         /// </summary>
         /// <param name="aggregateEvent">
-        /// Deserialized AggregateEvent message in the xsd.exe object model
+        /// Deserialized AggregateEvent message in the xsd.exe object model.
         /// </param>
         protected virtual void ProcessAggregateEvent(AE.Jetstream aggregateEvent) { }
 
@@ -549,7 +548,7 @@ namespace TersoSolutions.Jetstream.Application.Events
         /// Method for processing a new <paramref name="commandCompletionEvent"/>
         /// </summary>
         /// <param name="commandCompletionEvent">
-        /// Deserialized CommandCompletionEvent message in the xsd.exe object model
+        /// Deserialized CommandCompletionEvent message in the xsd.exe object model.
         /// </param>
         protected virtual void ProcessCommandCompletionEvent(CCE.Jetstream commandCompletionEvent) { }
 
@@ -557,7 +556,7 @@ namespace TersoSolutions.Jetstream.Application.Events
         /// Method for processing a new <paramref name="commandQueuedEvent"/>
         /// </summary>
         /// <param name="commandQueuedEvent">
-        /// Deserialized CommandQueuedEvent message in the xsd.exe object model
+        /// Deserialized CommandQueuedEvent message in the xsd.exe object model.
         /// </param>
         protected virtual void ProcessCommandQueuedEvent(CQE.Jetstream commandQueuedEvent) { }
 
@@ -565,7 +564,7 @@ namespace TersoSolutions.Jetstream.Application.Events
         /// Method for processing a new <paramref name="deviceFailureEvent"/>
         /// </summary>
         /// <param name="deviceFailureEvent">
-        /// Deserialized DeviceFailureEvent message in the xsd.exe object model
+        /// Deserialized DeviceFailureEvent message in the xsd.exe object model.
         /// </param>
         protected virtual void ProcessDeviceFailureEvent(DFE.Jetstream deviceFailureEvent) { }
 
@@ -573,7 +572,7 @@ namespace TersoSolutions.Jetstream.Application.Events
         /// Method for processing a new <paramref name="deviceRestoreEvent"/>
         /// </summary>
         /// <param name="deviceRestoreEvent">
-        /// Deserialized DeviceRestoreEvent message in the xsd.exe object model
+        /// Deserialized DeviceRestoreEvent message in the xsd.exe object model.
         /// </param>
         protected virtual void ProcessDeviceRestoreEvent(DRE.Jetstream deviceRestoreEvent) { }
 
@@ -581,7 +580,7 @@ namespace TersoSolutions.Jetstream.Application.Events
         /// Method for processing a new <paramref name="heartbeatEvent"/>
         /// </summary>
         /// <param name="heartbeatEvent">
-        /// Deserialized HeartbeatEvent message in the xsd.exe object model
+        /// Deserialized HeartbeatEvent message in the xsd.exe object model.
         /// </param>
         protected virtual void ProcessHeartbeatEvent(HE.Jetstream heartbeatEvent) { }
 
@@ -589,7 +588,7 @@ namespace TersoSolutions.Jetstream.Application.Events
         /// Method for processing a new <paramref name="logEnteryEvent"/>
         /// </summary>
         /// <param name="logEntryEvent">
-        /// Deserialized LogEntryEvent message in the xsd.exe object model
+        /// Deserialized LogEntryEvent message in the xsd.exe object model.
         /// </param>
         protected virtual void ProcessLogEntryEvent(LEE.Jetstream logEntryEvent) { }
 
@@ -597,7 +596,7 @@ namespace TersoSolutions.Jetstream.Application.Events
         /// Method for processing a new <paramref name="logicalDeviceAddedEvent"/>
         /// </summary>
         /// <param name="logicalDeviceAddedEvent">
-        /// Deserialized LogicalDeviceAddedEvent in the xsd.exe object model
+        /// Deserialized LogicalDeviceAddedEvent in the xsd.exe object model.
         /// </param>
         protected virtual void ProcessLogicalDeviceAddedEvent(LDAE.Jetstream logicalDeviceAddedEvent) { }
 
@@ -605,7 +604,7 @@ namespace TersoSolutions.Jetstream.Application.Events
         /// Method for processing a new <paramref name="logicalDeviceRemovedEvent"/>
         /// </summary>
         /// <param name="logicalDeviceRemovedEvent">
-        /// Deserialized LogicalDeviceRemovedEvent in the xsd.exe object model
+        /// Deserialized LogicalDeviceRemovedEvent in the xsd.exe object model.
         /// </param>
         protected virtual void ProcessLogicalDeviceRemovedEvent(LDRE.Jetstream logicalDeviceRemovedEvent) { }
 
@@ -613,7 +612,7 @@ namespace TersoSolutions.Jetstream.Application.Events
         /// Method for processing a new <paramref name="objectEvent"/>
         /// </summary>
         /// <param name="objectEvent">
-        /// Deserialized ObjectEvent in the xsd.exe object model
+        /// Deserialized ObjectEvent in the xsd.exe object model.
         /// </param>
         protected virtual void ProcessObjectEvent(OE.Jetstream objectEvent) { }
 
@@ -621,12 +620,12 @@ namespace TersoSolutions.Jetstream.Application.Events
         /// Method for processing a new <paramref name="sensorReadingEvent"/>
         /// </summary>
         /// <param name="sensorReadingEvent">
-        /// Deserialized SensorReadingEvent in the xsd.exe object model
+        /// Deserialized SensorReadingEvent in the xsd.exe object model.
         /// </param>
         protected virtual void ProcessSensorReadingEvent(SRE.Jetstream sensorReadingEvent) { }
 
         /// <summary>
-        /// Method for processing SNS control messages. IE: SubscriptionConfirmation
+        /// Method for processing SNS control messages. IE: SubscriptionConfirmation.
         /// </summary>
         /// <param name="message">
         /// 
@@ -642,7 +641,7 @@ namespace TersoSolutions.Jetstream.Application.Events
         protected virtual void ProcessUnknownMessage(String message) { }
 
         /// <summary>
-        /// Deserializes a Jetstream message from a string into a xsd.exe message object graph
+        /// Deserializes a Jetstream message from a string into a xsd.exe message object graph.
         /// </summary>
         /// <typeparam name="T">The type of message</typeparam>
         /// <param name="message">The string xml version of the message</param>
@@ -655,7 +654,7 @@ namespace TersoSolutions.Jetstream.Application.Events
         }
 
         /// <summary>
-        /// Unzips a byte array with the gzip algorithm
+        /// Unzips a byte array with the gzip algorithm.
         /// </summary>
         /// <param name="data">zipped byte array</param>
         /// <returns>
@@ -684,7 +683,7 @@ namespace TersoSolutions.Jetstream.Application.Events
         }
 
         /// <summary>
-        /// Method for converting a .net DateTime struct to its equivilent epoch time
+        /// Method for converting a .net DateTime struct to its equivilent epoch time.
         /// </summary>
         /// <param name="dt">The .net DateTime to convert</param>
         /// <returns>

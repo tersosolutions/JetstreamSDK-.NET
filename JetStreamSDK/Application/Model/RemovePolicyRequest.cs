@@ -18,6 +18,8 @@ using System;
 namespace TersoSolutions.Jetstream.Application.Model
 {
     /// <summary>
+    /// RemovePolicy removes a policy from your application. 
+    ///
     /// Request object for the version 1.1 RemovePolicy ReST endpoint
     /// </summary>
     /// <remarks>Author Mike Lohmeier</remarks>

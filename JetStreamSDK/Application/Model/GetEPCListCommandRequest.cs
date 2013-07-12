@@ -19,7 +19,8 @@ using System.Web;
 namespace TersoSolutions.Jetstream.Application.Model
 {
     /// <summary>
-    /// Request object for the version 1.0 GetEPCListCommand ReST endpoint
+    /// GetEPCListCommand instructs the device to scan for RFID tags.
+    /// Request object for the version 1.0 GetEPCListCommand ReST endpoint.
     /// </summary>
     /// <remarks>Author Mike Lohmeier</remarks>
     public class GetEPCListCommandRequest : JetstreamRequest

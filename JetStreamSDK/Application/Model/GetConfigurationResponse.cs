@@ -20,7 +20,9 @@ using CR = TersoSolutions.Jetstream.Application.Model.Deserialized.GetConfigurat
 namespace TersoSolutions.Jetstream.Application.Model
 {
     /// <summary>
-    /// Response object for the Jetstream version 1.1 GetConfiguration endpoint
+    /// GetConfiguration returns the current Jetstream® configuration for your application. 
+    /// 
+    /// Response object for the Jetstream version 1.1 GetConfiguration endpoint.
     /// </summary>
     /// <remarks>Author Mike Lohmeier</remarks>
     public class GetConfigurationResponse : JetstreamResponse

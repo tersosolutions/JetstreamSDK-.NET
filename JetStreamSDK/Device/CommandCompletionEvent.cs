@@ -14,8 +14,12 @@
 namespace TersoSolutions.Jetstream.Device.CommandCompletionEvent {
     using System.Xml.Serialization;
     
+    /// <summary>
+    /// CommandCompletionEvent is published when a command has been completed 
+    /// on a device. The CommandCompletionEvent will include any output 
+    /// parameters, exceptions and device extensions for completing the command. 
+    ///</summary>
     
-    /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.1")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]

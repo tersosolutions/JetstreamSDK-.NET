@@ -19,6 +19,9 @@ using System.Web;
 namespace TersoSolutions.Jetstream.Application.Model
 {
     /// <summary>
+    /// RemoveLogicalDevice removes a logical device from the Jetstream®. 
+    /// Devices removed will no longer publish events or allow commands to be queued. 
+    ///
     /// Request class for RemoveLogicalDeviceRequest
     /// </summary>
     /// <remarks>Author Mike Lohmeier</remarks>

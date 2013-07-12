@@ -35,7 +35,11 @@ using System.Xml.Serialization;
 namespace TersoSolutions.Jetstream.Application.Model
 {
     /// <summary>
-    /// Response object for the Jetstream version 1.2 GetEventsResponse endpoint
+    /// GetEvents returns but does not dequeue the oldest pending event messages 
+    /// for the Jetstream user. No more than 100 messages will be returned 
+    /// on any given GetEvents call.
+    /// 
+    /// Response object for the Jetstream version 1.2 GetEventsResponse endpoint.
     /// </summary>
     /// <remarks>Author Mark Bailey</remarks>
     public class GetEventsResponse : JetstreamResponse

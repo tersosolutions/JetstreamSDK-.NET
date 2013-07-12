@@ -18,7 +18,9 @@ using System;
 namespace TersoSolutions.Jetstream.Application.Model
 {
     /// <summary>
-    /// Request object for the Jetstream version 1.1 GetPolicies
+    /// GetPolicies returns all policies you have added to your application. 
+    /// 
+    /// Request object for the Jetstream version 1.1 GetPolicies.
     /// </summary>
     /// <remarks>Author Mike Lohmeier</remarks>
     public class GetPoliciesRequest : JetstreamRequest

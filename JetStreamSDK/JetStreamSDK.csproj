@@ -127,7 +127,7 @@
     <Compile Include="Application\SQS\MessageEqualityComparer.cs" />
     <Compile Include="Application\SQS\MessageSentTimeStampComparer.cs" />
     <Compile Include="Application\SQS\NewWindowEventArgs.cs" />
-    <Compile Include="Application\SQS\ObjectEvent.cs" />
+    <Compile Include="Application\Model\ObjectEvent.cs" />
     <Compile Include="Application\SQS\SensorReadingEvent.cs" />
     <Compile Include="Device\AggregateEvent.cs" />
     <Compile Include="Device\CommandCompletionEvent.cs" />
@@ -147,7 +147,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Device\Device.cd" />
     <None Include="Resources\xsd\application\1.0\AggregateEvent.xsd">
       <SubType>Designer</SubType>
     </None>

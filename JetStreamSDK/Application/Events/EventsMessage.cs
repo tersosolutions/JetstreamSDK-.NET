@@ -5,6 +5,11 @@ using System.Text;
 
 namespace TersoSolutions.Jetstream.Application.Events
 {
+    /// <summary>
+    /// This class defines the properties of a JetStream
+    /// events message.
+    /// </summary>
+    /// <remarks>Author Mark Neustadt</remarks>
     public class EventsMessage
     {
         public String Type { get; set; }

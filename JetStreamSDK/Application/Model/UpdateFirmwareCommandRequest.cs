@@ -19,7 +19,10 @@ using System.Web;
 namespace TersoSolutions.Jetstream.Application.Model
 {
     /// <summary>
-    /// Request object for updating firmware
+    /// UpdateFirmwareCommand will command the unit to update either 
+    /// the Agent firmware or the Reader firmware from a specified URL. 
+    /// 
+    /// Request object for the version 1.0 UpdateFirmwareCommand REST endpoint.
     /// </summary>
     /// <remarks>Author Mike Lohmeier</remarks>
     public class UpdateFirmwareCommandRequest : JetstreamRequest

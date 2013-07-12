@@ -22,9 +22,10 @@ using TersoSolutions.Jetstream.Application.SQS;
 namespace TersoSolutions.Jetstream.Application.Events
 {
     /// <summary>
-    /// IEqualityComparer used for filtering duplicate SQS messages
+    /// IEqualityComparer used for filtering duplicate messages
     /// </summary>
-    /// <remarks>Author Mike Lohmeier</remarks>
+    /// <remarks>Author Mark Neustadt</remarks>
+
     public class JetstreamEventEqualityComparer : IEqualityComparer<JetstreamEvent>
     {
         /// <summary>

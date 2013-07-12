@@ -14,8 +14,12 @@
 namespace TersoSolutions.Jetstream.Application.SQS.CommandQueuedEvent {
     using System.Xml.Serialization;
     
+    /// <summary>
+    /// CommandQueuedEvent signals when any user of your application has 
+    /// queued a command. CommandQueuedEvent is useful for keeping multiple 
+    /// components of your application in sync with each other for command information. 
+    /// </summary>
     
-    /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.1")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]

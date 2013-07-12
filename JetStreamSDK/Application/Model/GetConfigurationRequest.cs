@@ -18,7 +18,9 @@ using System;
 namespace TersoSolutions.Jetstream.Application.Model
 {
     /// <summary>
-    /// Request object for Getting the application configuration for Jetstream
+    /// GetConfiguration returns the current Jetstream® configuration for your application. 
+    /// 
+    /// Request object for Getting the application configuration for Jetstream.
     /// </summary>
     /// <remarks>Author Mike Lohmeier</remarks>
     public class GetConfigurationRequest : JetstreamRequest

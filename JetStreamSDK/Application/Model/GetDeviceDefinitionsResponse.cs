@@ -21,7 +21,12 @@ using DD = TersoSolutions.Jetstream.Application.Model.Deserialized.GetDeviceDefi
 namespace TersoSolutions.Jetstream.Application.Model
 {
     /// <summary>
-    /// Response object for the Jetstream version 1.0 GetDeviceDefinitionsResponse endpoint
+    /// GetDeviceDefinitions returns all of the available device configurations 
+    /// that Jetstream® supports. A device definition is a unique definition 
+    /// for a specific device manufacturer, name of the device and 
+    /// its firmware version. 
+    ///
+    /// Response object for Jetstream GetDeviceDefinitions.
     /// </summary>
     /// <remarks>Author Mike Lohmeier</remarks>
     public class GetDeviceDefinitionsResponse : JetstreamResponse

@@ -13,9 +13,14 @@
 // 
 namespace TersoSolutions.Jetstream.Application.SQS.DeviceFailureEvent {
     using System.Xml.Serialization;
-    
-    
-    /// <remarks/>
+
+    /// <summary>
+    /// DeviceFailureEvent is published to subscribers when a physical device 
+    /// has failed for any reason. No event data will be published for 
+    /// the device from Jetstream® until after Terso technical support addresses 
+    /// the failure. Once the failure is addressed a DeviceRestoreEvent will be published.
+    /// </summary>
+
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.1")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]

@@ -14,6 +14,12 @@
 namespace TersoSolutions.Jetstream.Application.SQS.HeartbeatEvent {
     using System.Xml.Serialization;
     
+    /// <summary>
+    /// HeartbeatEvent is used to indicate that a device is still working 
+    /// properly and has internet connectivity. Each device will send a 
+    /// HeartbeatEvent regardless of any other events at the interval specified 
+    /// in it's HeartbeatInterval parameter. 
+    /// </summary>
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.1")]

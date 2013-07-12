@@ -17,7 +17,14 @@
 namespace TersoSolutions.Jetstream.Application.Model
 {
     /// <summary>
-    /// Response object for Jetstream version 1.1 AddDeviceToPolicy ReST endpoint
+    /// AddDeviceToPolicy adds a device to a policy and will monitor the 
+    /// device's configuration values for any descrepencies from the policy.
+    /// Jetstream® will automatically schedule a GetConfigValuesCommand 
+    /// and compare the results with the policy and overridden device 
+    /// parameters. If Jetstream® determines that there is a variance then 
+    /// a LogEntryEvent with a type of PolicyError will be published. 
+    /// 
+    /// Response object for the version 1.0 AddDeviceToPolicy ReST endpoint.
     /// </summary>
     /// <remarks>Author Mike Lohmeier</remarks>
     public class AddDeviceToPolicyResponse : JetstreamResponse

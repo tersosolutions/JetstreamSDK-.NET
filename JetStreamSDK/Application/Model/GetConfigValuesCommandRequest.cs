@@ -20,7 +20,9 @@ using System.Web;
 namespace TersoSolutions.Jetstream.Application.Model
 {
     /// <summary>
-    /// Request object for GetConfigValuesCommand
+    /// GetConfigValuesCommand instructs the device to return its current configuration values. 
+    /// 
+    /// This is the request in a RESTful pattern.
     /// </summary>
     /// <remarks>Author Mike Lohmeier</remarks>
     public class GetConfigValuesCommandRequest : JetstreamRequest

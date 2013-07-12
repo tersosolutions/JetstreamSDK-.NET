@@ -19,7 +19,9 @@ using CR = TersoSolutions.Jetstream.Application.Model.Deserialized.CommandRespon
 namespace TersoSolutions.Jetstream.Application.Model
 {
     /// <summary>
-    /// Response object for the Jetstream version 1.2 RemoveEvents endpoint
+    /// RemoveEvents removes event messages associated with a batch of events from the user’s queue.
+    /// 
+    /// Response object for Jetstream version 1.2 RemoveEvents endpoint.
     /// </summary>
     /// <remarks>Author Mark Bailey</remarks>
     public class RemoveEventsResponse : JetstreamResponse

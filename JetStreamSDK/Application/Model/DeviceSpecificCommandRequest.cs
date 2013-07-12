@@ -19,7 +19,10 @@ using System.Web;
 namespace TersoSolutions.Jetstream.Application.Model
 {
     /// <summary>
-    /// Request object for DeviceSpecificCommand 
+    /// DeviceSpecificCommand instructs the device to execute one of its custom commands. 
+    /// A DeviceDefinition may have custom commands that are only applicable to it. 
+    /// 
+    /// This class creates the request.
     /// </summary>
     /// <remarks>Author Mike Lohmeier</remarks>
     public abstract class DeviceSpecificCommandRequest : JetstreamRequest

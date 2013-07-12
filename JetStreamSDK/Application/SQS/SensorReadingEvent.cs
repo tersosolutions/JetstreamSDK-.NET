@@ -14,6 +14,9 @@
 namespace TersoSolutions.Jetstream.Application.SQS.SensorReadingEvent {
     using System.Xml.Serialization;
     
+    /// <summary>
+    /// SensorReading event is published when a sensor has provided Jetstream® with a new reading or a batch of readings. 
+    /// </summary>
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.1")]

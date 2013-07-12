@@ -19,7 +19,8 @@ using CR = TersoSolutions.Jetstream.Application.Model.Deserialized.CommandRespon
 namespace TersoSolutions.Jetstream.Application.Model
 {
     /// <summary>
-    /// Response object for the Jetstream version 1.0 GetEPCListCommandResponse endpoint
+    /// GetEPCListCommand instructs the device to scan for RFID tags.
+    /// This is the response object for the version 1.0 GetEPCListCommand ReST endpoint.
     /// </summary>
     /// <remarks>Author Mike Lohmeier</remarks>
     public class GetEPCListCommandResponse : JetstreamResponse

@@ -19,7 +19,13 @@ using CR = TersoSolutions.Jetstream.Application.Model.Deserialized.ConfigureResp
 namespace TersoSolutions.Jetstream.Application.Model
 {
     /// <summary>
-    /// Response object for the Jetstream version 1.1 AddPolicy
+    /// AddPolicy adds a policy to Jetstream® for managing your device's
+    /// parameters. You can define a policy for a device definition and 
+    /// assign a device to the policy. Whenever an assigned device's 
+    /// parameters do not match the policy a LogEntryEvent of 
+    /// type PolicyException is published. 
+    ///
+    /// Reponse object for Jetstream version 1.1 AddPolicy
     /// </summary>
     /// <remarks>Author Mike Lohmeier</remarks>
     public class AddPolicyResponse : JetstreamResponse

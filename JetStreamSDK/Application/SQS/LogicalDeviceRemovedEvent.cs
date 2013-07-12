@@ -14,7 +14,9 @@
 namespace TersoSolutions.Jetstream.Application.SQS.LogicalDeviceRemovedEvent {
     using System.Xml.Serialization;
     
-    
+    /// <summary>
+    /// LogicalDeviceRemovedEvent event data indicates when an application has removed a logical device using RemoveLogicalDevice. 
+    /// </summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.1")]
     [System.SerializableAttribute()]

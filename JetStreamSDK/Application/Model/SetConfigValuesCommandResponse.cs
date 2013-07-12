@@ -19,7 +19,8 @@ using CR = TersoSolutions.Jetstream.Application.Model.Deserialized.CommandRespon
 namespace TersoSolutions.Jetstream.Application.Model
 {
     /// <summary>
-    /// Response object for the Jetstream version 1.0 SetConfigValuesCommand endpoint
+    /// SetConfigValuesCommand instructs the device to set its configuration parameters to user provided values. 
+    /// Response object for the version 1.0 SetConfigValues REST endpoint.
     /// </summary>
     /// <remarks>Author Mike Lohmeier</remarks>
     public class SetConfigValuesCommandResponse : JetstreamResponse

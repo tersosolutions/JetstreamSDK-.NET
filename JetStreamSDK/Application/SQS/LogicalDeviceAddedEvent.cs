@@ -14,7 +14,9 @@
 namespace TersoSolutions.Jetstream.Application.SQS.LogicalDeviceAddedEvent {
     using System.Xml.Serialization;
     
-    
+    /// <summary>
+    /// LogicalDeviceAddedEvent event data indicates when an application has added a logical device using AddLogicalDevice. 
+    /// </summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.1")]
     [System.SerializableAttribute()]

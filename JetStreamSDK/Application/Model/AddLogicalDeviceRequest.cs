@@ -19,7 +19,13 @@ using System.Web;
 namespace TersoSolutions.Jetstream.Application.Model
 {
     /// <summary>
-    /// Request object for the Jetstream AddLogicalDevice method
+    /// AddLogicalDevice adds a device to Jetstream® making it ready 
+    /// for your commands and pushing events. AddLogicalDevice also 
+    /// insulates your application from hardware maintenance and 
+    /// replacements by mapping the device's serial number to your 
+    /// application identifier. 
+    /// 
+    /// Request object for the version 1.0 AddLogicalDevice ReST endpoint.
     /// </summary>
     /// <remarks>Author Mike Lohmeier</remarks>
     public class AddLogicalDeviceRequest : JetstreamRequest

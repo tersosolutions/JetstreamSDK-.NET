@@ -22,13 +22,13 @@ using TersoSolutions.Jetstream.Application.SQS;
 namespace TersoSolutions.Jetstream.Application.Events
 {
     /// <summary>
-    /// Custom EventArgs class for the NewWindow event
+    /// Custom EventArgs class for the NewWindow event.
     /// </summary>
-    /// <remarks>Author Mike Lohmeier</remarks>
+    /// <remarks>Author Mark Neustadt</remarks>
     public class NewWindowEventArgs : EventArgs
     {
         /// <summary>
-        /// Constructor for the custom EventArgs
+        /// Constructor for the custom EventArgs.
         /// </summary>
         /// <param name="messages"></param>
         internal NewWindowEventArgs(IEnumerable<JetstreamEvent> messages)
@@ -40,7 +40,7 @@ namespace TersoSolutions.Jetstream.Application.Events
         }
 
         /// <summary>
-        /// Ordered window of SQS messages received
+        /// Ordered window of messages received.
         /// </summary>
         public IEnumerable<JetstreamEvent> Messages { get; private set; }
     }

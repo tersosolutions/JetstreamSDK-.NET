@@ -21,7 +21,9 @@ using System.Web;
 namespace TersoSolutions.Jetstream.Application.Model
 {
     /// <summary>
-    /// Request object for SetConfigValuesCommand
+    /// SetConfigValuesCommand instructs the device to set its configuration parameters to user provided values. 
+    /// Request object for the version 1.0 SetConfigValues REST endpoint.
+    /// 
     /// </summary>
     /// <remarks>Author Mike Lohmeier</remarks>
     public class SetConfigValuesCommandRequest : JetstreamRequest

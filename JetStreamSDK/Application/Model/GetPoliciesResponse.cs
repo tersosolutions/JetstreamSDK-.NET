@@ -20,7 +20,9 @@ using GP = TersoSolutions.Jetstream.Application.Model.Deserialized.GetPoliciesRe
 namespace TersoSolutions.Jetstream.Application.Model
 {
     /// <summary>
-    /// Response object for the Jetstream v1.1 GetPolicies endpoint
+    /// GetPolicies returns all policies you have added to your application. 
+    /// 
+    /// Response object for the Jetstream version 1.1 GetPolicies.
     /// </summary>
     /// <remarks>Author Mike Lohmeier</remarks>
     public class GetPoliciesResponse : JetstreamResponse

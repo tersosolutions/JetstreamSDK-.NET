@@ -19,7 +19,8 @@ using CR = TersoSolutions.Jetstream.Application.Model.Deserialized.CommandRespon
 namespace TersoSolutions.Jetstream.Application.Model
 {
     /// <summary>
-    /// Response object for the Jetstream version 1.0 ResetCommand endpoint
+    /// ResetCommand instructs the device to power cycle. 
+    /// This is the response object for the version 1.0 ResetCommand REST endpoint.
     /// </summary>
     /// <remarks>Author Mike Lohmeier</remarks>
     public class ResetCommandResponse : JetstreamResponse

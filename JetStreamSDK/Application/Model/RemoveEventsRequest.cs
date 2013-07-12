@@ -18,6 +18,11 @@ using System.Web;
 
 namespace TersoSolutions.Jetstream.Application.Model
 {
+    /// <summary>
+    /// RemoveEvents removes event messages associated with a batch of events from the user’s queue.
+    /// 
+    /// Request object for Jetstream version 1.2 RemoveEvents endpoint.
+    /// </summary>
     public class RemoveEventsRequest : JetstreamRequest
     {
         private const String c_removeeventscommand = "v1.2/application/?action=removeevents&accesskey={0}&batchid={1}";

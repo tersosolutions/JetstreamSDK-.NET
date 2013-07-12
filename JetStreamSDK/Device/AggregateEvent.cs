@@ -14,7 +14,14 @@
 namespace TersoSolutions.Jetstream.Device.AggregateEvent {
     using System.Xml.Serialization;
     
-    
+    ///<summary>
+    ///AggregateEvent is used to indicate a change in the current tag list.
+    ///For example if a tag is removed from a device's read zone an 
+    ///AggregateEvent message would be published with a REMOVE and the EPC 
+    ///of the tag removed. If a tag is added to a device's read zone an 
+    ///AggregateEvent message would be published with an ADD and the 
+    ///EPC of the tag added. 
+    ///</summary>
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.1")]
     [System.SerializableAttribute()]

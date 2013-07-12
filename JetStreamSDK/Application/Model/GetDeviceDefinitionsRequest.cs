@@ -18,7 +18,12 @@ using System;
 namespace TersoSolutions.Jetstream.Application.Model
 {
     /// <summary>
-    /// Request object for Jetstream GetDeviceDefinitions
+    /// GetDeviceDefinitions returns all of the available device configurations 
+    /// that Jetstream® supports. A device definition is a unique definition 
+    /// for a specific device manufacturer, name of the device and 
+    /// its firmware version. 
+    ///
+    /// Request object for Jetstream GetDeviceDefinitions.
     /// </summary>
     /// <remarks>Author Mike Lohmeier</remarks>
     public class GetDeviceDefinitionsRequest : JetstreamRequest

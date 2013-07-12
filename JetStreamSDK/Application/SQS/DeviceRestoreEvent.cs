@@ -14,8 +14,15 @@
 namespace TersoSolutions.Jetstream.Application.SQS.DeviceRestoreEvent {
     using System.Xml.Serialization;
     
-    
-    /// <remarks/>
+    ///<summary>
+    ///DeviceRestoreEvent is published to subscribers when a physical 
+    ///device has been recovered from failure by Terso technical support. 
+    ///Immediately after the DeviceRestoreEvent an ObjectEvent will be 
+    ///published with the inventory when it was restored. Your application should 
+    ///handle any inventory changes that may have occurred during the 
+    ///time the device was in a failure state. 
+    ///</summary>
+
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.1")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]

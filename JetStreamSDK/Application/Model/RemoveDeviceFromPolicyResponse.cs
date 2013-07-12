@@ -16,7 +16,12 @@
 namespace TersoSolutions.Jetstream.Application.Model
 {
     /// <summary>
-    /// Response object for the Jetstream version 1.1 RemoveDeviceFromPolicy endpoint
+    /// RemoveDeviceFromPolicy removes the device from the list of devices 
+    /// to monitor for compliance with your policy. Once removed from the 
+    /// policy all settings will be managed using GetConfigValuesCommand 
+    /// and SetConfigValuesCommand manually. 
+    ///
+    /// Response object for the Jetstream version 1.1 RemoveDeviceFromPolicy endpoint.
     /// </summary>
     /// <remarks>Author Mike Lohmeier</remarks>
     public class RemoveDeviceFromPolicyResponse : JetstreamResponse

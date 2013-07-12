@@ -13,7 +13,9 @@
 // 
 namespace TersoSolutions.Jetstream.Application.SQS.ObjectEvent {
     using System.Xml.Serialization;
-    
+    /// <summary>
+    /// The ObjectEvent indicates a tag list that has been read by an RFID reader. 
+    /// </summary>
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.1")]

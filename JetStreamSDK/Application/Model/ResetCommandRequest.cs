@@ -19,7 +19,8 @@ using System.Web;
 namespace TersoSolutions.Jetstream.Application.Model
 {
     /// <summary>
-    /// ResetCommand request object
+    /// ResetCommand instructs the device to power cycle. 
+    /// Request object for the version 1.0 ResetCommand REST endpoint.
     /// </summary>
     /// <remarks>Author Mike Lohmeier</remarks>
     public class ResetCommandRequest : JetstreamRequest

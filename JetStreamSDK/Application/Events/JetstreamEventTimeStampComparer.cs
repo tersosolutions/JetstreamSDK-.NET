@@ -23,13 +23,13 @@ using TersoSolutions.Jetstream.Application.SQS;
 namespace TersoSolutions.Jetstream.Application.Events
 {
     /// <summary>
-    /// IComparer implementation for sorting SQS Messages by SentTimestamp epoch
+    /// IComparer implementation for sorting messages by SentTimestamp epoch.
     /// </summary>
-    /// <remarks>Author Mike Lohmeier</remarks>
+    /// <remarks>Author Mark Neustadt</remarks>
     public class JetstreamEventTimeStampComparer : IComparer<JetstreamEvent>
     {
         /// <summary>
-        /// IComparer implementation that compares the epoch SentTimestamp and MessageId
+        /// IComparer implementation that compares the epoch SentTimestamp and MessageId.
         /// </summary>
         /// <param name="x"></param>
         /// <param name="y"></param>

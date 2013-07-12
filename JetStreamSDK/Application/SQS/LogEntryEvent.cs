@@ -13,7 +13,10 @@
 // 
 namespace TersoSolutions.Jetstream.Application.SQS.LogEntryEvent {
     using System.Xml.Serialization;
-    
+    /// <summary>
+    /// LogEntryEvent event data indicates when a device has added a record or multiple records to its syslog or eventlog. 
+    /// </summary>
+
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.1")]

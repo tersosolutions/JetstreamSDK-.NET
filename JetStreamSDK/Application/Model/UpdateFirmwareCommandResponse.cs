@@ -19,7 +19,10 @@ using CR = TersoSolutions.Jetstream.Application.Model.Deserialized.CommandRespon
 namespace TersoSolutions.Jetstream.Application.Model
 {
     /// <summary>
-    /// Response object for Jetstream version 1.0 UpdateFirmware
+    /// UpdateFirmwareCommand will command the unit to update either 
+    /// the Agent firmware or the Reader firmware from a specified URL. 
+    /// 
+    /// Response object for the version 1.0 UpdateFirmwareCommand REST endpoint.
     /// </summary>
     /// <remarks>Author Mike Lohmeier</remarks>
     public class UpdateFirmwareCommandResponse : JetstreamResponse

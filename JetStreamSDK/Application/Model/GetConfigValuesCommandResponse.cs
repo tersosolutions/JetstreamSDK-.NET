@@ -19,7 +19,9 @@ using CR = TersoSolutions.Jetstream.Application.Model.Deserialized.CommandRespon
 namespace TersoSolutions.Jetstream.Application.Model
 {
     /// <summary>
-    /// Response object for the Jetstream version 1.0 GetConfigValuesCommand endpoint
+    /// GetConfigValuesCommand instructs the device to return its current configuration values. 
+    /// 
+    /// This is the response in a RESTful pattern.
     /// </summary>
     /// <remarks>Author Mike Lohmeier</remarks>
     public class GetConfigValuesCommandResponse : JetstreamResponse
