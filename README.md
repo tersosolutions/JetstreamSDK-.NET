@@ -1,10 +1,9 @@
-<p align="left">
+<p align="left" bgcolor="grey">
 <img src="http://www.tersosolutions.com/wp-content/uploads/2011/11/TERSOvect_GreenBlobWhiteText.png" alt="Terso Solutions, Inc.">
 </p>
 
 ## Jetstream SDK 
 ###Microsoft .NET Framework 4.0
-
 The SDK allows has functionality for making application API calls, simulating device calls and receiving messages via Amazon SQS or the local Jetstream Ground messaging service.
 
 ###Build
@@ -28,4 +27,3 @@ Add a reference to the JetstreamSDK.dll
 9. Use Regedit.exe to set HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Eventlog\Application\JetstreamSDK\EventMessageFile to C:\Windows\Microsoft.NET\Framework\v4.0.30319\EventLogMessages.dll
 10.Use regedit.exe to delete HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Eventlog\Application\JetstreamSDK\CustomSource
 11. Use regedit.exe to delete HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Eventlog\Application\JetstreamSDK\TypesSupported
-
