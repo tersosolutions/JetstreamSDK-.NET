@@ -2,20 +2,20 @@
 <img src="http://www.tersosolutions.com/wp-content/uploads/2011/11/TERSOvect_GreenBlobWhiteText.png" alt="Terso Solutions, Inc.">
 </p>
 
-#### Jetstream SDK 
+## Jetstream SDK 
 ###Microsoft .NET Framework 4.0
 
 The SDK allows has functionality for making application API calls, simulating device calls and receiving messages via Amazon SQS or the local Jetstream Ground messaging service.
 
-##Build
+###Build
 1. Open JetstreamSDK solution in Visual Studio 2010 or later
 2. Build
 3. Enjoy
 
-##Use the application or device API in a project
+###Use the application or device API in a project
 Add a reference to the JetstreamSDK.dll
 
-##TersoSolutions.Application.SQS.JetstreamSQSService Setup
+###TersoSolutions.Application.SQS.JetstreamSQSService Setup
 1. Create new x86 Windows Service Project
 2. Add references to JetstreamSDK, AWSSDK and NewtonSoft
 3. Change from 4.0 client framework to 4.0 framework
