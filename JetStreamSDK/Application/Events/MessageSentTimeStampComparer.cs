@@ -20,7 +20,7 @@ using System.Linq;
 using System.Text;
 using Amazon.SQS.Model;
 
-namespace TersoSolutions.Jetstream.Application.Events
+namespace TersoSolutions.Jetstream.Application.SQS
 {
     /// <summary>
     /// IComparer implementation for sorting SQS Messages by SentTimestamp epoch

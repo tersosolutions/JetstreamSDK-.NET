@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace TersoSolutions.Jetstream.Application.Events
+namespace TersoSolutions.Jetstream.Application.SQS
 {
-    public class EventsMessage
+    public class AmazonSNSMessage
     {
         public String Type { get; set; }
         public String Notification { get; set; }
