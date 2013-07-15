@@ -18,7 +18,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using TersoSolutions.Jetstream.Application.SQS;
+using Amazon.SQS.Model;
 
 namespace TersoSolutions.Jetstream.Application.Events
 {
@@ -26,7 +26,7 @@ namespace TersoSolutions.Jetstream.Application.Events
     /// IComparer implementation for sorting SQS Messages by SentTimestamp epoch
     /// </summary>
     /// <remarks>Author Mike Lohmeier</remarks>
-    public class JetstreamEventTimeStampComparer : IComparer<JetstreamEvent>
+    public class MessageSentTimeStampComparer : IComparer<Message>
     {
         /// <summary>
         /// IComparer implementation that compares the epoch SentTimestamp and MessageId
@@ -34,10 +34,10 @@ namespace TersoSolutions.Jetstream.Application.Events
         /// <param name="x"></param>
         /// <param name="y"></param>
         /// <returns></returns>
-        public int Compare(JetstreamEvent x, JetstreamEvent y)
+        public int Compare(Message x, Message y)
         {
-            DateTime sentTimestampx = x.EventTime;
-            DateTime sentTimestampy = y.EventTime;
+            Amazon.SQS.Model.Attribute sentTimestampx = x.Attribute.SingleOrDefault(a => a.Name == "SentTimestamp");
+            Amazon.SQS.Model.Attribute sentTimestampy = y.Attribute.SingleOrDefault(a => a.Name == "SentTimestamp");
 
             if ((sentTimestampx == null) |
                 (sentTimestampy == null))
@@ -46,8 +46,8 @@ namespace TersoSolutions.Jetstream.Application.Events
                 throw new Exception("Unable to compare Messages because one of the messages did not have a SentTimestamp Attribute"); 
             }
 
-            long epochx = sentTimestampx.Ticks;
-            long epochy = sentTimestampy.Ticks;
+            long epochx = long.Parse(sentTimestampx.Value);
+            long epochy = long.Parse(sentTimestampy.Value);
 
             int result = epochx.CompareTo(epochy);
             if (result != 0)
@@ -57,7 +57,7 @@ namespace TersoSolutions.Jetstream.Application.Events
             else
             {
                 // same SentTimestamp so use the messageId for comparison
-                return x.EventId.CompareTo(y.EventId);
+                return x.MessageId.CompareTo(y.MessageId);
             }
         }
     }

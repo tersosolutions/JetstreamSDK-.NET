@@ -22,8 +22,7 @@ namespace TersoSolutions.Jetstream.Application.SQS.LogicalDeviceAddedEvent {
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://Jetstream.TersoSolutions.com/v1.0/LogicalDeviceAddedEvent")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace="http://Jetstream.TersoSolutions.com/v1.0/LogicalDeviceAddedEvent", IsNullable=false)]
-    public partial class Jetstream : TersoSolutions.Jetstream.Application.SQS.JetstreamEvent
-    {
+    public partial class Jetstream {
         
         private JetstreamHeader headerField;
         

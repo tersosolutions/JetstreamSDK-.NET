@@ -22,8 +22,7 @@ namespace TersoSolutions.Jetstream.Application.SQS.DeviceRestoreEvent {
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://Jetstream.TersoSolutions.com/v1.0/DeviceRestoreEvent")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace="http://Jetstream.TersoSolutions.com/v1.0/DeviceRestoreEvent", IsNullable=false)]
-    public partial class Jetstream : TersoSolutions.Jetstream.Application.SQS.JetstreamEvent
-    {
+    public partial class Jetstream {
         
         private JetstreamHeader headerField;
         
