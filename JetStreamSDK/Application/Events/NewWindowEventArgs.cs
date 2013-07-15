@@ -31,7 +31,7 @@ namespace TersoSolutions.Jetstream.Application.Events
         /// Constructor for the custom EventArgs
         /// </summary>
         /// <param name="messages"></param>
-        internal NewWindowEventArgs(IEnumerable<object> messages)
+        internal NewWindowEventArgs(IEnumerable<Message> messages)
             : base()
         {
             if (messages == null) throw new ArgumentNullException("messages");
@@ -42,6 +42,6 @@ namespace TersoSolutions.Jetstream.Application.Events
         /// <summary>
         /// Ordered window of SQS messages received
         /// </summary>
-        public IEnumerable<object> Messages { get; private set; }
+        public IEnumerable<Message> Messages { get; private set; }
     }
 }
