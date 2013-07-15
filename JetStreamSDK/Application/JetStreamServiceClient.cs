@@ -287,38 +287,6 @@ namespace TersoSolutions.Jetstream.Application
 
         #endregion
 
-        #region v1.2 Methods
-
-        /// <summary>
-        /// Calls the Jetstream v1.1 RemovePolicy REST endpoint and removes an existing policy from your application.
-        /// https://jetstreamrfid.com/Docs/Application/1.1/RemovePolicy.aspx
-        /// </summary>
-        /// <param name="request">Object that represents the HTTP Jetstream request</param>
-        /// <returns>Object that represents the HTTP Jetstream response</returns>
-        /// <exception cref="System.ArgumentNullException">
-        /// <para><paramref name="request"/> is null</para>
-        /// </exception>
-        public GetEventsResponse GetEvents(GetEventsRequest request)
-        {
-            return Execute<GetEventsResponse>(request);
-        }
-
-        /// <summary>
-        /// Calls the Jetstream v1.1 AddDeviceToPolicy REST endpoint and adds a device to one of your application's policies.
-        /// https://jetstreamrfid.com/Docs/Application/1.2/AddDeviceToPolicy.aspx
-        /// </summary>
-        /// <param name="request">Object that represents the HTTP Jetstream request</param>
-        /// <returns>Object that represents the HTTP Jetstream response</returns>
-        /// <exception cref="System.ArgumentNullException">
-        /// <para><paramref name="request"/> is null</para>
-        /// </exception>
-        public RemoveEventsResponse RemoveEvents(RemoveEventsRequest request)
-        {
-            return Execute<RemoveEventsResponse>(request);
-        }
-
-        #endregion
-
         #region Helper methods
 
         /// <summary>
