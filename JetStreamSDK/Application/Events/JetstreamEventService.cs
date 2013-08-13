@@ -338,7 +338,7 @@ namespace TersoSolutions.Jetstream.SDK.Application.Events
                 {
                     try
                     {
-                        long epochWindowTime = ToEpochTimeInMilliseconds(DateTime.UtcNow.Subtract(this.MessageCheckWindow));
+                        DateTime WindowTime = (DateTime.UtcNow.Subtract(this.MessageCheckWindow));
                         BatchId = ReceiveTask(ct);
 
                         // just do it inline it's less expensive than spinning threads
@@ -347,9 +347,12 @@ namespace TersoSolutions.Jetstream.SDK.Application.Events
                         // ok so all messages have been Receieved and ordered or no more messages can be popped
                         if (!ct.IsCancellationRequested)
                         {
-                            foreach (var message in _set)
+                            // get all messages less than the time windows from the Red-Black tree.
+                            // mbailey //08/13/2013
+                            lock (_setLock)
                             {
-                                messages.Add(message);
+                                messages.AddRange(_set.Where((m) => m.EventTime < WindowTime));
+                                _set.RemoveWhere((m) => m.EventTime < WindowTime);
                             }
 
                             // remove duplicates
@@ -374,7 +377,7 @@ namespace TersoSolutions.Jetstream.SDK.Application.Events
                 }
 
                 // check if we should delete the messages
-                if ((!ct.IsCancellationRequested) && (messages.Count > 0))
+                if ((!ct.IsCancellationRequested) & (messages.Count > 0))
                 {
                     DeleteTask(ct, BatchId);
                 }
