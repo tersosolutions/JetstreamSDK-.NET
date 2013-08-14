@@ -136,7 +136,7 @@
     <Compile Include="Device\JetstreamDeviceServiceClient.cs" />
     <Compile Include="Device\GetCommandsRequest.cs" />
     <Compile Include="Device\LogEntryEvent.cs" />
-    <Compile Include="Device\ObjectEvent.cs" />
+    <Compile Include="Application\Messages\ObjectEvent.cs" />
     <Compile Include="Device\SensorReadingEvent.cs" />
     <Compile Include="Device\MessageHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
