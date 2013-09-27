@@ -66,23 +66,7 @@ namespace TersoSolutions.Jetstream.SDK.Application.Events
 
         #region Properties
 
-        /// <summary>
-        /// Get to determine if Gzip is enabled for the application.  
-        /// Defaults to false.  Settable by putting an appSettings boolean 
-        /// with key GzipEnabled.
-        /// </summary>
-        private bool GzipEnabled
-        {
-            get
-            {
-                bool enabled = false;
-                if (!String.IsNullOrEmpty(ConfigurationManager.AppSettings["GzipEnabled"]))
-                {
-                    Boolean.TryParse(ConfigurationManager.AppSettings["GzipEnabled"], out enabled);
-                }
-                return enabled;
-            }
-        }
+     
 
         /// <summary>
         /// The TimeSpan that all results Jetstream Ground are windowed 
