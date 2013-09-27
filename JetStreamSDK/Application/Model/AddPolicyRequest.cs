@@ -29,10 +29,10 @@ namespace TersoSolutions.Jetstream.SDK.Application.Model
     ///
     /// Request object for Jetstream version 1.1 AddPolicy
     /// </summary>
-    /// <remarks>Author Mike Lohmeier</remarks>
+    /// <remarks></remarks>
     public class AddPolicyRequest : JetstreamRequest
     {
-        private const String c_addpolicy = "v1.1/application/?action=addpolicy&accesskey={0}&devicedefinitionid={1}&name={2}{3}";
+        private const String c_addpolicy = "v1.2/application/?action=addpolicy&accesskey={0}&devicedefinitionid={1}&name={2}{3}";
 
         /// <summary>
         /// Default ctor

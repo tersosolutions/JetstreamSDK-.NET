@@ -20,7 +20,7 @@ namespace TersoSolutions.Jetstream.SDK.Application.Model
     ///
     /// Response object for the version 1.1 RemovePolicy ReST endpoint
     /// </summary>
-    /// <remarks>Author Mike Lohmeier</remarks>
+    /// <remarks></remarks>
     public class RemovePolicyResponse : JetstreamResponse
     {
 

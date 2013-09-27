@@ -24,10 +24,10 @@ namespace TersoSolutions.Jetstream.SDK.Application.Model
     /// 
     /// This is the request in a RESTful pattern.
     /// </summary>
-    /// <remarks>Author Mike Lohmeier</remarks>
+    /// <remarks></remarks>
     public class GetConfigValuesCommandRequest : JetstreamRequest
     {
-        private const String c_getConfigValuesCommand = "v1.0/application/?action=getconfigvaluescommand&accesskey={0}&logicaldeviceid={1}&parameters={2}";
+        private const String c_getConfigValuesCommand = "v1.2/application/?action=getconfigvaluescommand&accesskey={0}&logicaldeviceid={1}&parameters={2}";
         
         /// <summary>
         /// Default ctor

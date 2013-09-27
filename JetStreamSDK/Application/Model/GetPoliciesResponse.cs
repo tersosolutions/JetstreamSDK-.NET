@@ -24,7 +24,7 @@ namespace TersoSolutions.Jetstream.SDK.Application.Model
     /// 
     /// Response object for the Jetstream version 1.1 GetPolicies.
     /// </summary>
-    /// <remarks>Author Mike Lohmeier</remarks>
+    /// <remarks></remarks>
     public class GetPoliciesResponse : JetstreamResponse
     {
         private GP.Jetstream _deserializedResponse = null;

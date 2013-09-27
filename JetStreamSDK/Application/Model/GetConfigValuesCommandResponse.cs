@@ -23,7 +23,7 @@ namespace TersoSolutions.Jetstream.SDK.Application.Model
     /// 
     /// This is the response in a RESTful pattern.
     /// </summary>
-    /// <remarks>Author Mike Lohmeier</remarks>
+    /// <remarks></remarks>
     public class GetConfigValuesCommandResponse : JetstreamResponse
     {
         private CR.Jetstream _deserializedResponse = null;

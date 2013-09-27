@@ -21,7 +21,7 @@ namespace TersoSolutions.Jetstream.SDK.Application.Model
     ///
     /// Response class for RemoveLogicalDeviceRequest.
     /// </summary>
-    /// <remarks>Author Mike Lohmeier</remarks>
+    /// <remarks></remarks>
     public class RemoveLogicalDeviceResponse : JetstreamResponse
     {
 

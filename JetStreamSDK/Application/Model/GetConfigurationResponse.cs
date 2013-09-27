@@ -24,7 +24,7 @@ namespace TersoSolutions.Jetstream.SDK.Application.Model
     /// 
     /// Response object for the Jetstream version 1.1 GetConfiguration endpoint.
     /// </summary>
-    /// <remarks>Author Mike Lohmeier</remarks>
+    /// <remarks></remarks>
     public class GetConfigurationResponse : JetstreamResponse
     {
         private CR.Jetstream _deserializedResponse = null;

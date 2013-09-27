@@ -27,7 +27,7 @@ namespace TersoSolutions.Jetstream.SDK.Application.Model
     ///
     /// Reponse object for Jetstream version 1.1 AddPolicy
     /// </summary>
-    /// <remarks>Author Mike Lohmeier</remarks>
+    /// <remarks></remarks>
     public class AddPolicyResponse : JetstreamResponse
     {
         private CR.Jetstream _deserializedResponse = null;

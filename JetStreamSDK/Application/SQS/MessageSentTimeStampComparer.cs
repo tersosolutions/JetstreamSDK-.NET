@@ -25,7 +25,7 @@ namespace TersoSolutions.Jetstream.SDK.Application.SQS
     /// <summary>
     /// IComparer implementation for sorting SQS Messages by SentTimestamp epoch
     /// </summary>
-    /// <remarks>Author Mike Lohmeier</remarks>
+    /// <remarks></remarks>
     public class MessageSentTimeStampComparer : IComparer<Message>
     {
         /// <summary>

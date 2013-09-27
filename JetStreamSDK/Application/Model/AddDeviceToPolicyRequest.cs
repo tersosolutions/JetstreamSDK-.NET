@@ -30,7 +30,7 @@ namespace TersoSolutions.Jetstream.SDK.Application.Model
     /// 
     /// Request object for the version 1.0 AddDeviceToPolicy ReST endpoint.
     /// </summary>
-    /// <remarks>Author Mike Lohmeier</remarks>
+    /// <remarks></remarks>
     public class AddDeviceToPolicyRequest : JetstreamRequest
     {
         /// <summary>
@@ -41,7 +41,7 @@ namespace TersoSolutions.Jetstream.SDK.Application.Model
             this.OverrideParameters = new List<Tuple<String, String>>();
         }
 
-        private const String c_adddevicetopolicy = "v1.1/application/?action=adddevicetopolicy&accesskey={0}&logicaldeviceid={1}&policyid={2}{3}";
+        private const String c_adddevicetopolicy = "v1.2/application/?action=adddevicetopolicy&accesskey={0}&logicaldeviceid={1}&policyid={2}{3}";
 
         /// <summary>
         /// The logical device id to correlate to the device serial number. This value should be 127 ASCII characters or less

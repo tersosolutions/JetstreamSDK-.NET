@@ -27,7 +27,7 @@ namespace TersoSolutions.Jetstream.SDK.Application.Model
     /// 
     /// Response object for the version 1.0 AddLogicalDevice ReST endpoint.
     /// </summary>
-    /// <remarks>Author Mike Lohmeier</remarks>
+    /// <remarks></remarks>
     public class AddLogicalDeviceResponse : JetstreamResponse
     {
         private CR.Jetstream _deserializedResponse = null;

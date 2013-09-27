@@ -24,7 +24,7 @@ namespace TersoSolutions.Jetstream.SDK.Application.SQS
     /// <summary>
     /// IEqualityComparer used for filtering duplicate SQS messages
     /// </summary>
-    /// <remarks>Author Mike Lohmeier</remarks>
+    /// <remarks></remarks>
     public class MessageEqualityComparer : IEqualityComparer<Message>
     {
         /// <summary>

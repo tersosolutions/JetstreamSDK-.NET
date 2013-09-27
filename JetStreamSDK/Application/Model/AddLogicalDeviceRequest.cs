@@ -27,10 +27,10 @@ namespace TersoSolutions.Jetstream.SDK.Application.Model
     /// 
     /// Request object for the version 1.0 AddLogicalDevice ReST endpoint.
     /// </summary>
-    /// <remarks>Author Mike Lohmeier</remarks>
+    /// <remarks></remarks>
     public class AddLogicalDeviceRequest : JetstreamRequest
     {
-        private const String c_addLogicalDevice = "v1.0/application/?action=addlogicaldevice&accesskey={0}&deviceserialnumber={1}&logicaldeviceid={2}&devicedefinitionid={3}&region={4}";
+        private const String c_addLogicalDevice = "v1.2/application/?action=addlogicaldevice&accesskey={0}&deviceserialnumber={1}&logicaldeviceid={2}&devicedefinitionid={3}&region={4}";
        
         /// <summary>
         /// The physical device serial number.

@@ -22,7 +22,7 @@ namespace TersoSolutions.Jetstream.SDK.Application.Model
     /// ResetCommand instructs the device to power cycle. 
     /// This is the response object for the version 1.0 ResetCommand REST endpoint.
     /// </summary>
-    /// <remarks>Author Mike Lohmeier</remarks>
+    /// <remarks></remarks>
     public class ResetCommandResponse : JetstreamResponse
     {
         private CR.Jetstream _deserializedResponse = null;

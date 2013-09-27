@@ -18,7 +18,7 @@ namespace TersoSolutions.Jetstream.SDK.Device
     /// <summary>
     /// Request object for calling the device interface for GetCommands
     /// </summary>
-    /// <remarks>Author Mike Lohmeier</remarks>
+    /// <remarks></remarks>
     public class GetCommandsRequest
     {
     }

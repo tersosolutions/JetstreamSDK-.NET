@@ -24,7 +24,7 @@ namespace TersoSolutions.Jetstream.SDK.Application.SQS
     /// <summary>
     /// Custom EventArgs class for the NewWindow event
     /// </summary>
-    /// <remarks>Author Mike Lohmeier</remarks>
+    /// <remarks></remarks>
     public class NewWindowEventArgs : EventArgs
     {
         /// <summary>

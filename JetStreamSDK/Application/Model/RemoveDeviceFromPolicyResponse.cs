@@ -23,7 +23,7 @@ namespace TersoSolutions.Jetstream.SDK.Application.Model
     ///
     /// Response object for the Jetstream version 1.1 RemoveDeviceFromPolicy endpoint.
     /// </summary>
-    /// <remarks>Author Mike Lohmeier</remarks>
+    /// <remarks></remarks>
     public class RemoveDeviceFromPolicyResponse : JetstreamResponse
     {
 

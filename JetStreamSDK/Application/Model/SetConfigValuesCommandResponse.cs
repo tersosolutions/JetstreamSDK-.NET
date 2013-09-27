@@ -22,7 +22,7 @@ namespace TersoSolutions.Jetstream.SDK.Application.Model
     /// SetConfigValuesCommand instructs the device to set its configuration parameters to user provided values. 
     /// Response object for the version 1.0 SetConfigValues REST endpoint.
     /// </summary>
-    /// <remarks>Author Mike Lohmeier</remarks>
+    /// <remarks></remarks>
     public class SetConfigValuesCommandResponse : JetstreamResponse
     {
         private CR.Jetstream _deserializedResponse = null;

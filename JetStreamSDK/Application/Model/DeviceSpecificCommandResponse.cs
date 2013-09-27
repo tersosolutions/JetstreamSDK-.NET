@@ -24,7 +24,7 @@ namespace TersoSolutions.Jetstream.SDK.Application.Model
     /// 
     /// This class represent a RESTful response for a DeviceSpecificCommand.
     /// </summary>
-    /// <remarks>Author Mike Lohmeier</remarks>
+    /// <remarks></remarks>
     public class DeviceSpecificCommandResponse : JetstreamResponse
     {
         private CR.Jetstream _deserializedResponse = null;

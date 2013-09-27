@@ -25,10 +25,10 @@ namespace TersoSolutions.Jetstream.SDK.Application.Model
     ///
     /// Request object for the Jetstream version 1.1 RemoveDeviceFromPolicy endpoint.
     /// </summary>
-    /// <remarks>Author Mike Lohmeier</remarks>
+    /// <remarks></remarks>
     public class RemoveDeviceFromPolicyRequest : JetstreamRequest
     {
-        private const String c_removedevicefrompolicy = "v1.1/application/?action=removedevicefrompolicy&accesskey={0}&logicaldeviceid={1}";
+        private const String c_removedevicefrompolicy = "v1.2/application/?action=removedevicefrompolicy&accesskey={0}&logicaldeviceid={1}";
        
         /// <summary>
         /// The LogicalDeviceId of the device to remove from the policy

@@ -25,10 +25,10 @@ namespace TersoSolutions.Jetstream.SDK.Application.Model
     ///
     /// Request object for Jetstream GetDeviceDefinitions.
     /// </summary>
-    /// <remarks>Author Mike Lohmeier</remarks>
+    /// <remarks></remarks>
     public class GetDeviceDefinitionsRequest : JetstreamRequest
     {
-        private const String c_getDeviceDefinitions = "v1.0/application/?action=getdevicedefinitions&accesskey={0}";
+        private const String c_getDeviceDefinitions = "v1.2/application/?action=getdevicedefinitions&accesskey={0}";
         
         internal override string BuildUri(string baseUri, string accesskey)
         {

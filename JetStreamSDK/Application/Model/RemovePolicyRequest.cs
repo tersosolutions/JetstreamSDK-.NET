@@ -22,10 +22,10 @@ namespace TersoSolutions.Jetstream.SDK.Application.Model
     ///
     /// Request object for the version 1.1 RemovePolicy ReST endpoint
     /// </summary>
-    /// <remarks>Author Mike Lohmeier</remarks>
+    /// <remarks></remarks>
     public class RemovePolicyRequest : JetstreamRequest
     {
-        private const String c_removepolicy = "v1.1/application/?action=removepolicy&accesskey={0}&policyid={1}";
+        private const String c_removepolicy = "v1.2/application/?action=removepolicy&accesskey={0}&policyid={1}";
 
         /// <summary>
         /// The unique identifier for the policy

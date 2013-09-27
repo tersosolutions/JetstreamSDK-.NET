@@ -28,7 +28,7 @@ namespace TersoSolutions.Jetstream.SDK.Application.Model
     ///
     /// Response object for Jetstream GetDeviceDefinitions.
     /// </summary>
-    /// <remarks>Author Mike Lohmeier</remarks>
+    /// <remarks></remarks>
     public class GetDeviceDefinitionsResponse : JetstreamResponse
     {
         private DD.Jetstream _deserializedResponse = null;

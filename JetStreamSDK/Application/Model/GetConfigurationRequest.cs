@@ -22,10 +22,10 @@ namespace TersoSolutions.Jetstream.SDK.Application.Model
     /// 
     /// Request object for Getting the application configuration for Jetstream.
     /// </summary>
-    /// <remarks>Author Mike Lohmeier</remarks>
+    /// <remarks></remarks>
     public class GetConfigurationRequest : JetstreamRequest
     {
-        private const String c_getConfiguration = "v1.1/application/?action=getconfiguration&accesskey={0}";
+        private const String c_getConfiguration = "v1.2/application/?action=getconfiguration&accesskey={0}";
         
         /// <summary>
         /// builds the request url

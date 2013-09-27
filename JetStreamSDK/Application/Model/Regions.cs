@@ -18,7 +18,7 @@ namespace TersoSolutions.Jetstream.SDK.Application.Model
     /// <summary>
     /// Enum for the accepted regions for Jetstream API
     /// </summary>
-    /// <remarks>Author Mike Lohmeier</remarks>
+    /// <remarks></remarks>
     public enum Regions
     {
         /// <summary>

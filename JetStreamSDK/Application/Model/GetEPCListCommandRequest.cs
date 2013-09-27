@@ -22,10 +22,10 @@ namespace TersoSolutions.Jetstream.SDK.Application.Model
     /// GetEPCListCommand instructs the device to scan for RFID tags.
     /// Request object for the version 1.0 GetEPCListCommand ReST endpoint.
     /// </summary>
-    /// <remarks>Author Mike Lohmeier</remarks>
+    /// <remarks></remarks>
     public class GetEPCListCommandRequest : JetstreamRequest
     {
-        private const String c_getEPCListCommand = "v1.0/application/?action=getepclistcommand&accesskey={0}&logicaldeviceid={1}";
+        private const String c_getEPCListCommand = "v1.2/application/?action=getepclistcommand&accesskey={0}&logicaldeviceid={1}";
         
         /// <summary>
         /// The LogicalDeviceId of a device you want to schedule a GetEPCListCommand
