@@ -18,15 +18,21 @@ using System.Collections.Generic;
 using System.Text;
 using System.Web;
 
-namespace TersoSolutions.Jetstream.Application.Model
+namespace TersoSolutions.Jetstream.SDK.Application.Model
 {
     /// <summary>
+    /// AddPolicy adds a policy to Jetstream® for managing your device's
+    /// parameters. You can define a policy for a device definition and 
+    /// assign a device to the policy. Whenever an assigned device's 
+    /// parameters do not match the policy a LogEntryEvent of 
+    /// type PolicyException is published. 
+    ///
     /// Request object for Jetstream version 1.1 AddPolicy
     /// </summary>
-    /// <remarks>Author Mike Lohmeier</remarks>
+    /// <remarks></remarks>
     public class AddPolicyRequest : JetstreamRequest
     {
-        private const String c_addpolicy = "v1.1/application/?action=addpolicy&accesskey={0}&devicedefinitionid={1}&name={2}{3}";
+        private const String c_addpolicy = "v1.2/application/?action=addpolicy&accesskey={0}&devicedefinitionid={1}&name={2}{3}";
 
         /// <summary>
         /// Default ctor

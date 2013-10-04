@@ -14,14 +14,17 @@
    limitations under the License.
  */
 using System;
-using CR = TersoSolutions.Jetstream.Application.Model.Deserialized.CommandResponse;
+using CR = TersoSolutions.Jetstream.SDK.Application.Model.Deserialized.CommandResponse;
 
-namespace TersoSolutions.Jetstream.Application.Model
+namespace TersoSolutions.Jetstream.SDK.Application.Model
 {
     /// <summary>
-    /// Response object for the Jetstream version 1.0 ResetCommand endpoint
+    /// DeviceSpecificCommand instructs the device to execute one of its custom commands. 
+    /// A DeviceDefinition may have custom commands that are only applicable to it. 
+    /// 
+    /// This class represent a RESTful response for a DeviceSpecificCommand.
     /// </summary>
-    /// <remarks>Author Mike Lohmeier</remarks>
+    /// <remarks></remarks>
     public class DeviceSpecificCommandResponse : JetstreamResponse
     {
         private CR.Jetstream _deserializedResponse = null;

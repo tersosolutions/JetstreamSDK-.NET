@@ -1,5 +1,5 @@
 ﻿﻿/*
-     Copyright 2012 Terso Solutions
+     Copyright 2013 Terso Solutions
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -13,30 +13,29 @@
    See the License for the specific language governing permissions and
    limitations under the License.
  */
+
 using System;
+using System.Web;
 
 namespace TersoSolutions.Jetstream.SDK.Application.Model
 {
     /// <summary>
-    /// GetConfiguration returns the current Jetstream® configuration for your application. 
+    /// GetEvents returns but does not dequeue the oldest pending event messages 
+    /// for the Jetstream user. No more than 100 messages will be returned 
+    /// on any given GetEvents call.
     /// 
-    /// Request object for Getting the application configuration for Jetstream.
+    /// Request object for Jetstream version 1.2 GetEvents.
     /// </summary>
-    /// <remarks></remarks>
-    public class GetConfigurationRequest : JetstreamRequest
+    /// <remarks>Author Mark Bailey</remarks>
+    public class GetEventsRequest : JetstreamRequest
     {
-        private const String c_getConfiguration = "v1.2/application/?action=getconfiguration&accesskey={0}";
-        
-        /// <summary>
-        /// builds the request url
-        /// </summary>
-        /// <param name="baseUri"></param>
-        /// <param name="accesskey"></param>
-        /// <returns></returns>
+        private const String c_getevents = "v1.2/application/?action=getevents&accesskey={0}";
+
         internal override string BuildUri(string baseUri, string accesskey)
         {
-            return String.Concat(baseUri, 
-                String.Format(c_getConfiguration, accesskey));
+            // build the uri
+            return String.Concat(baseUri, String.Format(c_getevents, accesskey));
         }
+
     }
 }

@@ -14,35 +14,31 @@
    limitations under the License.
  */
 using System;
-using CR = TersoSolutions.Jetstream.SDK.Application.Model.Deserialized.ConfigureResponse;
+using CR = TersoSolutions.Jetstream.SDK.Application.Model.Deserialized.CommandResponse;
 
 namespace TersoSolutions.Jetstream.SDK.Application.Model
 {
     /// <summary>
-    /// AddLogicalDevice adds a device to Jetstream® making it ready 
-    /// for your commands and pushing events. AddLogicalDevice also 
-    /// insulates your application from hardware maintenance and 
-    /// replacements by mapping the device's serial number to your 
-    /// application identifier. 
+    /// RemoveEvents removes event messages associated with a batch of events from the user’s queue.
     /// 
-    /// Response object for the version 1.0 AddLogicalDevice ReST endpoint.
+    /// Response object for Jetstream version 1.2 RemoveEvents endpoint.
     /// </summary>
-    /// <remarks></remarks>
-    public class AddLogicalDeviceResponse : JetstreamResponse
+    /// <remarks>Author Mark Bailey</remarks>
+    public class RemoveEventsResponse : JetstreamResponse
     {
         private CR.Jetstream _deserializedResponse = null;
-        
+
         /// <summary>
         /// The access key the device should use for access to the Jetstream device endpoints
         /// </summary>
-        public String Id
+        public String CommandId
         {
             get
             {
                 if (!String.IsNullOrEmpty(this.Body))
                 {
                     _deserializedResponse = _deserializedResponse ?? CR.Jetstream.Deserialize(this.Body);
-                    return _deserializedResponse.ConfigureResponse.Id;
+                    return _deserializedResponse.CommandResponse.CommandId;
                 }
                 else
                 {

@@ -18,26 +18,26 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Amazon.SQS.Model;
+using TersoSolutions.Jetstream.SDK.Application.Messages;
 
-namespace TersoSolutions.Jetstream.SDK.Application.SQS
+namespace TersoSolutions.Jetstream.SDK.Application.Events
 {
     /// <summary>
-    /// IComparer implementation for sorting SQS Messages by SentTimestamp epoch
+    /// IComparer implementation for sorting messages by SentTimestamp epoch.
     /// </summary>
-    /// <remarks></remarks>
-    public class MessageSentTimeStampComparer : IComparer<Message>
+    /// <remarks>Author Mark Neustadt</remarks>
+    public class JetstreamEventTimeStampComparer : IComparer<JetstreamEvent>
     {
         /// <summary>
-        /// IComparer implementation that compares the epoch SentTimestamp and MessageId
+        /// IComparer implementation that compares the epoch SentTimestamp and MessageId.
         /// </summary>
         /// <param name="x"></param>
         /// <param name="y"></param>
         /// <returns></returns>
-        public int Compare(Message x, Message y)
+        public int Compare(JetstreamEvent x, JetstreamEvent y)
         {
-            Amazon.SQS.Model.Attribute sentTimestampx = x.Attribute.SingleOrDefault(a => a.Name == "SentTimestamp");
-            Amazon.SQS.Model.Attribute sentTimestampy = y.Attribute.SingleOrDefault(a => a.Name == "SentTimestamp");
+            DateTime sentTimestampx = x.EventTime;
+            DateTime sentTimestampy = y.EventTime;
 
             if ((sentTimestampx == null) |
                 (sentTimestampy == null))
@@ -46,8 +46,8 @@ namespace TersoSolutions.Jetstream.SDK.Application.SQS
                 throw new Exception("Unable to compare Messages because one of the messages did not have a SentTimestamp Attribute"); 
             }
 
-            long epochx = long.Parse(sentTimestampx.Value);
-            long epochy = long.Parse(sentTimestampy.Value);
+            long epochx = sentTimestampx.Ticks;
+            long epochy = sentTimestampy.Ticks;
 
             int result = epochx.CompareTo(epochy);
             if (result != 0)
@@ -57,7 +57,7 @@ namespace TersoSolutions.Jetstream.SDK.Application.SQS
             else
             {
                 // same SentTimestamp so use the messageId for comparison
-                return x.MessageId.CompareTo(y.MessageId);
+                return x.EventId.CompareTo(y.EventId);
             }
         }
     }

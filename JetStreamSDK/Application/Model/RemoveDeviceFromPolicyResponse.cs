@@ -13,12 +13,17 @@
    See the License for the specific language governing permissions and
    limitations under the License.
  */
-namespace TersoSolutions.Jetstream.Application.Model
+namespace TersoSolutions.Jetstream.SDK.Application.Model
 {
     /// <summary>
-    /// Response object for the Jetstream version 1.1 RemoveDeviceFromPolicy endpoint
+    /// RemoveDeviceFromPolicy removes the device from the list of devices 
+    /// to monitor for compliance with your policy. Once removed from the 
+    /// policy all settings will be managed using GetConfigValuesCommand 
+    /// and SetConfigValuesCommand manually. 
+    ///
+    /// Response object for the Jetstream version 1.1 RemoveDeviceFromPolicy endpoint.
     /// </summary>
-    /// <remarks>Author Mike Lohmeier</remarks>
+    /// <remarks></remarks>
     public class RemoveDeviceFromPolicyResponse : JetstreamResponse
     {
 

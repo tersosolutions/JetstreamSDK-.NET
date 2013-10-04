@@ -17,15 +17,17 @@ using System;
 using System.Collections.Generic;
 using System.Web;
 
-namespace TersoSolutions.Jetstream.Application.Model
+namespace TersoSolutions.Jetstream.SDK.Application.Model
 {
     /// <summary>
-    /// Request object for GetConfigValuesCommand
+    /// GetConfigValuesCommand instructs the device to return its current configuration values. 
+    /// 
+    /// This is the request in a RESTful pattern.
     /// </summary>
-    /// <remarks>Author Mike Lohmeier</remarks>
+    /// <remarks></remarks>
     public class GetConfigValuesCommandRequest : JetstreamRequest
     {
-        private const String c_getConfigValuesCommand = "v1.0/application/?action=getconfigvaluescommand&accesskey={0}&logicaldeviceid={1}&parameters={2}";
+        private const String c_getConfigValuesCommand = "v1.2/application/?action=getconfigvaluescommand&accesskey={0}&logicaldeviceid={1}&parameters={2}";
         
         /// <summary>
         /// Default ctor

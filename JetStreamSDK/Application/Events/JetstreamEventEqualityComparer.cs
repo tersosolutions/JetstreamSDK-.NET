@@ -17,15 +17,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Amazon.SQS.Model;
+using TersoSolutions.Jetstream.SDK.Application.Messages;
 
-namespace TersoSolutions.Jetstream.SDK.Application.SQS
+namespace TersoSolutions.Jetstream.SDK.Application.Events
 {
     /// <summary>
-    /// IEqualityComparer used for filtering duplicate SQS messages
+    /// IEqualityComparer used for filtering duplicate messages
     /// </summary>
-    /// <remarks></remarks>
-    public class MessageEqualityComparer : IEqualityComparer<Message>
+    /// <remarks>Author Mark Neustadt</remarks>
+
+    public class JetstreamEventEqualityComparer : IEqualityComparer<JetstreamEvent>
     {
         /// <summary>
         /// Determines if the <paramref name="x"/> and <paramref name="y"/> are equal
@@ -36,9 +37,9 @@ namespace TersoSolutions.Jetstream.SDK.Application.SQS
         /// <para>True - when x &amp; y MessageIds are equal</para>
         /// <para>False - when x &amp; y MessageIds are not equal</para>
         /// </returns>
-        public bool Equals(Message x, Message y)
+        public bool Equals(JetstreamEvent x, JetstreamEvent y)
         {
-            return (String.Compare(x.MessageId, y.MessageId, false) == 0);
+            return (String.Compare(x.EventId, y.EventId, false) == 0);
         }
 
         /// <summary>
@@ -46,11 +47,11 @@ namespace TersoSolutions.Jetstream.SDK.Application.SQS
         /// </summary>
         /// <param name="obj">The message to hash</param>
         /// <returns>
-        /// The hashed MessageId
+        /// The hashed EventId
         /// </returns>
-        public int GetHashCode(Message obj)
+        public int GetHashCode(JetstreamEvent obj)
         {
-            return obj.MessageId.GetHashCode();
+            return obj.EventId.GetHashCode();
         }
     }
 }

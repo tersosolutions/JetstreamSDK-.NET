@@ -15,15 +15,20 @@
  */
 using System;
 
-namespace TersoSolutions.Jetstream.Application.Model
+namespace TersoSolutions.Jetstream.SDK.Application.Model
 {
     /// <summary>
-    /// Request object for Jetstream GetDeviceDefinitions
+    /// GetDeviceDefinitions returns all of the available device configurations 
+    /// that Jetstream® supports. A device definition is a unique definition 
+    /// for a specific device manufacturer, name of the device and 
+    /// its firmware version. 
+    ///
+    /// Request object for Jetstream GetDeviceDefinitions.
     /// </summary>
-    /// <remarks>Author Mike Lohmeier</remarks>
+    /// <remarks></remarks>
     public class GetDeviceDefinitionsRequest : JetstreamRequest
     {
-        private const String c_getDeviceDefinitions = "v1.0/application/?action=getdevicedefinitions&accesskey={0}";
+        private const String c_getDeviceDefinitions = "v1.2/application/?action=getdevicedefinitions&accesskey={0}";
         
         internal override string BuildUri(string baseUri, string accesskey)
         {

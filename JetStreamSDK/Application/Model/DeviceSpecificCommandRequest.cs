@@ -16,15 +16,18 @@
 using System;
 using System.Web;
 
-namespace TersoSolutions.Jetstream.Application.Model
+namespace TersoSolutions.Jetstream.SDK.Application.Model
 {
     /// <summary>
-    /// Request object for DeviceSpecificCommand 
+    /// DeviceSpecificCommand instructs the device to execute one of its custom commands. 
+    /// A DeviceDefinition may have custom commands that are only applicable to it. 
+    /// 
+    /// This class creates the request.
     /// </summary>
-    /// <remarks>Author Mike Lohmeier</remarks>
+    /// <remarks></remarks>
     public abstract class DeviceSpecificCommandRequest : JetstreamRequest
     {
-        private const String c_deviceSpecificCommand = "v1.0/application/?action=devicespecificcommand&accesskey={0}&commandname={1}&logicaldeviceid={2}{3}";
+        private const String c_deviceSpecificCommand = "v1.2/application/?action=devicespecificcommand&accesskey={0}&commandname={1}&logicaldeviceid={2}{3}";
         
         /// <summary>
         /// The LogicalDeviceId to queue the DeviceSpecificCommand for

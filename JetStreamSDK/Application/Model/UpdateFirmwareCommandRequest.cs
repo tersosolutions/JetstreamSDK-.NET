@@ -16,15 +16,18 @@
 using System;
 using System.Web;
 
-namespace TersoSolutions.Jetstream.Application.Model
+namespace TersoSolutions.Jetstream.SDK.Application.Model
 {
     /// <summary>
-    /// Request object for updating firmware
+    /// UpdateFirmwareCommand will command the unit to update either 
+    /// the Agent firmware or the Reader firmware from a specified URL. 
+    /// 
+    /// Request object for the version 1.0 UpdateFirmwareCommand REST endpoint.
     /// </summary>
-    /// <remarks>Author Mike Lohmeier</remarks>
+    /// <remarks></remarks>
     public class UpdateFirmwareCommandRequest : JetstreamRequest
     {
-        private const String c_updateFirmwareCommand = "v1.0/application/?action=updatefirmwarecommand&accesskey={0}&logicaldeviceid={1}&component={2}&url={3}{4}";
+        private const String c_updateFirmwareCommand = "v1.2/application/?action=updatefirmwarecommand&accesskey={0}&logicaldeviceid={1}&component={2}&url={3}{4}";
         
         /// <summary>
         /// The LogicalDeviceId that you want to update firmware on

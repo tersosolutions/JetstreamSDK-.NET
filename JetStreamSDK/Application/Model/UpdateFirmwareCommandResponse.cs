@@ -14,14 +14,17 @@
    limitations under the License.
  */
 using System;
-using CR = TersoSolutions.Jetstream.Application.Model.Deserialized.CommandResponse;
+using CR = TersoSolutions.Jetstream.SDK.Application.Model.Deserialized.CommandResponse;
 
-namespace TersoSolutions.Jetstream.Application.Model
+namespace TersoSolutions.Jetstream.SDK.Application.Model
 {
     /// <summary>
-    /// Response object for Jetstream version 1.0 UpdateFirmware
+    /// UpdateFirmwareCommand will command the unit to update either 
+    /// the Agent firmware or the Reader firmware from a specified URL. 
+    /// 
+    /// Response object for the version 1.0 UpdateFirmwareCommand REST endpoint.
     /// </summary>
-    /// <remarks>Author Mike Lohmeier</remarks>
+    /// <remarks></remarks>
     public class UpdateFirmwareCommandResponse : JetstreamResponse
     {
         private CR.Jetstream _deserializedResponse = null;

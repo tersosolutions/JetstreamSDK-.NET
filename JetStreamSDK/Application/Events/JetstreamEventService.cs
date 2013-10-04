@@ -26,8 +26,6 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
-using Amazon.SQS;
-using Amazon.SQS.Model;
 using Newtonsoft.Json;
 using AE = TersoSolutions.Jetstream.SDK.Application.Messages.AggregateEvent;
 using CCE = TersoSolutions.Jetstream.SDK.Application.Messages.CommandCompletionEvent;
@@ -40,16 +38,18 @@ using LDRE = TersoSolutions.Jetstream.SDK.Application.Messages.LogicalDeviceRemo
 using LEE = TersoSolutions.Jetstream.SDK.Application.Messages.LogEntryEvent;
 using OE = TersoSolutions.Jetstream.SDK.Application.Model.ObjectEvent;
 using SRE = TersoSolutions.Jetstream.SDK.Application.Messages.SensorReadingEvent;
+using TersoSolutions.Jetstream.SDK.Application.Model;
+using TersoSolutions.Jetstream.SDK.Application.Messages;
 
-namespace TersoSolutions.Jetstream.SDK.Application.SQS
+namespace TersoSolutions.Jetstream.SDK.Application.Events
 {
     /// <summary>
-    /// abstract windows service class that pops messages from a SQS queue that is a subscriber of a Jetstream SNS topic
+    /// An abstract windows service class that pops messages from Jetstream Ground.
     /// </summary>
-    /// <remarks>Author Mike Lohmeie</remarks>
-    public abstract class JetstreamSQSService : ServiceBase
+    /// <remarks>Author Mark Neustadt</remarks>
+    public abstract class JetstreamEventService : ServiceBase
     {
-        
+
         #region Data
 
         private Object _newWindowLock = new object();
@@ -57,41 +57,28 @@ namespace TersoSolutions.Jetstream.SDK.Application.SQS
         private Object _windowLock = new object();
         private CancellationTokenSource _cts;
         private Object _setLock = new object();
-        private SortedSet<Message> _set = new SortedSet<Message>(new MessageSentTimeStampComparer()); //use a  Red-Black tree for the producer-consumer data store
+        private SortedSet<JetstreamEvent> _set = new SortedSet<JetstreamEvent>(new JetstreamEventTimeStampComparer()); //use a  Red-Black tree for the producer-consumer data store
+
         private volatile bool _isWindowing = false;
-        private const String c_DEFAULTAWSSQSSERVICEURL = "sqs.us-east-1.amazonaws.com";
         private event EventHandler<NewWindowEventArgs> NewWindow;
 
         #endregion
 
         #region Properties
 
-        /// <summary>
-        /// Get to determine if Gzip is enabled for the application.  Defaults to false.  Settable by putting an appSettings boolean with key GzipEnabled.
-        /// </summary>
-        private bool GzipEnabled
-        {
-            get
-            {
-                bool enabled = false;
-                if (!String.IsNullOrEmpty(ConfigurationManager.AppSettings["GzipEnabled"]))
-                {
-                    Boolean.TryParse(ConfigurationManager.AppSettings["GzipEnabled"], out enabled);
-                }
-                return enabled;
-            }
-        }
+     
 
         /// <summary>
-        /// The TimeSpan that all results from SQS are windowed and sorted before firing the NewWindow event
+        /// The TimeSpan that all results Jetstream Ground are windowed 
+        /// and sorted to before firing the NewWindow event.
         /// </summary>
-        protected TimeSpan SQSWindow
+        protected TimeSpan MessageCheckWindow
         {
             get
             {
                 TimeSpan result;
-                if ((ConfigurationManager.AppSettings["SQSWindow"] != null) &&
-                    (TimeSpan.TryParse(ConfigurationManager.AppSettings["SQSWindow"], out result)))
+                if ((ConfigurationManager.AppSettings["MessageCheckWindow"] != null) &&
+                    (TimeSpan.TryParse(ConfigurationManager.AppSettings["MessageCheckWindow"], out result)))
                 {
                     if ((result.TotalDays <= 1) & (result.TotalSeconds >= 1))
                     {
@@ -115,60 +102,35 @@ namespace TersoSolutions.Jetstream.SDK.Application.SQS
         }
 
         /// <summary>
-        /// The Amazon Simple Queue Service Url
+        /// The Jetstream Ground subscribe url.
         /// </summary>
-        protected String QueueUrl
+        /// 
+        protected String JetstreamUrl
         {
             get
             {
-                return ConfigurationManager.AppSettings["QueueUrl"];
+                return ConfigurationManager.AppSettings["JetstreamUrl"];
             }
         }
 
         /// <summary>
-        /// The Amazon access key to access SQS with
+        /// An access key used to authenticate to Jetstream Ground.
         /// </summary>
-        protected String AWSAccessKey
+        /// 
+        protected String UserAccessKey
         {
             get
             {
-                return ConfigurationManager.AppSettings["AWSAccessKey"];
+                return ConfigurationManager.AppSettings["UserAccessKey"];
             }
         }
 
-        /// <summary>
-        /// The Amazon secret access key to access SQS with
-        /// </summary>
-        protected String AWSSecretAccessKey
-        {
-            get
-            {
-                return ConfigurationManager.AppSettings["AWSSecretAccessKey"];
-            }
-        }
+
 
         /// <summary>
-        /// The AWS SQS url to use to access the queue
+        /// Indicates if this Events service is currently polling/windowing events.
         /// </summary>
-        protected String AWSSQSServiceUrl
-        {
-            get
-            {
-                if (ConfigurationManager.AppSettings["AWSSQSServiceUrl"] != null)
-                {
-                    return ConfigurationManager.AppSettings["AWSSQSServiceUrl"];
-                }
-                else
-                {
-                    // default to the us-east1 region url
-                    return c_DEFAULTAWSSQSSERVICEURL;
-                }
-            }
-        }
 
-        /// <summary>
-        /// Indicates if the SQSService is currently polling/windowing events
-        /// </summary>
         public bool IsWindowing
         {
             get
@@ -186,15 +148,14 @@ namespace TersoSolutions.Jetstream.SDK.Application.SQS
         #region Service Events
 
         /// <summary>
-        /// override the OnStart for the windows service to hook the NewWindow event
+        /// override the OnStart for the windows service to hook the NewWindow event.
         /// </summary>
         /// <param name="args"></param>
         protected override void OnStart(string[] args)
         {
             // validate that the service is configured correctly
-            if (String.IsNullOrEmpty(this.AWSAccessKey)) throw new ConfigurationErrorsException("There is no AWSAccesskey in the appSettings");
-            if (String.IsNullOrEmpty(this.AWSSecretAccessKey)) throw new ConfigurationErrorsException("There is no AWSSecretAccessKey in the appSettings");
-            if (String.IsNullOrEmpty(this.QueueUrl)) throw new ConfigurationErrorsException("There is no QueueUrl in the appSettings");
+            if (String.IsNullOrEmpty(this.UserAccessKey)) throw new ConfigurationErrorsException("There is no UserAccesskey in the appSettings");
+            if (String.IsNullOrEmpty(this.JetstreamUrl)) throw new ConfigurationErrorsException("There is no JetstreamUrl in the appSettings");
 
             // start all of the background processing
             StartProcesses();
@@ -207,7 +168,7 @@ namespace TersoSolutions.Jetstream.SDK.Application.SQS
         }
 
         /// <summary>
-        /// Override of the WindowsService Stop
+        /// Override of the WindowsService Stop.
         /// </summary>
         protected override void OnStop()
         {
@@ -218,7 +179,7 @@ namespace TersoSolutions.Jetstream.SDK.Application.SQS
         }
 
         /// <summary>
-        /// Override of the Pause
+        /// Override of the Pause.
         /// </summary>
         protected override void OnPause()
         {
@@ -229,7 +190,7 @@ namespace TersoSolutions.Jetstream.SDK.Application.SQS
         }
 
         /// <summary>
-        /// Override of the Continue
+        /// Override of the Continue.
         /// </summary>
         protected override void OnContinue()
         {
@@ -240,7 +201,7 @@ namespace TersoSolutions.Jetstream.SDK.Application.SQS
         }
 
         /// <summary>
-        /// Override of the Power Event
+        /// Override of the Power Event.
         /// </summary>
         /// <param name="powerStatus"></param>
         /// <returns></returns>
@@ -265,7 +226,7 @@ namespace TersoSolutions.Jetstream.SDK.Application.SQS
         }
 
         /// <summary>
-        /// Override of the Shutdown
+        /// Override of the Shutdown.
         /// </summary>
         protected override void OnShutdown()
         {
@@ -280,102 +241,60 @@ namespace TersoSolutions.Jetstream.SDK.Application.SQS
         #region Methods
 
         /// <summary>
-        /// Task for Receiving messages from SQS
+        /// Task for Receiving messages from Jetstream Ground.
         /// </summary>
-        /// <param name="state"></param>
-        private void ReceiveTask(CancellationToken ct, int numberOfMessages)
+        private string ReceiveTask(CancellationToken ct)
         {
             try
             {
-                // build the AWS SQS proxy client
-                using (AmazonSQSClient client = new AmazonSQSClient(
-                    this.AWSAccessKey, this.AWSSecretAccessKey,
-                    new AmazonSQSConfig()
-                    {
-                        ServiceURL = this.AWSSQSServiceUrl,
-                        MaxErrorRetry = 10
-                    }))
+                JetstreamServiceClient client = new JetstreamServiceClient(this.JetstreamUrl, this.UserAccessKey);
+                GetEventsRequest request = new GetEventsRequest();
+                GetEventsResponse response = client.GetEvents(request);
+                string currentBatchId = response.BatchId;
+                List<TersoSolutions.Jetstream.SDK.Application.Messages.JetstreamEvent> messages = new List<TersoSolutions.Jetstream.SDK.Application.Messages.JetstreamEvent>();
+                foreach (TersoSolutions.Jetstream.SDK.Application.Messages.JetstreamEvent message in response.Events)
                 {
-                    // build the request message
-                    ReceiveMessageRequest request = new ReceiveMessageRequest();
-                    request.AttributeName.Add("SentTimestamp");
-                    request.MaxNumberOfMessages = 10;
-                    request.QueueUrl = this.QueueUrl;
-                    ReceiveMessageResponse response;
-                    List<Message> messages = new List<Message>();
-                    do
-                    {
-                        response = client.ReceiveMessage(request);
-                        messages.AddRange(response.ReceiveMessageResult.Message);
-                    }
-                    while ((response.ReceiveMessageResult.Message.Count != 0) &
-                           (messages.Count < numberOfMessages) &
-                           (!ct.IsCancellationRequested));
-
-                    // now add the Messages to the data store for the window thread
-                    if (!ct.IsCancellationRequested)
-                    {
-                        lock (_setLock)
-                        {
-                            for (int i = 0; i < messages.Count; i++)
-                            {
-                                if (ct.IsCancellationRequested)
-                                {
-                                    break;
-                                }
-                                _set.Add(messages[i]);
-                            }
-                        }
-                    }
-
+                    messages.Add(message);
                 }
-            }
-            catch (Exception ex)
-            {
-                EventLog.WriteEntry("JetstreamSDK",
-                    ex.Message + "\n" + ex.StackTrace,
-                    EventLogEntryType.Error);
-            }
-        }
 
-        /// <summary>
-        /// Task for deleting messages from SQS
-        /// </summary>
-        /// <param name="state"></param>
-        private void DeleteTask(CancellationToken ct, List<Message> messages, Tuple<int, int> range)
-        {
-            try
-            {
-                using (AmazonSQSClient client = new AmazonSQSClient(
-                        this.AWSAccessKey, this.AWSSecretAccessKey,
-                        new AmazonSQSConfig()
-                        {
-                            ServiceURL = this.AWSSQSServiceUrl,
-                            MaxErrorRetry = 10
-                        }))
+                // now add the Messages to the data store for the window thread
+                if (!ct.IsCancellationRequested)
                 {
-                    DeleteMessageBatchRequest deleteRequest = new DeleteMessageBatchRequest();
-                    deleteRequest.QueueUrl = this.QueueUrl;
-                    for (int i = range.Item1; i < range.Item2; i++)
+                    lock (_setLock)
                     {
-                        deleteRequest.Entries.Add(new DeleteMessageBatchRequestEntry()
-                        {
-                            Id = messages[i].MessageId,
-                            ReceiptHandle = messages[i].ReceiptHandle
-                        });
-                        // send 10x or the remainder of the set
-                        if ((deleteRequest.Entries.Count == 10) |
-                            (i == range.Item2 - 1))
+                        for (int i = 0; i < messages.Count; i++)
                         {
                             if (ct.IsCancellationRequested)
                             {
                                 break;
                             }
-                            client.DeleteMessageBatch(deleteRequest);
-                            deleteRequest.Entries.Clear();
+                            _set.Add(messages[i]);
                         }
                     }
                 }
+                return currentBatchId;
+            }
+            catch (Exception ex)
+            {
+                EventLog.WriteEntry("JetstreamSDK",
+                    ex.Message + "\n" + ex.StackTrace,
+                    EventLogEntryType.Error);
+            }
+            return string.Empty;
+        }
+
+        /// <summary>
+        /// Task for deleting messages from Jetstream Ground.
+        /// </summary>
+        /// <param name="state"></param>
+        private void DeleteTask(CancellationToken ct, string batchId)
+        {
+            try
+            {
+                JetstreamServiceClient client = new JetstreamServiceClient(this.JetstreamUrl, this.UserAccessKey);
+                RemoveEventsRequest request = new RemoveEventsRequest();
+                request.BatchId = batchId;
+                RemoveEventsResponse response = client.RemoveEvents(request);
             }
             catch (Exception ex)
             {
@@ -386,7 +305,7 @@ namespace TersoSolutions.Jetstream.SDK.Application.SQS
         }
 
         /// <summary>
-        /// Callback for windowing the SQS messages ordered by time queued
+        /// Callback for windowing the messages ordered by time queued.
         /// </summary>
         /// <param name="state"></param>
         private void WindowCallback(Object state)
@@ -394,7 +313,8 @@ namespace TersoSolutions.Jetstream.SDK.Application.SQS
             try
             {
                 CancellationToken ct = (CancellationToken)state;
-                List<Message> messages = new List<Message>();
+                List<JetstreamEvent> messages = new List<JetstreamEvent>();
+                string BatchId = String.Empty;
 
                 // syncronize the processing of windows
                 if ((!ct.IsCancellationRequested) &
@@ -402,60 +322,34 @@ namespace TersoSolutions.Jetstream.SDK.Application.SQS
                 {
                     try
                     {
-                        long epochWindowTime = ToEpochTimeInMilliseconds(DateTime.UtcNow.Subtract(this.SQSWindow));
-                        int numberOfMessages = 0;
+                        DateTime WindowTime = (DateTime.UtcNow.Subtract(this.MessageCheckWindow));
+                        BatchId = ReceiveTask(ct);
 
-                        // 1st query to determine the # of Messages available in the queue
-                        using (AmazonSQSClient client = new AmazonSQSClient(
-                            this.AWSAccessKey, this.AWSSecretAccessKey,
-                            new AmazonSQSConfig() { ServiceURL = this.AWSSQSServiceUrl }))
-                        {
-                            // get the NumberOfMessages to optimize how to Receive all of the messages from the queue
-                            GetQueueAttributesRequest attributesRequest = new GetQueueAttributesRequest();
-                            attributesRequest.QueueUrl = this.QueueUrl;
-                            attributesRequest.AttributeName.Add("ApproximateNumberOfMessages");
-                            numberOfMessages = client.GetQueueAttributes(attributesRequest).GetQueueAttributesResult.ApproximateNumberOfMessages;
-                        }
-
-                        // determine if we need to Receive messages from the Queue
-                        if (numberOfMessages > 0)
-                        {
-                            if (numberOfMessages < 10)
-                            {
-                                // just do it inline it's less expensive than spinning threads
-                                ReceiveTask(ct, numberOfMessages);
-                            }
-                            else
-                            {
-                                // use the default partitioner to determine the number of tasks
-                                // TODO Create a custom partitioner that takes into account the batch x 10 of SQS
-                                Parallel.ForEach(Partitioner.Create(0, numberOfMessages),
-                                    (range) => ReceiveTask(ct, range.Item2 - range.Item1));
-                            }
-                        }
+                        // just do it inline it's less expensive than spinning threads
+                        //ReceiveTask(ct, numberOfMessages);
 
                         // ok so all messages have been Receieved and ordered or no more messages can be popped
                         if (!ct.IsCancellationRequested)
                         {
-                            // get all messages less than the window time from the rb tree
-                            // probably don't have to lock on _setLock because of the _windowLock but let's be safe
+                            // get all messages less than the time windows from the Red-Black tree.
+                            // mbailey //08/13/2013
                             lock (_setLock)
                             {
-                                messages.AddRange(_set.Where((m) => long.Parse(m.Attribute[0].Value) < epochWindowTime));
-                                _set.RemoveWhere((m) => long.Parse(m.Attribute[0].Value) < epochWindowTime);
+                                messages.AddRange(_set.Where((m) => m.EventTime < WindowTime));
+                                _set.RemoveWhere((m) => m.EventTime < WindowTime);
                             }
 
                             // remove duplicates
                             //TODO Find a better way to dedup that doesn't destroy the order of the array
-                            IEnumerable<Message> dedupMessages = messages.Distinct(new MessageEqualityComparer());
+                            IEnumerable<JetstreamEvent> dedupMessages = messages.Distinct(new JetstreamEventEqualityComparer());
 
                             // distinct doesn't presever order so we need to reorder the window
-                            IEnumerable<Message> orderedMessages = dedupMessages.OrderBy(m => m, new MessageSentTimeStampComparer());
+                            IEnumerable<JetstreamEvent> orderedMessages = dedupMessages.OrderBy(m => m, new JetstreamEventTimeStampComparer());
 
                             // raise the WindowEvent with the results
                             if (!ct.IsCancellationRequested)
                             {
-                                OnNewWindow(dedupMessages);
+                                OnNewWindow(orderedMessages);
                             }
                         }
 
@@ -467,20 +361,9 @@ namespace TersoSolutions.Jetstream.SDK.Application.SQS
                 }
 
                 // check if we should delete the messages
-                if ((!ct.IsCancellationRequested) &
-                    (messages.Count > 0))
+                if ((!ct.IsCancellationRequested) & (messages.Count > 0))
                 {
-                    if (messages.Count < 10)
-                    {
-                        DeleteTask(ct, messages, new Tuple<int, int>(0, messages.Count));
-                    }
-                    else
-                    {
-                        // use the default partitioner to determine the number of tasks
-                        // TODO Create a custom partitioner that takes into account the batch x 10 of SQS
-                        Parallel.ForEach(Partitioner.Create(0, messages.Count),
-                            (range) => DeleteTask(ct, messages, range));
-                    }
+                    DeleteTask(ct, BatchId);
                 }
             }
             catch (Exception ex)
@@ -492,7 +375,7 @@ namespace TersoSolutions.Jetstream.SDK.Application.SQS
         }
 
         /// <summary>
-        /// Starts all of the background processing
+        /// Starts all of the background processing.
         /// </summary>
         private void StartProcesses()
         {
@@ -501,13 +384,13 @@ namespace TersoSolutions.Jetstream.SDK.Application.SQS
 
             // start the window timer
             _windowTimer = new Timer(new TimerCallback(WindowCallback),
-                _cts.Token, 0, Convert.ToInt64(this.SQSWindow.TotalMilliseconds));
+                _cts.Token, 0, Convert.ToInt64(this.MessageCheckWindow.TotalMilliseconds));
 
             this.IsWindowing = true;
         }
 
         /// <summary>
-        /// Cancels all of the background processing
+        /// Cancels all of the background processing.
         /// </summary>
         private void StopProcesses()
         {
@@ -527,10 +410,10 @@ namespace TersoSolutions.Jetstream.SDK.Application.SQS
         }
 
         /// <summary>
-        /// On* event raising pattern implementation for the NewWindow event
+        /// On* event raising pattern implementation for the NewWindow event.
         /// </summary>
         /// <param name="messages"></param>
-        private void OnNewWindow(IEnumerable<Message> messages)
+        private void OnNewWindow(IEnumerable<JetstreamEvent> messages)
         {
             if (NewWindow != null)
             {
@@ -539,115 +422,93 @@ namespace TersoSolutions.Jetstream.SDK.Application.SQS
         }
 
         /// <summary>
-        /// Event handler for the NewWindow event
+        /// Event handler for the NewWindow event.
         /// </summary>
-        /// <param name="sender">SQSService</param>
+        /// <param name="sender">Events Service</param>
         /// <param name="e">The NewWindow event args</param>
         private void JetstreamService_NewWindow(object sender, NewWindowEventArgs e)
         {
             // lock so we process all events in order
             lock (_newWindowLock)
             {
-                foreach (Message m in e.Messages)
+                foreach (TersoSolutions.Jetstream.SDK.Application.Messages.JetstreamEvent m in e.Messages)
                 {
                     try
                     {
-                        Debug.WriteLine("SQS Message.Body: " + m.Body);
-
-                        // AWS sends base64 encoded bodys for legacy accounts and non base 64 encoded bodys for new accounts
-                        // therefore we check to see if the message body is JSON by checking the first char
-                        String messageBody = m.Body;
-                        if ((!m.Body.StartsWith("<")) &
-                            (!m.Body.StartsWith("{")))
-                        {
-                            messageBody = Encoding.UTF8.GetString(Convert.FromBase64String(m.Body));
-                            Debug.WriteLine("SQS Message.Body deBase64: " + messageBody);
-                        }
-
-
-                        // use Newtonsoft.json to parse the message because the JSON serializer from MS doesn't work
-                        AmazonSNSMessage b = JsonConvert.DeserializeObject<AmazonSNSMessage>(messageBody);
-
-                        // unzip the message if gzip is enabled for my application
-                        String message;
-                        if (GzipEnabled)
-                        {
-                            Byte[] unzipped = Unzip(Convert.FromBase64String(b.Message));
-                            message = Encoding.UTF8.GetString(unzipped);
-                        }
-                        else
-                        {
-                            message = b.Message;
-                        }
-
-                        Debug.WriteLine("Jetstream Message: " + message);
+                        Debug.WriteLine("Jetstream Message: " + m.EventType);
 
                         // now we can deserialize the XML message into the appropriate message
-                        switch (b.Subject.Trim().ToLower())
+                        switch (m.EventType.Trim().ToLower())
                         {
                             case "aggregateevent":
                                 {
-                                    ProcessAggregateEvent(Deserialize<AE.Jetstream>(message));
+                                    AE.Jetstream message = (AE.Jetstream)m;
+                                    ProcessAggregateEvent(message);
                                     break;
                                 }
                             case "commandcompletionevent":
                                 {
-                                    ProcessCommandCompletionEvent(Deserialize<CCE.Jetstream>(message));
+                                    CCE.Jetstream message = (CCE.Jetstream)m;
+                                    ProcessCommandCompletionEvent(message);
                                     break;
                                 }
                             case "commandqueuedevent":
                                 {
-                                    ProcessCommandQueuedEvent(Deserialize<CQE.Jetstream>(message));
+                                    CQE.Jetstream message = (CQE.Jetstream)m;
+                                    ProcessCommandQueuedEvent(message);
                                     break;
                                 }
                             case "devicefailureevent":
                                 {
-                                    ProcessDeviceFailureEvent(Deserialize<DFE.Jetstream>(message));
+                                    DFE.Jetstream message = (DFE.Jetstream)m;
+                                    ProcessDeviceFailureEvent(message);
                                     break;
                                 }
                             case "devicerestoreevent":
                                 {
-                                    ProcessDeviceRestoreEvent(Deserialize<DRE.Jetstream>(message));
+                                    DRE.Jetstream message = (DRE.Jetstream)m;
+                                    ProcessDeviceRestoreEvent(message);
                                     break;
                                 }
                             case "heartbeatevent":
                                 {
-                                    ProcessHeartbeatEvent(Deserialize<HE.Jetstream>(message));
+                                    HE.Jetstream message = (HE.Jetstream)m;
+                                    ProcessHeartbeatEvent(message);
                                     break;
                                 }
                             case "logentryevent":
                                 {
-                                    ProcessLogEntryEvent(Deserialize<LEE.Jetstream>(message));
+                                    LEE.Jetstream message = (LEE.Jetstream)m;
+                                    ProcessLogEntryEvent(message);
                                     break;
                                 }
                             case "logicaldeviceaddedevent":
                                 {
-                                    ProcessLogicalDeviceAddedEvent(Deserialize<LDAE.Jetstream>(message));
+                                    LDAE.Jetstream message = (LDAE.Jetstream)m;
+                                    ProcessLogicalDeviceAddedEvent(message);
                                     break;
                                 }
                             case "logicaldeviceremovedevent":
                                 {
-                                    ProcessLogicalDeviceRemovedEvent(Deserialize<LDRE.Jetstream>(message));
+                                    LDRE.Jetstream message = (LDRE.Jetstream)m;
+                                    ProcessLogicalDeviceRemovedEvent(message);
                                     break;
                                 }
                             case "objectevent":
                                 {
-                                    ProcessObjectEvent(Deserialize<OE.Jetstream>(message));
+                                    OE.Jetstream message = (OE.Jetstream)m;
+                                    ProcessObjectEvent(message);
                                     break;
                                 }
                             case "sensorreadingevent":
                                 {
-                                    ProcessSensorReadingEvent(Deserialize<SRE.Jetstream>(message));
-                                    break;
-                                }
-                            case "aws notification - subscription confirmation":
-                                {
-                                    ProcessSNSControlMessage(message);
+                                    SRE.Jetstream message = (SRE.Jetstream)m;
+                                    ProcessSensorReadingEvent(message);
                                     break;
                                 }
                             default:
                                 {
-                                    ProcessUnknownMessage(message);
+                                    ProcessUnknownMessage(m.ToString());
                                     break;
                                 }
 
@@ -655,7 +516,7 @@ namespace TersoSolutions.Jetstream.SDK.Application.SQS
                     }
                     catch (Exception ex)
                     {
-                        EventLog.WriteEntry("JetstreamSDK", 
+                        EventLog.WriteEntry("JetstreamSDK",
                             ex.Message + "\n" + ex.StackTrace);
                     }
                 }
@@ -666,7 +527,7 @@ namespace TersoSolutions.Jetstream.SDK.Application.SQS
         /// Method for processing a new <paramref name="aggregateEvent"/>
         /// </summary>
         /// <param name="aggregateEvent">
-        /// Deserialized AggregateEvent message in the xsd.exe object model
+        /// Deserialized AggregateEvent message in the xsd.exe object model.
         /// </param>
         protected virtual void ProcessAggregateEvent(AE.Jetstream aggregateEvent) { }
 
@@ -674,7 +535,7 @@ namespace TersoSolutions.Jetstream.SDK.Application.SQS
         /// Method for processing a new <paramref name="commandCompletionEvent"/>
         /// </summary>
         /// <param name="commandCompletionEvent">
-        /// Deserialized CommandCompletionEvent message in the xsd.exe object model
+        /// Deserialized CommandCompletionEvent message in the xsd.exe object model.
         /// </param>
         protected virtual void ProcessCommandCompletionEvent(CCE.Jetstream commandCompletionEvent) { }
 
@@ -682,7 +543,7 @@ namespace TersoSolutions.Jetstream.SDK.Application.SQS
         /// Method for processing a new <paramref name="commandQueuedEvent"/>
         /// </summary>
         /// <param name="commandQueuedEvent">
-        /// Deserialized CommandQueuedEvent message in the xsd.exe object model
+        /// Deserialized CommandQueuedEvent message in the xsd.exe object model.
         /// </param>
         protected virtual void ProcessCommandQueuedEvent(CQE.Jetstream commandQueuedEvent) { }
 
@@ -690,7 +551,7 @@ namespace TersoSolutions.Jetstream.SDK.Application.SQS
         /// Method for processing a new <paramref name="deviceFailureEvent"/>
         /// </summary>
         /// <param name="deviceFailureEvent">
-        /// Deserialized DeviceFailureEvent message in the xsd.exe object model
+        /// Deserialized DeviceFailureEvent message in the xsd.exe object model.
         /// </param>
         protected virtual void ProcessDeviceFailureEvent(DFE.Jetstream deviceFailureEvent) { }
 
@@ -698,7 +559,7 @@ namespace TersoSolutions.Jetstream.SDK.Application.SQS
         /// Method for processing a new <paramref name="deviceRestoreEvent"/>
         /// </summary>
         /// <param name="deviceRestoreEvent">
-        /// Deserialized DeviceRestoreEvent message in the xsd.exe object model
+        /// Deserialized DeviceRestoreEvent message in the xsd.exe object model.
         /// </param>
         protected virtual void ProcessDeviceRestoreEvent(DRE.Jetstream deviceRestoreEvent) { }
 
@@ -706,7 +567,7 @@ namespace TersoSolutions.Jetstream.SDK.Application.SQS
         /// Method for processing a new <paramref name="heartbeatEvent"/>
         /// </summary>
         /// <param name="heartbeatEvent">
-        /// Deserialized HeartbeatEvent message in the xsd.exe object model
+        /// Deserialized HeartbeatEvent message in the xsd.exe object model.
         /// </param>
         protected virtual void ProcessHeartbeatEvent(HE.Jetstream heartbeatEvent) { }
 
@@ -714,7 +575,7 @@ namespace TersoSolutions.Jetstream.SDK.Application.SQS
         /// Method for processing a new <paramref name="logEnteryEvent"/>
         /// </summary>
         /// <param name="logEntryEvent">
-        /// Deserialized LogEntryEvent message in the xsd.exe object model
+        /// Deserialized LogEntryEvent message in the xsd.exe object model.
         /// </param>
         protected virtual void ProcessLogEntryEvent(LEE.Jetstream logEntryEvent) { }
 
@@ -722,7 +583,7 @@ namespace TersoSolutions.Jetstream.SDK.Application.SQS
         /// Method for processing a new <paramref name="logicalDeviceAddedEvent"/>
         /// </summary>
         /// <param name="logicalDeviceAddedEvent">
-        /// Deserialized LogicalDeviceAddedEvent in the xsd.exe object model
+        /// Deserialized LogicalDeviceAddedEvent in the xsd.exe object model.
         /// </param>
         protected virtual void ProcessLogicalDeviceAddedEvent(LDAE.Jetstream logicalDeviceAddedEvent) { }
 
@@ -730,7 +591,7 @@ namespace TersoSolutions.Jetstream.SDK.Application.SQS
         /// Method for processing a new <paramref name="logicalDeviceRemovedEvent"/>
         /// </summary>
         /// <param name="logicalDeviceRemovedEvent">
-        /// Deserialized LogicalDeviceRemovedEvent in the xsd.exe object model
+        /// Deserialized LogicalDeviceRemovedEvent in the xsd.exe object model.
         /// </param>
         protected virtual void ProcessLogicalDeviceRemovedEvent(LDRE.Jetstream logicalDeviceRemovedEvent) { }
 
@@ -738,7 +599,7 @@ namespace TersoSolutions.Jetstream.SDK.Application.SQS
         /// Method for processing a new <paramref name="objectEvent"/>
         /// </summary>
         /// <param name="objectEvent">
-        /// Deserialized ObjectEvent in the xsd.exe object model
+        /// Deserialized ObjectEvent in the xsd.exe object model.
         /// </param>
         protected virtual void ProcessObjectEvent(OE.Jetstream objectEvent) { }
 
@@ -746,17 +607,17 @@ namespace TersoSolutions.Jetstream.SDK.Application.SQS
         /// Method for processing a new <paramref name="sensorReadingEvent"/>
         /// </summary>
         /// <param name="sensorReadingEvent">
-        /// Deserialized SensorReadingEvent in the xsd.exe object model
+        /// Deserialized SensorReadingEvent in the xsd.exe object model.
         /// </param>
         protected virtual void ProcessSensorReadingEvent(SRE.Jetstream sensorReadingEvent) { }
 
         /// <summary>
-        /// Method for processing SNS control messages. IE: SubscriptionConfirmation
+        /// Method for processing SNS control messages. IE: SubscriptionConfirmation.
         /// </summary>
         /// <param name="message">
         /// 
         /// </param>
-        protected virtual void ProcessSNSControlMessage(String message) {}
+        protected virtual void ProcessSNSControlMessage(String message) { }
 
         /// <summary>
         /// Method for processing unknown messages.
@@ -767,12 +628,12 @@ namespace TersoSolutions.Jetstream.SDK.Application.SQS
         protected virtual void ProcessUnknownMessage(String message) { }
 
         /// <summary>
-        /// Deserializes a Jetstream message from a string into a xsd.exe message object graph
+        /// Deserializes a Jetstream message from a string into a xsd.exe message object graph.
         /// </summary>
         /// <typeparam name="T">The type of message</typeparam>
         /// <param name="message">The string xml version of the message</param>
         /// <returns>the <paramref name="message"/> deserialized into <paramref name="T"/></returns>
-        private static T Deserialize<T>(String message) where T: new()
+        private static T Deserialize<T>(String message) where T : new()
         {
             StringReader reader = new StringReader(message);
             XmlSerializer serializer = new XmlSerializer(typeof(T));
@@ -780,7 +641,7 @@ namespace TersoSolutions.Jetstream.SDK.Application.SQS
         }
 
         /// <summary>
-        /// Unzips a byte array with the gzip algorithm
+        /// Unzips a byte array with the gzip algorithm.
         /// </summary>
         /// <param name="data">zipped byte array</param>
         /// <returns>
@@ -809,7 +670,7 @@ namespace TersoSolutions.Jetstream.SDK.Application.SQS
         }
 
         /// <summary>
-        /// Method for converting a .net DateTime struct to its equivilent epoch time
+        /// Method for converting a .net DateTime struct to its equivilent epoch time.
         /// </summary>
         /// <param name="dt">The .net DateTime to convert</param>
         /// <returns>

@@ -18,15 +18,17 @@ using System.Collections.Generic;
 using System.Text;
 using System.Web;
 
-namespace TersoSolutions.Jetstream.Application.Model
+namespace TersoSolutions.Jetstream.SDK.Application.Model
 {
     /// <summary>
-    /// Request object for SetConfigValuesCommand
+    /// SetConfigValuesCommand instructs the device to set its configuration parameters to user provided values. 
+    /// Request object for the version 1.0 SetConfigValues REST endpoint.
+    /// 
     /// </summary>
-    /// <remarks>Author Mike Lohmeier</remarks>
+    /// <remarks></remarks>
     public class SetConfigValuesCommandRequest : JetstreamRequest
     {
-        private const String c_setConfigValuesCommand = "v1.0/application/?action=setconfigvaluescommand&accesskey={0}&logicaldeviceid={1}{2}";
+        private const String c_setConfigValuesCommand = "v1.2/application/?action=setconfigvaluescommand&accesskey={0}&logicaldeviceid={1}{2}";
        
         /// <summary>
         /// Default ctor

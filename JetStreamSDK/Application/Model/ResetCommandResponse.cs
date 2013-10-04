@@ -14,14 +14,15 @@
    limitations under the License.
  */
 using System;
-using CR = TersoSolutions.Jetstream.Application.Model.Deserialized.CommandResponse;
+using CR = TersoSolutions.Jetstream.SDK.Application.Model.Deserialized.CommandResponse;
 
-namespace TersoSolutions.Jetstream.Application.Model
+namespace TersoSolutions.Jetstream.SDK.Application.Model
 {
     /// <summary>
-    /// Response object for the Jetstream version 1.0 ResetCommand endpoint
+    /// ResetCommand instructs the device to power cycle. 
+    /// This is the response object for the version 1.0 ResetCommand REST endpoint.
     /// </summary>
-    /// <remarks>Author Mike Lohmeier</remarks>
+    /// <remarks></remarks>
     public class ResetCommandResponse : JetstreamResponse
     {
         private CR.Jetstream _deserializedResponse = null;

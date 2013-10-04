@@ -3,9 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace TersoSolutions.Jetstream.SDK.Application.SQS
+namespace TersoSolutions.Jetstream.SDK.Application.Events
 {
-    public class AmazonSNSMessage
+    /// <summary>
+    /// This class defines the properties of a JetStream
+    /// events message.
+    /// </summary>
+    /// <remarks>Author Mark Neustadt</remarks>
+    public class EventsMessage
     {
         public String Type { get; set; }
         public String Notification { get; set; }

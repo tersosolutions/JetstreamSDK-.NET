@@ -1,14 +1,20 @@
-Microsoft .NET 4.0 SDK for Jetstream. The SDK allows has functionality for making application API calls, simulating device calls and receiving Amazon SNS messages via SQS.
+<p align="left" bgcolor="grey">
+<img src="http://www.tersosolutions.com/wp-content/uploads/2011/11/TERSOvect_GreenBlobWhiteText.png" alt="Terso Solutions, Inc.">
+</p>
 
-To Build
+## Jetstream SDK 
+###Microsoft .NET Framework 4.0
+The SDK allows has functionality for making application API calls, simulating device calls and receiving messages via Amazon SQS or the local Jetstream Ground messaging service.
+
+###Build
 1. Open JetstreamSDK solution in Visual Studio 2010 or later
 2. Build
 3. Enjoy
 
-To use the application or device API in a project
-1. Add a reference to the JetstreamSDK.dll
+###Use the application or device API in a project
+Add a reference to the JetstreamSDK.dll
 
-TersoSolutions.Application.SQS.JetstreamSQSService Setup
+###TersoSolutions.Application.SQS.JetstreamSQSService Setup
 1. Create new x86 Windows Service Project
 2. Add references to JetstreamSDK, AWSSDK and NewtonSoft
 3. Change from 4.0 client framework to 4.0 framework
@@ -21,6 +27,3 @@ TersoSolutions.Application.SQS.JetstreamSQSService Setup
 9. Use Regedit.exe to set HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Eventlog\Application\JetstreamSDK\EventMessageFile to C:\Windows\Microsoft.NET\Framework\v4.0.30319\EventLogMessages.dll
 10.Use regedit.exe to delete HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Eventlog\Application\JetstreamSDK\CustomSource
 11. Use regedit.exe to delete HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Eventlog\Application\JetstreamSDK\TypesSupported
-
-
-

@@ -16,15 +16,16 @@
 using System;
 using System.Web;
 
-namespace TersoSolutions.Jetstream.Application.Model
+namespace TersoSolutions.Jetstream.SDK.Application.Model
 {
     /// <summary>
-    /// ResetCommand request object
+    /// ResetCommand instructs the device to power cycle. 
+    /// Request object for the version 1.0 ResetCommand REST endpoint.
     /// </summary>
-    /// <remarks>Author Mike Lohmeier</remarks>
+    /// <remarks></remarks>
     public class ResetCommandRequest : JetstreamRequest
     {
-        private const String c_resetCommand = "v1.0/application/?action=resetcommand&accesskey={0}&logicaldeviceid={1}";
+        private const String c_resetCommand = "v1.2/application/?action=resetcommand&accesskey={0}&logicaldeviceid={1}";
         
         /// <summary>
         /// The LogicalDeviceId to schedule a reset command for

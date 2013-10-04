@@ -20,7 +20,7 @@ using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
 
-namespace TersoSolutions.Jetstream.Device
+namespace TersoSolutions.Jetstream.SDK.Device
 {
     /// <summary>
     /// Exception class used to return any non HTTP 200 responses from Jetstream

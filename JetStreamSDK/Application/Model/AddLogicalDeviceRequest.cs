@@ -16,15 +16,21 @@
 using System;
 using System.Web;
 
-namespace TersoSolutions.Jetstream.Application.Model
+namespace TersoSolutions.Jetstream.SDK.Application.Model
 {
     /// <summary>
-    /// Request object for the Jetstream AddLogicalDevice method
+    /// AddLogicalDevice adds a device to Jetstream® making it ready 
+    /// for your commands and pushing events. AddLogicalDevice also 
+    /// insulates your application from hardware maintenance and 
+    /// replacements by mapping the device's serial number to your 
+    /// application identifier. 
+    /// 
+    /// Request object for the version 1.0 AddLogicalDevice ReST endpoint.
     /// </summary>
-    /// <remarks>Author Mike Lohmeier</remarks>
+    /// <remarks></remarks>
     public class AddLogicalDeviceRequest : JetstreamRequest
     {
-        private const String c_addLogicalDevice = "v1.0/application/?action=addlogicaldevice&accesskey={0}&deviceserialnumber={1}&logicaldeviceid={2}&devicedefinitionid={3}&region={4}";
+        private const String c_addLogicalDevice = "v1.2/application/?action=addlogicaldevice&accesskey={0}&deviceserialnumber={1}&logicaldeviceid={2}&devicedefinitionid={3}&region={4}";
        
         /// <summary>
         /// The physical device serial number.

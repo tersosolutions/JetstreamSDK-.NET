@@ -15,14 +15,16 @@
  */
 using System;
 using System.Collections.Generic;
-using CR = TersoSolutions.Jetstream.Application.Model.Deserialized.GetConfigurationResponse;
+using CR = TersoSolutions.Jetstream.SDK.Application.Model.Deserialized.GetConfigurationResponse;
 
-namespace TersoSolutions.Jetstream.Application.Model
+namespace TersoSolutions.Jetstream.SDK.Application.Model
 {
     /// <summary>
-    /// Response object for the Jetstream version 1.1 GetConfiguration endpoint
+    /// GetConfiguration returns the current Jetstream® configuration for your application. 
+    /// 
+    /// Response object for the Jetstream version 1.1 GetConfiguration endpoint.
     /// </summary>
-    /// <remarks>Author Mike Lohmeier</remarks>
+    /// <remarks></remarks>
     public class GetConfigurationResponse : JetstreamResponse
     {
         private CR.Jetstream _deserializedResponse = null;

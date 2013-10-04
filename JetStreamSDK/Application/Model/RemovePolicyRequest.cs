@@ -15,15 +15,17 @@
  */
 using System;
 
-namespace TersoSolutions.Jetstream.Application.Model
+namespace TersoSolutions.Jetstream.SDK.Application.Model
 {
     /// <summary>
+    /// RemovePolicy removes a policy from your application. 
+    ///
     /// Request object for the version 1.1 RemovePolicy ReST endpoint
     /// </summary>
-    /// <remarks>Author Mike Lohmeier</remarks>
+    /// <remarks></remarks>
     public class RemovePolicyRequest : JetstreamRequest
     {
-        private const String c_removepolicy = "v1.1/application/?action=removepolicy&accesskey={0}&policyid={1}";
+        private const String c_removepolicy = "v1.2/application/?action=removepolicy&accesskey={0}&policyid={1}";
 
         /// <summary>
         /// The unique identifier for the policy

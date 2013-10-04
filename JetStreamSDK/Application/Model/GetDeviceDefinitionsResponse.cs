@@ -16,14 +16,19 @@
 using System;
 using System.Collections.Generic;
 
-using DD = TersoSolutions.Jetstream.Application.Model.Deserialized.GetDeviceDefinitionsResponse;
+using DD = TersoSolutions.Jetstream.SDK.Application.Model.Deserialized.GetDeviceDefinitionsResponse;
 
-namespace TersoSolutions.Jetstream.Application.Model
+namespace TersoSolutions.Jetstream.SDK.Application.Model
 {
     /// <summary>
-    /// Response object for the Jetstream version 1.0 GetDeviceDefinitionsResponse endpoint
+    /// GetDeviceDefinitions returns all of the available device configurations 
+    /// that Jetstream® supports. A device definition is a unique definition 
+    /// for a specific device manufacturer, name of the device and 
+    /// its firmware version. 
+    ///
+    /// Response object for Jetstream GetDeviceDefinitions.
     /// </summary>
-    /// <remarks>Author Mike Lohmeier</remarks>
+    /// <remarks></remarks>
     public class GetDeviceDefinitionsResponse : JetstreamResponse
     {
         private DD.Jetstream _deserializedResponse = null;

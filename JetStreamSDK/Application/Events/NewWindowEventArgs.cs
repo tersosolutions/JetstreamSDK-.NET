@@ -17,21 +17,21 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Amazon.SQS.Model;
+using TersoSolutions.Jetstream.SDK.Application.Messages;
 
-namespace TersoSolutions.Jetstream.SDK.Application.SQS
+namespace TersoSolutions.Jetstream.SDK.Application.Events
 {
     /// <summary>
-    /// Custom EventArgs class for the NewWindow event
+    /// Custom EventArgs class for the NewWindow event.
     /// </summary>
-    /// <remarks></remarks>
+    /// <remarks>Author Mark Neustadt</remarks>
     public class NewWindowEventArgs : EventArgs
     {
         /// <summary>
-        /// Constructor for the custom EventArgs
+        /// Constructor for the custom EventArgs.
         /// </summary>
         /// <param name="messages"></param>
-        internal NewWindowEventArgs(IEnumerable<Message> messages)
+        internal NewWindowEventArgs(IEnumerable<JetstreamEvent> messages)
             : base()
         {
             if (messages == null) throw new ArgumentNullException("messages");
@@ -40,8 +40,8 @@ namespace TersoSolutions.Jetstream.SDK.Application.SQS
         }
 
         /// <summary>
-        /// Ordered window of SQS messages received
+        /// Ordered window of messages received.
         /// </summary>
-        public IEnumerable<Message> Messages { get; private set; }
+        public IEnumerable<JetstreamEvent> Messages { get; private set; }
     }
 }

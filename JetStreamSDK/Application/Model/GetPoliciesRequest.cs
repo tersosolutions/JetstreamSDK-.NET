@@ -15,15 +15,17 @@
  */
 using System;
 
-namespace TersoSolutions.Jetstream.Application.Model
+namespace TersoSolutions.Jetstream.SDK.Application.Model
 {
     /// <summary>
-    /// Request object for the Jetstream version 1.1 GetPolicies
+    /// GetPolicies returns all policies you have added to your application. 
+    /// 
+    /// Request object for the Jetstream version 1.1 GetPolicies.
     /// </summary>
-    /// <remarks>Author Mike Lohmeier</remarks>
+    /// <remarks></remarks>
     public class GetPoliciesRequest : JetstreamRequest
     {
-        private const String c_getpolicies = "v1.1/application/?action=getpolicies&accesskey={0}";
+        private const String c_getpolicies = "v1.2/application/?action=getpolicies&accesskey={0}";
         
         internal override string BuildUri(string baseUri, string accesskey)
         {

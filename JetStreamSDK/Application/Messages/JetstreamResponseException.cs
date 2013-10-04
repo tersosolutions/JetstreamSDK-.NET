@@ -15,12 +15,11 @@
  */
 using System;
 
-namespace TersoSolutions.Jetstream.Application
+namespace TersoSolutions.Jetstream.SDK.Application
 {
     /// <summary>
     /// Custom exception class for non HTTP 200 responses from Jetstream 
     /// </summary>
-    /// <remarks>Author Mike Lohmeier</remarks>
     public class JetstreamResponseException : Exception
     {
         internal JetstreamResponseException(int statusCode, String StatusCodeDescription, String request, String response)

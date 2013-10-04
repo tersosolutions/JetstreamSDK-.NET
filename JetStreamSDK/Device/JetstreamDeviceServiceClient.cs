@@ -19,15 +19,15 @@ using System.Linq;
 using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
-using AE = TersoSolutions.Jetstream.Device.AggregateEvent;
-using CCE = TersoSolutions.Jetstream.Device.CommandCompletionEvent;
-using CR = TersoSolutions.Jetstream.Device.GetCommandsResponse;
-using HE = TersoSolutions.Jetstream.Device.HeartbeatEvent;
-using LE = TersoSolutions.Jetstream.Device.LogEntryEvent;
-using OE = TersoSolutions.Jetstream.Device.ObjectEvent;
-using SE = TersoSolutions.Jetstream.Device.SensorReadingEvent;
+using AE = TersoSolutions.Jetstream.SDK.Device.AggregateEvent;
+using CCE = TersoSolutions.Jetstream.SDK.Device.CommandCompletionEvent;
+using CR = TersoSolutions.Jetstream.SDK.Device.GetCommandsResponse;
+using HE = TersoSolutions.Jetstream.SDK.Device.HeartbeatEvent;
+using LE = TersoSolutions.Jetstream.SDK.Device.LogEntryEvent;
+using OE = TersoSolutions.Jetstream.SDK.Device.ObjectEvent;
+using SE = TersoSolutions.Jetstream.SDK.Device.SensorReadingEvent;
 
-namespace TersoSolutions.Jetstream.Device
+namespace TersoSolutions.Jetstream.SDK.Device
 {
     /// <summary>
     /// Jetstream device service client is a proxy to the Jetstream DeviceWebServer
