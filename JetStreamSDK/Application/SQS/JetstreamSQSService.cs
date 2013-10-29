@@ -38,7 +38,7 @@ using HE = TersoSolutions.Jetstream.SDK.Application.Messages.HeartbeatEvent;
 using LDAE = TersoSolutions.Jetstream.SDK.Application.Messages.LogicalDeviceAddedEvent;
 using LDRE = TersoSolutions.Jetstream.SDK.Application.Messages.LogicalDeviceRemovedEvent;
 using LEE = TersoSolutions.Jetstream.SDK.Application.Messages.LogEntryEvent;
-using OE = TersoSolutions.Jetstream.SDK.Application.Model.ObjectEvent;
+using OE = TersoSolutions.Jetstream.SDK.Application.Messages.ObjectEvent;
 using SRE = TersoSolutions.Jetstream.SDK.Application.Messages.SensorReadingEvent;
 
 namespace TersoSolutions.Jetstream.SDK.Application.SQS

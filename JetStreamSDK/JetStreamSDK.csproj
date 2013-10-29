@@ -127,7 +127,7 @@
     <Compile Include="Application\SQS\MessageEqualityComparer.cs" />
     <Compile Include="Application\SQS\MessageSentTimeStampComparer.cs" />
     <Compile Include="Application\SQS\NewWindowEventArgs.cs" />
-    <Compile Include="Application\Model\ObjectEvent.cs" />
+    <Compile Include="Application\Messages\ObjectEvent.cs" />
     <Compile Include="Application\Messages\SensorReadingEvent.cs" />
     <Compile Include="Device\AggregateEvent.cs" />
     <Compile Include="Device\CommandCompletionEvent.cs" />
