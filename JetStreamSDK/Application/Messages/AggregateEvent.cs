@@ -29,12 +29,8 @@ namespace TersoSolutions.Jetstream.SDK.Application.Messages.AggregateEvent {
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://Jetstream.TersoSolutions.com/v1.0/AggregateEvent")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace="http://Jetstream.TersoSolutions.com/v1.0/AggregateEvent", IsNullable=false)]
-<<<<<<< HEAD:JetStreamSDK/Application/SQS/AggregateEvent.cs
-    public partial class Jetstream {
-=======
     public partial class Jetstream : TersoSolutions.Jetstream.SDK.Application.Messages.JetstreamEvent
     {
->>>>>>> Development:JetStreamSDK/Application/Messages/AggregateEvent.cs
         
         private JetstreamHeader headerField;
         

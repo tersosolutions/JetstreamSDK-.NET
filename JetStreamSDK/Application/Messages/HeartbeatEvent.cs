@@ -28,12 +28,8 @@ namespace TersoSolutions.Jetstream.SDK.Application.Messages.HeartbeatEvent {
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://Jetstream.TersoSolutions.com/v1.0/HeartbeatEvent")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace="http://Jetstream.TersoSolutions.com/v1.0/HeartbeatEvent", IsNullable=false)]
-<<<<<<< HEAD:JetStreamSDK/Application/SQS/HeartbeatEvent.cs
-    public partial class Jetstream {
-=======
     public partial class Jetstream : TersoSolutions.Jetstream.SDK.Application.Messages.JetstreamEvent
     {
->>>>>>> Development:JetStreamSDK/Application/Messages/HeartbeatEvent.cs
         
         private JetstreamHeader headerField;
         

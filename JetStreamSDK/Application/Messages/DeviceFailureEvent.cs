@@ -27,12 +27,8 @@ namespace TersoSolutions.Jetstream.SDK.Application.Messages.DeviceFailureEvent {
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://Jetstream.TersoSolutions.com/v1.0/DeviceFailureEvent")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace="http://Jetstream.TersoSolutions.com/v1.0/DeviceFailureEvent", IsNullable=false)]
-<<<<<<< HEAD:JetStreamSDK/Application/SQS/DeviceFailureEvent.cs
-    public partial class Jetstream {
-=======
     public partial class Jetstream : TersoSolutions.Jetstream.SDK.Application.Messages.JetstreamEvent
     {
->>>>>>> Development:JetStreamSDK/Application/Messages/DeviceFailureEvent.cs
         
         private JetstreamHeader headerField;
         

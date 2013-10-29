@@ -24,12 +24,8 @@ namespace TersoSolutions.Jetstream.SDK.Application.Messages.LogEntryEvent
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://Jetstream.TersoSolutions.com/v1.0/LogEntryEvent")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace="http://Jetstream.TersoSolutions.com/v1.0/LogEntryEvent", IsNullable=false)]
-<<<<<<< HEAD:JetStreamSDK/Application/SQS/LogEntryEvent.cs
-    public partial class Jetstream {
-=======
     public partial class Jetstream : TersoSolutions.Jetstream.SDK.Application.Messages.JetstreamEvent
     {
->>>>>>> Development:JetStreamSDK/Application/Messages/LogEntryEvent.cs
         
         private JetstreamHeader headerField;
         

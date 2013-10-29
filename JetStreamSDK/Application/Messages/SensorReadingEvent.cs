@@ -26,12 +26,8 @@ namespace TersoSolutions.Jetstream.SDK.Application.Messages.SensorReadingEvent
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://Jetstream.TersoSolutions.com/v1.0/SensorReadingEvent")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace="http://Jetstream.TersoSolutions.com/v1.0/SensorReadingEvent", IsNullable=false)]
-<<<<<<< HEAD:JetStreamSDK/Application/SQS/SensorReadingEvent.cs
-    public partial class Jetstream {
-=======
     public partial class Jetstream : TersoSolutions.Jetstream.SDK.Application.Messages.JetstreamEvent
     {
->>>>>>> Development:JetStreamSDK/Application/Messages/SensorReadingEvent.cs
         
         private JetstreamHeader headerField;
         

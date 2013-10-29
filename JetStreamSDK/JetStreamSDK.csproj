@@ -60,7 +60,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Application\JetstreamResponseException.cs" />
     <Compile Include="Application\Events\JetstreamEventEqualityComparer.cs" />
     <Compile Include="Application\Events\JetstreamEventTimeStampComparer.cs" />
     <Compile Include="Application\Events\EventsMessage.cs" />
@@ -90,6 +89,9 @@
     <Compile Include="Application\Model\GetEPCListCommandRequest.cs" />
     <Compile Include="Application\Model\DeviceSpecificCommands\TS\LockdownRequest.cs" />
     <Compile Include="Application\Model\GetEPCListCommandResponse.cs" />
+    <Compile Include="Application\Model\GetEventsRequest.cs" />
+    <Compile Include="Application\Model\GetEventsResponse.cs" />
+    <Compile Include="Application\Model\GetEventsResponse\GetEventsResponse.cs" />
     <Compile Include="Application\Model\GetPoliciesRequest.cs" />
     <Compile Include="Application\Model\GetPoliciesResponse.cs" />
     <Compile Include="Application\Model\GetPoliciesResponse\GetPoliciesResponse.cs" />
@@ -97,6 +99,8 @@
     <Compile Include="Application\Model\JetstreamResponse.cs" />
     <Compile Include="Application\Model\RemoveDeviceFromPolicyRequest.cs" />
     <Compile Include="Application\Model\RemoveDeviceFromPolicyResponse.cs" />
+    <Compile Include="Application\Model\RemoveEventsRequest.cs" />
+    <Compile Include="Application\Model\RemoveEventsResponse.cs" />
     <Compile Include="Application\Model\RemoveLogicalDeviceResponse.cs" />
     <Compile Include="Application\Model\RemovePolicyRequest.cs" />
     <Compile Include="Application\Model\RemovePolicyResponse.cs" />
@@ -110,15 +114,6 @@
     <Compile Include="Application\Model\Regions.cs" />
     <Compile Include="Application\Model\JetStreamServiceClient.cs" />
     <Compile Include="Application\Model\UpdateFirmwareCommandResponse.cs" />
-    <Compile Include="Application\SQS\AggregateEvent.cs" />
-    <Compile Include="Application\SQS\CommandCompletionEvent.cs" />
-    <Compile Include="Application\SQS\CommandQueuedEvent.cs" />
-    <Compile Include="Application\SQS\DeviceFailureEvent.cs" />
-    <Compile Include="Application\SQS\DeviceRestoreEvent.cs" />
-    <Compile Include="Application\SQS\HeartbeatEvent.cs" />
-    <Compile Include="Application\SQS\LogEntryEvent.cs" />
-    <Compile Include="Application\SQS\LogicalDeviceAddedEvent.cs" />
-    <Compile Include="Application\SQS\LogicalDeviceRemovedEvent.cs" />
     <Compile Include="Application\Messages\AggregateEvent.cs" />
     <Compile Include="Application\Messages\CommandCompletionEvent.cs" />
     <Compile Include="Application\Messages\CommandQueuedEvent.cs" />
