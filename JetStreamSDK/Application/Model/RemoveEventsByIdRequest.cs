@@ -23,17 +23,23 @@ namespace TersoSolutions.Jetstream.SDK.Application.Model
     /// 
     /// Request object for Jetstream version 1.2 RemoveEvents endpoint.
     /// </summary>
-    public class RemoveEventsRequest : JetstreamRequest
+    public class RemoveEventsByIdRequest : JetstreamRequest
     {
-        private const String c_removeeventscommand = "v1.2/application/?action=removeevents&accesskey={0}&batchid={1}";
+        private const String c_removeeventscommand = "v1.2/application/?action=removeeventsbyid&accesskey={0}&eventids={1}";
 
-        public string BatchId { get; set; }
+        /// <summary>
+        /// An array of event ids to remove
+        /// </summary>
+        public string[] EventIds { get; set; }
 
         internal override string BuildUri(string baseUri, string accesskey)
         {
+            // convert the array of event ids to an underscore delimited string
+            string idString = String.Join("_",this.EventIds);
+
             // build the uri
-            return String.Concat(baseUri, String.Format(c_removeeventscommand, 
-                accesskey, HttpUtility.UrlEncode(this.BatchId)));
+            return String.Concat(baseUri, String.Format(c_removeeventscommand,
+                accesskey, HttpUtility.UrlEncode(idString)));
         }
     }
 }
