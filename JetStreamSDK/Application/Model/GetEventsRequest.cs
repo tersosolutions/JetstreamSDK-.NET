@@ -19,7 +19,6 @@ using System.Web;
 
 namespace TersoSolutions.Jetstream.SDK.Application.Model
 {
-
     /// <summary>
     /// GetEvents returns but does not dequeue the oldest pending event messages 
     /// for the Jetstream user. No more than 100 messages will be returned 
@@ -30,42 +29,12 @@ namespace TersoSolutions.Jetstream.SDK.Application.Model
     /// <remarks>Author Mark Bailey</remarks>
     public class GetEventsRequest : JetstreamRequest
     {
+        private const String c_getevents = "v1.2/application/?action=getevents&accesskey={0}";
 
-        private const String c_getevents = "v1.2/application/?action=getevents&accesskey={0}&limit={1}";
-        private int _limit = 100;
-
-        /// <summary>
-        /// The number of messages to be returned
-        /// </summary>
-        public int Limit
-        {
-            get
-            {
-                // if limit is less than 1 or greater than 512, set it to 100;
-                if (_limit < 1 || _limit > 512) _limit = 100;
-                return _limit;
-            }
-            set
-            {
-                if (_limit < 1 || _limit > 512) throw new ArgumentOutOfRangeException("Limit must be greater or equal to one and less than or equal to 512.");
-                _limit = value;
-            }
-        }
-
-        /// <summary>
-        /// Builds the GetEvents request url
-        /// </summary>
-        /// <param name="baseUri"></param>
-        /// <param name="accesskey"></param>
-        /// <returns></returns>
         internal override string BuildUri(string baseUri, string accesskey)
         {
-            if (String.IsNullOrEmpty(baseUri)) throw new ArgumentNullException("baseUrl");
-            if (String.IsNullOrEmpty(accesskey)) throw new ArgumentNullException("accesskey");
-
             // build the uri
-            return String.Concat(baseUri, String.Format(c_getevents,
-                new Object[] { accesskey, HttpUtility.UrlEncode(this.Limit.ToString()) }));
+            return String.Concat(baseUri, String.Format(c_getevents, accesskey));
         }
 
     }

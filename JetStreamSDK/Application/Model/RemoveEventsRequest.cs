@@ -37,3 +37,24 @@ namespace TersoSolutions.Jetstream.SDK.Application.Model
         }
     }
 }
+
+///// <summary>
+///// ResetCommand request object
+///// </summary>
+///// <remarks></remarks>
+//public class ResetCommandRequest : JetstreamRequest
+//{
+//    private const String c_resetCommand = "v1.2/application/?action=resetcommand&accesskey={0}&logicaldeviceid={1}";
+
+//    /// <summary>
+//    /// The LogicalDeviceId to schedule a reset command for
+//    /// </summary>
+//    public String LogicalDeviceId { get; set; }
+
+//    internal override string BuildUri(string baseUri, string accesskey)
+//    {
+//        // build the uri
+//        return String.Concat(baseUri, String.Format(c_resetCommand,
+//            accesskey, HttpUtility.UrlEncode(this.LogicalDeviceId)));
+//    }
+//}
