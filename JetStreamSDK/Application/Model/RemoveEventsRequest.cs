@@ -51,18 +51,21 @@ namespace TersoSolutions.Jetstream.SDK.Application.Model
             }
 
             // if the user has passed event ids, build that portion of the query string request
-            if (EventIds.Count() != 0)
+            if (EventIds != null)
             {
-                // URLEncode each event id
-                System.Collections.Generic.List<string> list = new System.Collections.Generic.List<string>();
-                foreach (var ev in EventIds)
+                if (EventIds.Count() != 0)
                 {
-                    list.Add(HttpUtility.UrlEncode(ev));
-                }
+                    // URLEncode each event id
+                    System.Collections.Generic.List<string> list = new System.Collections.Generic.List<string>();
+                    foreach (var ev in EventIds)
+                    {
+                        list.Add(HttpUtility.UrlEncode(ev));
+                    }
 
-                // Build the event ids string
-                string idString = String.Join("_", list.ToArray());
-                usingEvents = String.Format("&eventids={0}", idString);
+                    // Build the event ids string
+                    string idString = String.Join("_", list.ToArray());
+                    usingEvents = String.Format("&eventids={0}", idString);
+                }
             }
 
             // build the uri
