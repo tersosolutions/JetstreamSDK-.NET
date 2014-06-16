@@ -25,13 +25,13 @@ namespace TersoSolutions.Jetstream.SDK.Application.Model
     /// for the Jetstream user. No more than 100 messages will be returned 
     /// on any given GetEvents call.
     /// 
-    /// Request object for Jetstream version 1.2 GetEvents.
+    /// Request object for Jetstream version 1.3 GetEvents.
     /// </summary>
     /// <remarks>Author Mark Bailey</remarks>
     public class GetEventsRequest : JetstreamRequest
     {
 
-        private const String c_getevents = "v1.2/application/?action=getevents&accesskey={0}&limit={1}";
+        private const String c_getevents = "v1.3/application/?action=getevents&accesskey={0}&limit={1}";
         private int _limit = 100;
 
         /// <summary>
