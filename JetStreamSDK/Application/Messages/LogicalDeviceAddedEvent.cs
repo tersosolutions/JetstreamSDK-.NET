@@ -201,6 +201,6 @@ namespace TersoSolutions.Jetstream.SDK.Application.Messages.LogicalDeviceAddedEv
         EU,
         
         /// <remarks/>
-        ASIA,
+        AP,
     }
 }

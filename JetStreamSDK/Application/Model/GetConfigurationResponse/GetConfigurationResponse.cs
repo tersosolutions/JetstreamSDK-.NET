@@ -1069,6 +1069,6 @@ namespace TersoSolutions.Jetstream.SDK.Application.Model.Deserialized.GetConfigu
         US,
 
         /// <remarks/>
-        ASIA,
+        AP,
     }
 }

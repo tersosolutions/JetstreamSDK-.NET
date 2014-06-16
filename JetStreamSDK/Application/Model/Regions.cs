@@ -32,6 +32,6 @@ namespace TersoSolutions.Jetstream.SDK.Application.Model
         /// <summary>
         /// Indicates the device is in use in the Asia
         /// </summary>
-        ASIA = 0x2
+        AP = 0x2
     }
 }

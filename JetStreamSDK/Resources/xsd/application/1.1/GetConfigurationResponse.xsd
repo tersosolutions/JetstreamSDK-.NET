@@ -85,7 +85,7 @@
 														<xs:restriction base="xs:string">
 															<xs:enumeration value="EU"/>
 															<xs:enumeration value="US"/>
-															<xs:enumeration value="ASIA"/>
+															<xs:enumeration value="AP"/>
 														</xs:restriction>
 													</xs:simpleType>
 												</xs:attribute>
