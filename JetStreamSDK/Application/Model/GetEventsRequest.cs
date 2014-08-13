@@ -19,6 +19,7 @@ using System.Web;
 
 namespace TersoSolutions.Jetstream.SDK.Application.Model
 {
+
     /// <summary>
     /// GetEvents returns but does not dequeue the oldest pending event messages 
     /// for the Jetstream user. No more than 100 messages will be returned 

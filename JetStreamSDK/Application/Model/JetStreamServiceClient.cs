@@ -72,7 +72,7 @@ namespace TersoSolutions.Jetstream.SDK.Application
 
         /// <summary>
         /// Calls the Jetstream v1.0 AddLogicalDevice REST endpoint and adds a device to your application. 
-        /// https://jetstreamrfid.com/Docs/Application/1.0/AddLogicalDevice.aspx
+        /// https://www.jetstreamrfid.com/Documentation/AddLogicalDevice
         /// </summary>
         /// <param name="request">Object that represents the HTTP Jetstream request</param>
         /// <returns>Object that represents the HTTP Jetstream response</returns>
@@ -87,7 +87,7 @@ namespace TersoSolutions.Jetstream.SDK.Application
 
         /// <summary>
         /// Calls the Jetstream v1.1 GetConfiguration REST endpoint
-        /// https://jetstreamrfid.com/Docs/Application/1.1/GetConfiguration.aspx
+        /// https://www.jetstreamrfid.com/Documentation/GetConfiguration
         /// </summary>
         /// <param name="request">Object that represents the HTTP Jetstream request</param>
         /// <returns>Object that represents the HTTP Jetstream response</returns>
@@ -101,7 +101,7 @@ namespace TersoSolutions.Jetstream.SDK.Application
 
         /// <summary>
         /// Calls the Jetstream v1.0 GetDeviceDefinitions REST endpoint
-        /// https://jetstreamrfid.com/Docs/Application/1.0/GetDeviceDefinitions.aspx
+        /// https://www.jetstreamrfid.com/Documentation/GetDeviceDefinitions
         /// </summary>
         /// <param name="request">Object that represents the HTTP Jetstream request</param>
         /// <returns>Object that represents the HTTP Jetstream response</returns>
@@ -115,7 +115,7 @@ namespace TersoSolutions.Jetstream.SDK.Application
 
         /// <summary>
         /// Calls the Jetstream v1.0 RemoveLogicalDevice REST endpoint and removes a device from your application.
-        /// https://jetstreamrfid.com/Docs/Application/1.0/RemoveLogicalDevice.aspx
+        /// https://www.jetstreamrfid.com/Documentation/RemoveLogicalDevice
         /// </summary>
         /// <param name="request">Object that represents the HTTP Jetstream request</param>
         /// <returns>Object that represents the HTTP Jetstream response</returns>
@@ -129,7 +129,7 @@ namespace TersoSolutions.Jetstream.SDK.Application
 
         /// <summary>
         /// Calls the Jetstream v1.0 GetEPCListCommand REST endpoint to queue a command
-        /// https://jetstreamrfid.com/Docs/Application/1.0/GetEPCListCommand.aspx
+        /// https://www.jetstreamrfid.com/Documentation/GetEPCListCommand
         /// </summary>
         /// <param name="request">Object that represents the HTTP Jetstream request</param>
         /// <returns>Object that represents the HTTP Jetstream response</returns>
@@ -143,7 +143,7 @@ namespace TersoSolutions.Jetstream.SDK.Application
 
         /// <summary>
         /// Calls the Jetstream v1.0 DeviceSpecificCommand REST endpoint to queue a command specific to an individual device type
-        /// https://jetstreamrfid.com/Docs/Application/1.0/DeviceSpecificCommand.aspx
+        /// https://www.jetstreamrfid.com/Documentation/DeviceSpecificCommand
         /// </summary>
         /// <param name="request">Object that represents the HTTP Jetstream request</param>
         /// <returns>Object that represents the HTTP Jetstream response</returns>
@@ -157,7 +157,7 @@ namespace TersoSolutions.Jetstream.SDK.Application
 
         /// <summary>
         /// Calls the Jetstream v1.0 ResetCommand REST endpoint to queue a command
-        /// https://jetstreamrfid.com/Docs/Application/1.0/ResetCommand.aspx
+        /// https://www.jetstreamrfid.com/Documentation/ResetCommand
         /// </summary>
         /// <param name="request">Object that represents the HTTP Jetstream request</param>
         /// <returns>Object that represents the HTTP Jetstream response</returns>
@@ -171,7 +171,7 @@ namespace TersoSolutions.Jetstream.SDK.Application
 
         /// <summary>
         /// Calls the Jetstream v1.0 GetConfigValuesCommand REST endpoint to queue a command
-        /// https://jetstreamrfid.com/Docs/Application/1.0/GetConfigValuesCommand.aspx
+        /// https://www.jetstreamrfid.com/Documentation/GetConfigValuesCommand
         /// </summary>
         /// <param name="request">Object that represents the HTTP Jetstream request</param>
         /// <returns>Object that represents the HTTP Jetstream response</returns>
@@ -185,7 +185,7 @@ namespace TersoSolutions.Jetstream.SDK.Application
 
         /// <summary>
         /// Calls the Jetstream v1.0 SetConfigValuesCommand REST endpoint to queue a command
-        /// https://jetstreamrfid.com/Docs/Application/1.0/SetConfigValuesCommand.aspx
+        /// https://www.jetstreamrfid.com/Documentation/SetConfigValuesCommand
         /// </summary>
         /// <param name="request">Object that represents the HTTP Jetstream request</param>
         /// <returns>Object that represents the HTTP Jetstream response</returns>
@@ -199,7 +199,7 @@ namespace TersoSolutions.Jetstream.SDK.Application
 
         /// <summary>
         /// Calls the Jetstream v1.0 UpdateFirmwareCommand REST endpoint to queue a command
-        /// https://jetstreamrfid.com/Docs/Application/1.0/UpdateFirmwareCommand.aspx
+        /// https://www.jetstreamrfid.com/Documentation/UpdateFirmwareCommand
         /// </summary>
         /// <param name="request">Object that represents the HTTP Jetstream request</param>
         /// <returns>Object that represents the HTTP Jetstream response</returns>
@@ -217,7 +217,7 @@ namespace TersoSolutions.Jetstream.SDK.Application
 
         /// <summary>
         /// Calls the Jetstream v1.1 AddDeviceToPolicy REST endpoint and adds a device to one of your application's policies.
-        /// https://jetstreamrfid.com/Docs/Application/1.1/AddDeviceToPolicy.aspx
+        /// https://www.jetstreamrfid.com/Documentation/AddDeviceToPolicy
         /// </summary>
         /// <param name="request">Object that represents the HTTP Jetstream request</param>
         /// <returns>Object that represents the HTTP Jetstream response</returns>
@@ -231,7 +231,7 @@ namespace TersoSolutions.Jetstream.SDK.Application
 
         /// <summary>
         /// Calls the Jetstream v1.1 AddPolicy REST endpoint and adds a new policy to your application.
-        /// https://jetstreamrfid.com/Docs/Application/1.1/AddPolicy.aspx
+        /// https://www.jetstreamrfid.com/Documentation/AddPolicy
         /// </summary>
         /// <param name="request">Object that represents the HTTP Jetstream request</param>
         /// <returns>Object that represents the HTTP Jetstream response</returns>
@@ -245,7 +245,7 @@ namespace TersoSolutions.Jetstream.SDK.Application
 
         /// <summary>
         /// Calls the Jetstream v1.1 GetPolicies REST endpoint and adds a new policy to your application.
-        /// https://jetstreamrfid.com/Docs/Application/1.1/GetPolicies.aspx
+        /// https://www.jetstreamrfid.com/Documentation/GetPolicies
         /// </summary>
         /// <param name="request">Object that represents the HTTP Jetstream request</param>
         /// <returns>Object that represents the HTTP Jetstream response</returns>
@@ -259,7 +259,7 @@ namespace TersoSolutions.Jetstream.SDK.Application
 
         /// <summary>
         /// Calls the Jetstream v1.1 RemovePolicy REST endpoint and removes an existing policy from your application.
-        /// https://jetstreamrfid.com/Docs/Application/1.1/RemovePolicy.aspx
+        /// https://www.jetstreamrfid.com/Documentation/RemovePolicy
         /// </summary>
         /// <param name="request">Object that represents the HTTP Jetstream request</param>
         /// <returns>Object that represents the HTTP Jetstream response</returns>
@@ -273,7 +273,7 @@ namespace TersoSolutions.Jetstream.SDK.Application
 
         /// <summary>
         /// Calls the Jetstream v1.1 RemoveDeviceFromPolicy REST endpoint and removes an existing device from a polic
-        /// https://jetstreamrfid.com/Docs/Application/1.1/RemoveDeviceFromPolicy.aspx
+        /// https://www.jetstreamrfid.com/Documentation/RemoveDeviceFromPolicy
         /// </summary>
         /// <param name="request">Object that represents the HTTP Jetstream request</param>
         /// <returns>Object that represents the HTTP Jetstream response</returns>
@@ -290,8 +290,8 @@ namespace TersoSolutions.Jetstream.SDK.Application
         #region v1.2 Methods
 
         /// <summary>
-        /// Calls the Jetstream v1.1 RemovePolicy REST endpoint and removes an existing policy from your application.
-        /// https://jetstreamrfid.com/Docs/Application/1.1/RemovePolicy.aspx
+        /// Calls the Jetstream v1.2 GetEvents REST endpoint to fetch a series of events
+        /// https://www.jetstreamrfid.com/Documentation/GetEvents
         /// </summary>
         /// <param name="request">Object that represents the HTTP Jetstream request</param>
         /// <returns>Object that represents the HTTP Jetstream response</returns>
@@ -303,9 +303,13 @@ namespace TersoSolutions.Jetstream.SDK.Application
             return Execute<GetEventsResponse>(request);
         }
 
+        #endregion
+
+        #region v1.3 Methods
+
         /// <summary>
-        /// Calls the Jetstream v1.1 AddDeviceToPolicy REST endpoint and adds a device to one of your application's policies.
-        /// https://jetstreamrfid.com/Docs/Application/1.2/AddDeviceToPolicy.aspx
+        /// Calls the Jetstream v1.3 RemoveEvents REST endpoint to remove events based on the batch id or array of event ids
+        /// https://www.jetstreamrfid.com/Documentation/RemoveEvents
         /// </summary>
         /// <param name="request">Object that represents the HTTP Jetstream request</param>
         /// <returns>Object that represents the HTTP Jetstream response</returns>

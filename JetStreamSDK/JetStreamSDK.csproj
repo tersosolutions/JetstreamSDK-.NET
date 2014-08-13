@@ -44,11 +44,6 @@
     <DocumentationFile>bin\Release\JetstreamSDK.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AWSSDK, Version=1.4.12.2, Culture=neutral, PublicKeyToken=cd2d24cd2bace800, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\ThirdParty\AWSSDK.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\ThirdParty\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -141,10 +136,6 @@
     <Compile Include="Device\MessageHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Application\Model\RemoveLogicalDeviceRequest.cs" />
-    <Compile Include="Application\SQS\AmazonSNSMessage.cs" />
-    <Compile Include="Application\SQS\JetstreamSQSService.cs">
-      <SubType>Component</SubType>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\xsd\application\1.0\AggregateEvent.xsd">
