@@ -119,9 +119,6 @@
     <Compile Include="Application\Messages\LogEntryEvent.cs" />
     <Compile Include="Application\Messages\LogicalDeviceAddedEvent.cs" />
     <Compile Include="Application\Messages\LogicalDeviceRemovedEvent.cs" />
-    <Compile Include="Application\SQS\MessageEqualityComparer.cs" />
-    <Compile Include="Application\SQS\MessageSentTimeStampComparer.cs" />
-    <Compile Include="Application\SQS\NewWindowEventArgs.cs" />
     <Compile Include="Application\Messages\ObjectEvent.cs" />
     <Compile Include="Application\Messages\SensorReadingEvent.cs" />
     <Compile Include="Device\AggregateEvent.cs" />

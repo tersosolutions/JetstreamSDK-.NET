@@ -132,12 +132,23 @@ namespace TersoSolutions.Jetstream.SDK.Application.Model.Deserialized.CommandRes
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="xml"></param>
+        /// <param name="obj"></param>
+        /// <returns></returns>
         public static bool Deserialize(string xml, out Jetstream obj)
         {
             System.Exception exception = null;
             return Deserialize(xml, out obj, out exception);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="xml"></param>
+        /// <returns></returns>
         public static Jetstream Deserialize(string xml)
         {
             System.IO.StringReader stringReader = null;
@@ -176,6 +187,10 @@ namespace TersoSolutions.Jetstream.SDK.Application.Model.Deserialized.CommandRes
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="fileName"></param>
         public virtual void SaveToFile(string fileName)
         {
             System.IO.StreamWriter streamWriter = null;
@@ -219,12 +234,23 @@ namespace TersoSolutions.Jetstream.SDK.Application.Model.Deserialized.CommandRes
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <param name="obj"></param>
+        /// <returns></returns>
         public static bool LoadFromFile(string fileName, out Jetstream obj)
         {
             System.Exception exception = null;
             return LoadFromFile(fileName, out obj, out exception);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <returns></returns>
         public static Jetstream LoadFromFile(string fileName)
         {
             System.IO.FileStream file = null;
@@ -501,6 +527,9 @@ namespace TersoSolutions.Jetstream.SDK.Application.Model.Deserialized.CommandRes
             this.anyField = new List<System.Xml.XmlElement>();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         [System.Xml.Serialization.XmlAnyElementAttribute(Order = 0)]
         public List<System.Xml.XmlElement> Any
         {
@@ -530,6 +559,9 @@ namespace TersoSolutions.Jetstream.SDK.Application.Model.Deserialized.CommandRes
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         [System.Xml.Serialization.XmlAnyAttributeAttribute()]
         public List<System.Xml.XmlAttribute> AnyAttr
         {
@@ -608,12 +640,23 @@ namespace TersoSolutions.Jetstream.SDK.Application.Model.Deserialized.CommandRes
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="xml"></param>
+        /// <param name="obj"></param>
+        /// <returns></returns>
         public static bool Deserialize(string xml, out JetstreamCommandResponse obj)
         {
             System.Exception exception = null;
             return Deserialize(xml, out obj, out exception);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="xml"></param>
+        /// <returns></returns>
         public static JetstreamCommandResponse Deserialize(string xml)
         {
             System.IO.StringReader stringReader = null;
