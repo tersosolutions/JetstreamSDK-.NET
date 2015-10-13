@@ -1,7 +1,13 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JetStreamSDK", "JetStreamSDK\JetStreamSDK.csproj", "{943BFB0D-44D2-4F60-BCBC-12CE1F058AB8}"
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.40629.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeviceSpecificCommands.TersoEnclosures", "DeviceSpecificCommands.TersoEnclosures\DeviceSpecificCommands.TersoEnclosures.csproj", "{9587FEFD-C3FD-48C9-90DF-945280A0CC4A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jetstream.SDK", "Jetstream.Sdk\Jetstream.SDK.csproj", "{943BFB0D-44D2-4F60-BCBC-12CE1F058AB8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jetstream.SDK.Tests", "Jetstream.Sdk.Tests\Jetstream.SDK.Tests.csproj", "{1D7C7048-99B9-4F22-B26E-5D06350B9D4C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -9,10 +15,18 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9587FEFD-C3FD-48C9-90DF-945280A0CC4A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9587FEFD-C3FD-48C9-90DF-945280A0CC4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9587FEFD-C3FD-48C9-90DF-945280A0CC4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9587FEFD-C3FD-48C9-90DF-945280A0CC4A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{943BFB0D-44D2-4F60-BCBC-12CE1F058AB8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{943BFB0D-44D2-4F60-BCBC-12CE1F058AB8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{943BFB0D-44D2-4F60-BCBC-12CE1F058AB8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{943BFB0D-44D2-4F60-BCBC-12CE1F058AB8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1D7C7048-99B9-4F22-B26E-5D06350B9D4C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D7C7048-99B9-4F22-B26E-5D06350B9D4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D7C7048-99B9-4F22-B26E-5D06350B9D4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D7C7048-99B9-4F22-B26E-5D06350B9D4C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
