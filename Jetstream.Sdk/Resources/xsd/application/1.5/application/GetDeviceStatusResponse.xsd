@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2014 rel. 2 sp1 (http://www.altova.com) by Mark Sehmer (Terso Solutions, Inc.) -->
+<xs:schema xmlns="http://Jetstream.TersoSolutions.com/v1.5/GetDeviceStatusResponse" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://Jetstream.TersoSolutions.com/v1.5/GetDeviceStatusResponse" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="Jetstream">
+		<xs:annotation>
+			<xs:documentation>Root node for all Jetstream messaging</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Header">
+					<xs:annotation>
+						<xs:documentation>Header for the Get Device Status Response</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:anyAttribute namespace="##any"/>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="GetDeviceStatusResponse">
+					<xs:annotation>
+						<xs:documentation>Wrapper node for the GetDeviceStatusResponse data</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="MetricList">
+								<xs:annotation>
+									<xs:documentation>List of all metrics available for the device</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="Metric" minOccurs="0" maxOccurs="unbounded">
+											<xs:annotation>
+												<xs:documentation>An metric about the device</xs:documentation>
+											</xs:annotation>
+											<xs:complexType>
+												<xs:attribute name="Name" use="required">
+													<xs:annotation>
+														<xs:documentation>The Name of the Metric</xs:documentation>
+													</xs:annotation>
+													<xs:simpleType>
+														<xs:restriction base="xs:string">
+															<xs:minLength value="1"/>
+															<xs:maxLength value="127"/>
+														</xs:restriction>
+													</xs:simpleType>
+												</xs:attribute>
+												<xs:attribute name="Value" use="required">
+													<xs:annotation>
+														<xs:documentation>The Value of the Named Metric</xs:documentation>
+													</xs:annotation>
+													<xs:simpleType>
+														<xs:restriction base="xs:string">
+															<xs:minLength value="1"/>
+															<xs:maxLength value="127"/>
+														</xs:restriction>
+													</xs:simpleType>
+												</xs:attribute>
+												<xs:anyAttribute namespace="##any"/>
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:any namespace="##any" minOccurs="0" maxOccurs="unbounded"/>
+						</xs:sequence>
+						<xs:anyAttribute namespace="##any"/>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

@@ -1,0 +1,45 @@
+﻿﻿/*
+     Copyright 2015 Terso Solutions, Inc.
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+ */
+
+using System;
+using TersoSolutions.Jetstream.SDK.Application.Model;
+
+namespace TersoSolutions.Jetstream.SDK.DeviceSpecificCommands.TersoEnclosures
+{
+    /// <summary>
+    /// Request object for the TS-* enclosures to lock them down
+    /// </summary>
+    public class LockdownRequest : DeviceSpecificCommandRequest
+    {
+        /// <summary>
+        /// The number of hours to lockdown the device.  0 means unlock
+        /// </summary>
+        public UInt16 Hours { get; set; }
+
+        public override string CommandName
+        {
+            get
+            {
+                return "Lockdown";
+            }
+        }
+
+        public override string CreateParametersStrategy()
+        {
+            return "&Hours=" + Hours;
+        }
+    }
+}
