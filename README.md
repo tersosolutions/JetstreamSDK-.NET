@@ -3,35 +3,23 @@
 ## Jetstream SDK
 [Jetstream Documentation and Tools - https://jetstreamrfid.com](https://jetstreamrfid.com)
  
-###Microsoft .NET Framework 4.0
-The SDK allows has functionality for making application API calls, simulating device calls and receiving messages via the Jetstream messaging service.
-
-###Build
-1. Open JetstreamSDK solution in Visual Studio 2010 or later
-2. Build
-3. Enjoy
+###Microsoft .NET Framework 4.5
+The SDK allows has functionality for making application API calls, simulating device calls and receiving messages when implemented in an application (check out our JetstreamSDK Windows Service repo)
 
 ###Use the application or device API in a project
 Add a reference to the `JetstreamSDK.dll`
 
-###TersoSolutions.Jetstream.SDK.Application.Events.JetstreamEventService Setup
-1. Create new x86 Windows Service Project
-2. Add references to JetstreamSDK and NewtonSoft
-3. Change from 4.0 client framework to 4.0 framework
-4. Add a reference to the 4.0 System.Configuration
-5. Update your Service class to inherit from TersoSolutions.Jetstream.SDK.Application.Events.JetstreamEventService
-6. Update the app.config file and add keys and values in the appSettings block for:
-   * JetstreamUrl - The Jetstream endpoint
-   * UserAccessKey - The user access key assigned to you
-   * MessageCheckWindow - The frequency to check for new messages.  e.g. 1.0:0:0 means to check once per hour
-7. Override the Process* methods for the events you want to process
-8. Create an EventLog source using the command line /runas admin for logging  
- 	`eventcreate /ID 1 /L APPLICATION /T INFORMATION  /SO JetstreamSDK /D "Created JetstreamSDK Event Log Source"`
-9. Use Regedit.exe to set HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Eventlog\Application\JetstreamSDK\EventMessageFile to C:\Windows\Microsoft.NET\Framework\v4.0.30319\EventLogMessages.dll
-10. Use regedit.exe to delete HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Eventlog\Application\JetstreamSDK\CustomSource
-11. Use regedit.exe to delete HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Eventlog\Application\JetstreamSDK\TypesSupported
+###Implement in a Windows Service
+1. Open the JetstreamSDK-WindowsService solutions in [this](https://github.com/tersosolutions/JetstreamSDK-WindowsService) repository
+2. If you want to view the guts of how events are processed, add this SDK to the service and change the reference
+3. Build it
+4. Sign-up for Jetstream. You will receive a logon, with an access key that you may use to simulate events.
+5. Process those events in the Windows service, managing inventory, access and more
 
 ### Change History
+* v1.5 - October 14, 2015
+  * Added support for all the v1.5 endpoints
+  * 
 * v1.4 - March 3, 2014
   * Added support for limit on GetEvents
   * Added support for RemoveEventsById
