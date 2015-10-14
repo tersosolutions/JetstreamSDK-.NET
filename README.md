@@ -18,8 +18,7 @@ Add a reference to the `JetstreamSDK.dll`
 
 ### Change History
 * v1.5 - October 14, 2015
-  * Added support for all the v1.5 endpoints
-  * 
+  * Added support for the v1.5 endpoints
 * v1.4 - March 3, 2014
   * Added support for limit on GetEvents
   * Added support for RemoveEventsById
