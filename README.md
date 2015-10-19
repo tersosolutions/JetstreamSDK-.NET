@@ -17,14 +17,25 @@ Add a reference to the `JetstreamSDK.dll`
 5. Process those events in the Windows service, managing inventory, access and more
 
 ### Change History
-* v1.5 - October 14, 2015
-  * Added support for the v1.5 endpoints
+* v1.5 - October 14, 2015 - added support for the v1.5 endpoints
 * v1.4 - March 3, 2014
   * Added support for limit on GetEvents
   * Added support for RemoveEventsById
-* v1.3 - October 29, 2013
-  * Bug fixes
-* v1.2 - September 27, 2013
-  * Added support for v1.2 Get/Remove Events methods
-* v1.1 - October 31, 2012
-  * Bug fixes
+* v1.3 - October 29, 2013 - bug fixes
+* v1.2 - September 27, 2013 - added support for v1.2 get/remove events methods
+* v1.1 - October 31, 2012 - bug fixes
+* 
+  ### License
+   Copyright 2015 Terso Solutions, Inc.
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
