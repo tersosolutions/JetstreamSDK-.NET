@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="http://Jetstream.TersoSolutions.com/v1.5/DeviceRestoreEvent" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://Jetstream.TersoSolutions.com/v1.5/DeviceRestoreEvent" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="Jetstream">
+		<xs:annotation>
+			<xs:documentation>Root Node for all Jetstream Event messages</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Header">
+					<xs:annotation>
+						<xs:documentation>Header for the Jetstream DeviceRestoreEvent</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:attribute name="EventId" use="required">
+							<xs:annotation>
+								<xs:documentation>A unique identifier for the Event</xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:minLength value="36"/>
+									<xs:maxLength value="36"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:attribute>
+						<xs:attribute name="EventTime" use="required">
+							<xs:annotation>
+								<xs:documentation>The ISO 8601 compliant UTC date and time (yyyy-mm-ddThh:mm:ssZ) that the event occurred</xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:dateTime"><xs:pattern value=".+T.+(Z)"/></xs:restriction>
+							</xs:simpleType>
+						</xs:attribute>
+						<xs:attribute name="LogicalDeviceId" use="required">
+							<xs:annotation>
+								<xs:documentation>The logical device Id assigned using AddLogicalDevice</xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:minLength value="1"/>
+									<xs:maxLength value="127"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:attribute>
+						<xs:anyAttribute namespace="##any"/>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="DeviceRestoreEvent">
+					<xs:annotation>
+						<xs:documentation>The wrapper element for the DeviceRestoreEvent data</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:any namespace="##any" minOccurs="0" maxOccurs="unbounded"/>
+						</xs:sequence>
+						<xs:anyAttribute namespace="##any"/>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>
