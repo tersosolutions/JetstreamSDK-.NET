@@ -26,8 +26,8 @@ namespace TersoSolutions.Jetstream.SDK.Application.Messages.DeviceFailureEvent
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://Jetstream.TersoSolutions.com/v1.5/DeviceFailureEvent")]
-    [System.Xml.Serialization.XmlRootAttribute(Namespace = "http://Jetstream.TersoSolutions.com/v1.5/DeviceFailureEvent", IsNullable = false)]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://Jetstream.TersoSolutions.com/v1.0/DeviceFailureEvent")]
+    [System.Xml.Serialization.XmlRootAttribute(Namespace = "http://Jetstream.TersoSolutions.com/v1.0/DeviceFailureEvent", IsNullable = false)]
     public partial class Jetstream : TersoSolutions.Jetstream.SDK.Application.Messages.JetstreamEvent
     {
         private JetstreamHeader headerField;
@@ -62,7 +62,7 @@ namespace TersoSolutions.Jetstream.SDK.Application.Messages.DeviceFailureEvent
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://Jetstream.TersoSolutions.com/v1.5/DeviceFailureEvent")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://Jetstream.TersoSolutions.com/v1.0/DeviceFailureEvent")]
     public partial class JetstreamHeader
     {
         private string eventIdField;
@@ -127,7 +127,7 @@ namespace TersoSolutions.Jetstream.SDK.Application.Messages.DeviceFailureEvent
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://Jetstream.TersoSolutions.com/v1.5/DeviceFailureEvent")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://Jetstream.TersoSolutions.com/v1.0/DeviceFailureEvent")]
     public partial class JetstreamDeviceFailureEvent
     {
         private System.Xml.XmlElement[] anyField;

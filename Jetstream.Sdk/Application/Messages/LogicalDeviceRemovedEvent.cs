@@ -25,8 +25,8 @@ namespace TersoSolutions.Jetstream.SDK.Application.Messages.LogicalDeviceRemoved
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://Jetstream.TersoSolutions.com/v1.5/LogicalDeviceRemovedEvent")]
-    [System.Xml.Serialization.XmlRootAttribute(Namespace = "http://Jetstream.TersoSolutions.com/v1.5/LogicalDeviceRemovedEvent", IsNullable = false)]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://Jetstream.TersoSolutions.com/v1.0/LogicalDeviceRemovedEvent")]
+    [System.Xml.Serialization.XmlRootAttribute(Namespace = "http://Jetstream.TersoSolutions.com/v1.0/LogicalDeviceRemovedEvent", IsNullable = false)]
     public partial class Jetstream : TersoSolutions.Jetstream.SDK.Application.Messages.JetstreamEvent
     {
         private JetstreamHeader headerField;
@@ -61,7 +61,7 @@ namespace TersoSolutions.Jetstream.SDK.Application.Messages.LogicalDeviceRemoved
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://Jetstream.TersoSolutions.com/v1.5/LogicalDeviceRemovedEvent")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://Jetstream.TersoSolutions.com/v1.0/LogicalDeviceRemovedEvent")]
     public partial class JetstreamHeader
     {
         private string eventIdField;
@@ -126,7 +126,7 @@ namespace TersoSolutions.Jetstream.SDK.Application.Messages.LogicalDeviceRemoved
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://Jetstream.TersoSolutions.com/v1.5/LogicalDeviceRemovedEvent")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://Jetstream.TersoSolutions.com/v1.0/LogicalDeviceRemovedEvent")]
     public partial class JetstreamLogicalDeviceRemovedEvent
     {
         private System.Xml.XmlElement[] anyField;

@@ -25,8 +25,8 @@ namespace TersoSolutions.Jetstream.SDK.Application.Messages.LogicalDeviceAddedEv
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://Jetstream.TersoSolutions.com/v1.5/LogicalDeviceAddedEvent")]
-    [System.Xml.Serialization.XmlRootAttribute(Namespace = "http://Jetstream.TersoSolutions.com/v1.5/LogicalDeviceAddedEvent", IsNullable = false)]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://Jetstream.TersoSolutions.com/v1.0/LogicalDeviceAddedEvent")]
+    [System.Xml.Serialization.XmlRootAttribute(Namespace = "http://Jetstream.TersoSolutions.com/v1.0/LogicalDeviceAddedEvent", IsNullable = false)]
     public partial class Jetstream : TersoSolutions.Jetstream.SDK.Application.Messages.JetstreamEvent
     {
         private JetstreamHeader headerField;
@@ -61,7 +61,7 @@ namespace TersoSolutions.Jetstream.SDK.Application.Messages.LogicalDeviceAddedEv
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://Jetstream.TersoSolutions.com/v1.5/LogicalDeviceAddedEvent")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://Jetstream.TersoSolutions.com/v1.0/LogicalDeviceAddedEvent")]
     public partial class JetstreamHeader
     {
         private string eventIdField;
@@ -112,7 +112,7 @@ namespace TersoSolutions.Jetstream.SDK.Application.Messages.LogicalDeviceAddedEv
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://Jetstream.TersoSolutions.com/v1.5/LogicalDeviceAddedEvent")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://Jetstream.TersoSolutions.com/v1.0/LogicalDeviceAddedEvent")]
     public partial class JetstreamLogicalDeviceAddedEvent
     {
         private System.Xml.XmlElement[] anyField;
@@ -203,7 +203,7 @@ namespace TersoSolutions.Jetstream.SDK.Application.Messages.LogicalDeviceAddedEv
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.34234")]
     [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://Jetstream.TersoSolutions.com/v1.5/LogicalDeviceAddedEvent")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://Jetstream.TersoSolutions.com/v1.0/LogicalDeviceAddedEvent")]
     public enum JetstreamLogicalDeviceAddedEventRegion
     {
         /// <remarks/>

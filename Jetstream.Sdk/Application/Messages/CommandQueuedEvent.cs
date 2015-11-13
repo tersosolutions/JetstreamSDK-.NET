@@ -27,8 +27,8 @@ namespace TersoSolutions.Jetstream.SDK.Application.Messages.CommandQueuedEvent
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://Jetstream.TersoSolutions.com/v1.5/CommandQueuedEvent")]
-    [System.Xml.Serialization.XmlRootAttribute(Namespace = "http://Jetstream.TersoSolutions.com/v1.5/CommandQueuedEvent", IsNullable = false)]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://Jetstream.TersoSolutions.com/v1.0/CommandQueuedEvent")]
+    [System.Xml.Serialization.XmlRootAttribute(Namespace = "http://Jetstream.TersoSolutions.com/v1.0/CommandQueuedEvent", IsNullable = false)]
     public partial class Jetstream : TersoSolutions.Jetstream.SDK.Application.Messages.JetstreamEvent
     {
         private JetstreamHeader headerField;
@@ -63,7 +63,7 @@ namespace TersoSolutions.Jetstream.SDK.Application.Messages.CommandQueuedEvent
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://Jetstream.TersoSolutions.com/v1.5/CommandQueuedEvent")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://Jetstream.TersoSolutions.com/v1.0/CommandQueuedEvent")]
     public partial class JetstreamHeader
     {
         private string eventIdField;
@@ -128,7 +128,7 @@ namespace TersoSolutions.Jetstream.SDK.Application.Messages.CommandQueuedEvent
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://Jetstream.TersoSolutions.com/v1.5/CommandQueuedEvent")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://Jetstream.TersoSolutions.com/v1.0/CommandQueuedEvent")]
     public partial class JetstreamCommandQueuedEvent
     {
         private JetstreamCommandQueuedEventParameter[] parameterListField;
@@ -221,7 +221,7 @@ namespace TersoSolutions.Jetstream.SDK.Application.Messages.CommandQueuedEvent
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://Jetstream.TersoSolutions.com/v1.5/CommandQueuedEvent")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://Jetstream.TersoSolutions.com/v1.0/CommandQueuedEvent")]
     public partial class JetstreamCommandQueuedEventParameter
     {
         private string nameField;

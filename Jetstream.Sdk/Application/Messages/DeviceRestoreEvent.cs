@@ -25,8 +25,8 @@ namespace TersoSolutions.Jetstream.SDK.Application.Messages.DeviceRestoreEvent
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://Jetstream.TersoSolutions.com/v1.5/DeviceRestoreEvent")]
-    [System.Xml.Serialization.XmlRootAttribute(Namespace = "http://Jetstream.TersoSolutions.com/v1.5/DeviceRestoreEvent", IsNullable = false)]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://Jetstream.TersoSolutions.com/v1.0/DeviceRestoreEvent")]
+    [System.Xml.Serialization.XmlRootAttribute(Namespace = "http://Jetstream.TersoSolutions.com/v1.0/DeviceRestoreEvent", IsNullable = false)]
     public partial class Jetstream : TersoSolutions.Jetstream.SDK.Application.Messages.JetstreamEvent
     {
         private JetstreamHeader headerField;
@@ -61,7 +61,7 @@ namespace TersoSolutions.Jetstream.SDK.Application.Messages.DeviceRestoreEvent
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://Jetstream.TersoSolutions.com/v1.5/DeviceRestoreEvent")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://Jetstream.TersoSolutions.com/v1.0/DeviceRestoreEvent")]
     public partial class JetstreamHeader
     {
         private string eventIdField;
@@ -126,7 +126,7 @@ namespace TersoSolutions.Jetstream.SDK.Application.Messages.DeviceRestoreEvent
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://Jetstream.TersoSolutions.com/v1.5/DeviceRestoreEvent")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://Jetstream.TersoSolutions.com/v1.0/DeviceRestoreEvent")]
     public partial class JetstreamDeviceRestoreEvent
     {
         private System.Xml.XmlElement[] anyField;

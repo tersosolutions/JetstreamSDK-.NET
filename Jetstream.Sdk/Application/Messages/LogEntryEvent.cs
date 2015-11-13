@@ -25,8 +25,8 @@ namespace TersoSolutions.Jetstream.SDK.Application.Messages.LogEntryEvent
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://Jetstream.TersoSolutions.com/v1.5/LogEntryEvent")]
-    [System.Xml.Serialization.XmlRootAttribute(Namespace = "http://Jetstream.TersoSolutions.com/v1.5/LogEntryEvent", IsNullable = false)]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://Jetstream.TersoSolutions.com/v1.0/LogEntryEvent")]
+    [System.Xml.Serialization.XmlRootAttribute(Namespace = "http://Jetstream.TersoSolutions.com/v1.0/LogEntryEvent", IsNullable = false)]
     public partial class Jetstream : TersoSolutions.Jetstream.SDK.Application.Messages.JetstreamEvent
     {
         private JetstreamHeader headerField;
@@ -61,7 +61,7 @@ namespace TersoSolutions.Jetstream.SDK.Application.Messages.LogEntryEvent
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://Jetstream.TersoSolutions.com/v1.5/LogEntryEvent")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://Jetstream.TersoSolutions.com/v1.0/LogEntryEvent")]
     public partial class JetstreamHeader
     {
         private string eventIdField;
@@ -140,7 +140,7 @@ namespace TersoSolutions.Jetstream.SDK.Application.Messages.LogEntryEvent
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://Jetstream.TersoSolutions.com/v1.5/LogEntryEvent")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://Jetstream.TersoSolutions.com/v1.0/LogEntryEvent")]
     public partial class JetstreamLogEntryEvent
     {
         private JetstreamLogEntryEventLogEntryList logEntryListField;
@@ -190,7 +190,7 @@ namespace TersoSolutions.Jetstream.SDK.Application.Messages.LogEntryEvent
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://Jetstream.TersoSolutions.com/v1.5/LogEntryEvent")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://Jetstream.TersoSolutions.com/v1.0/LogEntryEvent")]
     public partial class JetstreamLogEntryEventLogEntryList
     {
         private JetstreamLogEntryEventLogEntryListLogEntry[] logEntryField;
@@ -227,7 +227,7 @@ namespace TersoSolutions.Jetstream.SDK.Application.Messages.LogEntryEvent
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://Jetstream.TersoSolutions.com/v1.5/LogEntryEvent")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://Jetstream.TersoSolutions.com/v1.0/LogEntryEvent")]
     public partial class JetstreamLogEntryEventLogEntryListLogEntry
     {
         private JetstreamLogEntryEventLogEntryListLogEntryParameterList parameterListField;
@@ -333,7 +333,7 @@ namespace TersoSolutions.Jetstream.SDK.Application.Messages.LogEntryEvent
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://Jetstream.TersoSolutions.com/v1.5/LogEntryEvent")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://Jetstream.TersoSolutions.com/v1.0/LogEntryEvent")]
     public partial class JetstreamLogEntryEventLogEntryListLogEntryParameterList
     {
         private JetstreamLogEntryEventLogEntryListLogEntryParameterListParameter[] parameterField;
@@ -370,7 +370,7 @@ namespace TersoSolutions.Jetstream.SDK.Application.Messages.LogEntryEvent
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://Jetstream.TersoSolutions.com/v1.5/LogEntryEvent")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://Jetstream.TersoSolutions.com/v1.0/LogEntryEvent")]
     public partial class JetstreamLogEntryEventLogEntryListLogEntryParameterListParameter
     {
         private string nameField;
@@ -405,7 +405,7 @@ namespace TersoSolutions.Jetstream.SDK.Application.Messages.LogEntryEvent
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.34234")]
     [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://Jetstream.TersoSolutions.com/v1.5/LogEntryEvent")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://Jetstream.TersoSolutions.com/v1.0/LogEntryEvent")]
     public enum JetstreamLogEntryEventLogEntryListLogEntryLevel
     {
         /// <remarks/>
