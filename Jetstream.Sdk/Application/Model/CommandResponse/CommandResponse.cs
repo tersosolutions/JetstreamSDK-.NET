@@ -21,8 +21,8 @@ namespace TersoSolutions.Jetstream.SDK.Application.Model.Deserialized.CommandRes
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://Jetstream.TersoSolutions.com/v1.0/CommandResponse")]
-    [System.Xml.Serialization.XmlRootAttribute(Namespace = "http://Jetstream.TersoSolutions.com/v1.0/CommandResponse", IsNullable = false)]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://Jetstream.TersoSolutions.com/v1.5/CommandResponse")]
+    [System.Xml.Serialization.XmlRootAttribute(Namespace = "http://Jetstream.TersoSolutions.com/v1.5/CommandResponse", IsNullable = false)]
     public partial class Jetstream
     {
         private JetstreamHeader headerField;
@@ -280,7 +280,7 @@ namespace TersoSolutions.Jetstream.SDK.Application.Model.Deserialized.CommandRes
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://Jetstream.TersoSolutions.com/v1.0/CommandResponse")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://Jetstream.TersoSolutions.com/v1.5/CommandResponse")]
     public partial class JetstreamHeader
     {
         private System.Xml.XmlAttribute[] anyAttrField;
@@ -303,7 +303,7 @@ namespace TersoSolutions.Jetstream.SDK.Application.Model.Deserialized.CommandRes
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://Jetstream.TersoSolutions.com/v1.0/CommandResponse")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://Jetstream.TersoSolutions.com/v1.5/CommandResponse")]
     public partial class JetstreamCommandResponse
     {
         private JetstreamCommandResponseOutputParameterList outputParameterListField;
@@ -393,7 +393,7 @@ namespace TersoSolutions.Jetstream.SDK.Application.Model.Deserialized.CommandRes
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://Jetstream.TersoSolutions.com/v1.0/CommandResponse")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://Jetstream.TersoSolutions.com/v1.5/CommandResponse")]
     public partial class JetstreamCommandResponseOutputParameterList
     {
         private JetstreamCommandResponseOutputParameterListOutputParameter[] outputParameterField;
@@ -430,7 +430,7 @@ namespace TersoSolutions.Jetstream.SDK.Application.Model.Deserialized.CommandRes
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://Jetstream.TersoSolutions.com/v1.0/CommandResponse")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://Jetstream.TersoSolutions.com/v1.5/CommandResponse")]
     public partial class JetstreamCommandResponseOutputParameterListOutputParameter
     {
         private string nameField;
@@ -481,7 +481,7 @@ namespace TersoSolutions.Jetstream.SDK.Application.Model.Deserialized.CommandRes
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://Jetstream.TersoSolutions.com/v1.0/CommandResponse")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://Jetstream.TersoSolutions.com/v1.5/CommandResponse")]
     public partial class JetstreamCommandResponseExceptionList
     {
         private JetstreamCommandResponseExceptionListException[] exceptionField;
@@ -518,7 +518,7 @@ namespace TersoSolutions.Jetstream.SDK.Application.Model.Deserialized.CommandRes
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://Jetstream.TersoSolutions.com/v1.0/CommandResponse")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://Jetstream.TersoSolutions.com/v1.5/CommandResponse")]
     public partial class JetstreamCommandResponseExceptionListException
     {
         private string nameField;
@@ -569,7 +569,7 @@ namespace TersoSolutions.Jetstream.SDK.Application.Model.Deserialized.CommandRes
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://Jetstream.TersoSolutions.com/v1.0/CommandResponse")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://Jetstream.TersoSolutions.com/v1.5/CommandResponse")]
     public partial class JetstreamCommandResponseDeviceExtensionList
     {
         private JetstreamCommandResponseDeviceExtensionListDeviceExtension[] deviceExtensionField;
@@ -606,7 +606,7 @@ namespace TersoSolutions.Jetstream.SDK.Application.Model.Deserialized.CommandRes
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://Jetstream.TersoSolutions.com/v1.0/CommandResponse")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://Jetstream.TersoSolutions.com/v1.5/CommandResponse")]
     public partial class JetstreamCommandResponseDeviceExtensionListDeviceExtension
     {
         private string nameField;
