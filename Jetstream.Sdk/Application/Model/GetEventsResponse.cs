@@ -78,6 +78,7 @@ namespace TersoSolutions.Jetstream.SDK.Application.Model
                         case "aggregateevent":
                             {
                                 AE.Jetstream evt = Deserialize<AE.Jetstream>(eventDocXML);
+                                evt.Body = eventDocXML;
                                 evt.EventType = evtType.Trim();
                                 evt.EventId = evt.Header.EventId;
                                 evt.EventTime = evt.Header.ReceivedTime;
@@ -87,6 +88,7 @@ namespace TersoSolutions.Jetstream.SDK.Application.Model
                         case "commandcompletionevent":
                             {
                                 CCE.Jetstream evt = Deserialize<CCE.Jetstream>(eventDocXML);
+                                evt.Body = eventDocXML;
                                 evt.EventType = evtType.Trim();
                                 evt.EventId = evt.Header.EventId;
                                 evt.EventTime = evt.Header.ReceivedTime;
@@ -96,6 +98,7 @@ namespace TersoSolutions.Jetstream.SDK.Application.Model
                         case "commandqueuedevent":
                             {
                                 CQE.Jetstream evt = Deserialize<CQE.Jetstream>(eventDocXML);
+                                evt.Body = eventDocXML;
                                 evt.EventType = evtType.Trim();
                                 evt.EventId = evt.Header.EventId;
                                 evt.EventTime = evt.Header.EventTime;
@@ -105,6 +108,7 @@ namespace TersoSolutions.Jetstream.SDK.Application.Model
                         case "devicefailureevent":
                             {
                                 DFE.Jetstream evt = Deserialize<DFE.Jetstream>(eventDocXML);
+                                evt.Body = eventDocXML;
                                 evt.EventType = evtType.Trim();
                                 evt.EventId = evt.Header.EventId;
                                 evt.EventTime = evt.Header.EventTime;
@@ -114,6 +118,7 @@ namespace TersoSolutions.Jetstream.SDK.Application.Model
                         case "devicerestoreevent":
                             {
                                 DRE.Jetstream evt = Deserialize<DRE.Jetstream>(eventDocXML);
+                                evt.Body = eventDocXML;
                                 evt.EventType = evtType.Trim();
                                 evt.EventId = evt.Header.EventId;
                                 evt.EventTime = evt.Header.EventTime;
@@ -123,6 +128,7 @@ namespace TersoSolutions.Jetstream.SDK.Application.Model
                         case "heartbeatevent":
                             {
                                 HE.Jetstream evt = Deserialize<HE.Jetstream>(eventDocXML);
+                                evt.Body = eventDocXML;
                                 evt.EventType = evtType.Trim();
                                 evt.EventId = evt.Header.EventId;
                                 evt.EventTime = evt.Header.ReceivedTime;
@@ -132,6 +138,7 @@ namespace TersoSolutions.Jetstream.SDK.Application.Model
                         case "logentryevent":
                             {
                                 LEE.Jetstream evt = Deserialize<LEE.Jetstream>(eventDocXML);
+                                evt.Body = eventDocXML;
                                 evt.EventType = evtType.Trim();
                                 evt.EventId = evt.Header.EventId;
                                 evt.EventTime = evt.Header.ReceivedTime;
@@ -141,6 +148,7 @@ namespace TersoSolutions.Jetstream.SDK.Application.Model
                         case "logicaldeviceaddedevent":
                             {
                                 LDAE.Jetstream evt = Deserialize<LDAE.Jetstream>(eventDocXML);
+                                evt.Body = eventDocXML;
                                 evt.EventType = evtType.Trim();
                                 evt.EventId = evt.Header.EventId;
                                 evt.EventTime = evt.Header.EventTime;
@@ -150,6 +158,7 @@ namespace TersoSolutions.Jetstream.SDK.Application.Model
                         case "logicaldeviceremovedevent":
                             {
                                 LDRE.Jetstream evt = Deserialize<LDRE.Jetstream>(eventDocXML);
+                                evt.Body = eventDocXML;
                                 evt.EventType = evtType.Trim();
                                 evt.EventId = evt.Header.EventId;
                                 evt.EventTime = evt.Header.EventTime;
@@ -159,6 +168,7 @@ namespace TersoSolutions.Jetstream.SDK.Application.Model
                         case "objectevent":
                             {
                                 OE.Jetstream evt = Deserialize<OE.Jetstream>(eventDocXML);
+                                evt.Body = eventDocXML;
                                 evt.EventType = evtType.Trim();
                                 evt.EventId = evt.Header.EventId;
                                 evt.EventTime = evt.Header.ReceivedTime;
@@ -168,6 +178,7 @@ namespace TersoSolutions.Jetstream.SDK.Application.Model
                         case "sensorreadingevent":
                             {
                                 SRE.Jetstream evt = Deserialize<SRE.Jetstream>(eventDocXML);
+                                evt.Body = eventDocXML;
                                 evt.EventType = evtType.Trim();
                                 evt.EventId = evt.Header.EventId;
                                 evt.EventTime = evt.Header.ReceivedTime;
