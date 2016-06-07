@@ -25,7 +25,7 @@ namespace TersoSolutions.Jetstream.SDK.Application.Model
     /// Client proxy object for the Jetstream Web Service
     /// </summary>
     /// <remarks></remarks>
-    public class JetstreamServiceClient
+    public class JetstreamServiceClient : IJetstreamServiceClient
     {
         #region Data
 

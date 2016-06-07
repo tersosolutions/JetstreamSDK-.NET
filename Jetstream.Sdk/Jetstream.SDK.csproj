@@ -80,6 +80,7 @@
     <Compile Include="Application\Model\GetPoliciesRequest.cs" />
     <Compile Include="Application\Model\GetPoliciesResponse.cs" />
     <Compile Include="Application\Model\GetPoliciesResponse\GetPoliciesResponse.cs" />
+    <Compile Include="Application\Model\IJetstreamServiceClient.cs" />
     <Compile Include="Application\Model\JetstreamRequest.cs" />
     <Compile Include="Application\Model\JetstreamResponse.cs" />
     <Compile Include="Application\Model\RemoveDeviceFromPolicyRequest.cs" />
