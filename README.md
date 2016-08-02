@@ -13,7 +13,7 @@ Add a reference to the `JetstreamSDK.dll`
 1. Open the JetstreamSDK-WindowsService solutions in [this](https://github.com/tersosolutions/JetstreamSDK-WindowsService) repository.
 2. If you want to view how events are processed, add this SDK to the service and change the reference.
 3. Build
-4. Sign-up for Jetstream. You will receive a login, with an access key that you may use to simulate events.
+4. [Sign-up](https://www.jetstreamrfid.com/login/signup) for Jetstream. You will receive a login, with an access key that you may use to simulate events.
 5. Process those events in the Windows service, managing inventory, access and more.
 
 ### Change History
