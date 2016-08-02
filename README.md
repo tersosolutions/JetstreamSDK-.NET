@@ -1,7 +1,7 @@
 ![Terso Solutions Logo](http://www.tersosolutions.com/wp-content/uploads/2016/04/TersoHorizontal_BlackGreen.png "Terso Solutions, Inc.")
 
 ## Jetstream SDK
-[Jetstream Documentation and Tools - https://jetstreamrfid.com](https://jetstreamrfid.com)
+[Jetstream Documentation and Tools - https://jetstreamrfid.com/tools](https://jetstreamrfid.com/tools)
  
 ###Microsoft .NET Framework 4.5
 The SDK allows has functionality for making application API calls, simulating device calls and receiving messages when implemented in an application (check out our JetstreamSDK Windows Service repo)
@@ -10,11 +10,11 @@ The SDK allows has functionality for making application API calls, simulating de
 Add a reference to the `JetstreamSDK.dll`
 
 ###Implement in a Windows Service
-1. Open the JetstreamSDK-WindowsService solutions in [this](https://github.com/tersosolutions/JetstreamSDK-WindowsService) repository
-2. If you want to view the guts of how events are processed, add this SDK to the service and change the reference
-3. Build it
-4. Sign-up for Jetstream. You will receive a logon, with an access key that you may use to simulate events.
-5. Process those events in the Windows service, managing inventory, access and more
+1. Open the JetstreamSDK-WindowsService solutions in [this](https://github.com/tersosolutions/JetstreamSDK-WindowsService) repository.
+2. If you want to view how events are processed, add this SDK to the service and change the reference.
+3. Build
+4. Sign-up for Jetstream. You will receive a login, with an access key that you may use to simulate events.
+5. Process those events in the Windows service, managing inventory, access and more.
 
 ### Change History
 * v1.5 - October 14, 2015 - added support for the v1.5 endpoints
