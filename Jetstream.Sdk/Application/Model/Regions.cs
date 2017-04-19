@@ -32,6 +32,10 @@ namespace TersoSolutions.Jetstream.SDK.Application.Model
         /// <summary>
         /// Indicates the device is in use in the Asia
         /// </summary>
-        AP = 0x2
+        AP = 0x2,
+        /// <summary>
+        /// Indicates the device is in use in the US Government Cloud
+        /// </summary>
+        USGOV = 0x3
     }
 }

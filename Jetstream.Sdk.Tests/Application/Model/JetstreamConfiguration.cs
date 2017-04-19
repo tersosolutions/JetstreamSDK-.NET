@@ -137,9 +137,9 @@ namespace TersoSolutions.Jetstream.SDK.Tests.Application.Model
         /// 
         /// </summary>
         /// <returns></returns>
-        public static string GetDeviceSerailNumber()
+        public static string GetDeviceSerialNumber()
         {
-            return "SerailNoTest_" + GetNumber(11111, 999999);
+            return "SerialNoTest_" + GetNumber(11111, 999999);
         }
 
         /// <summary>
@@ -156,7 +156,7 @@ namespace TersoSolutions.Jetstream.SDK.Tests.Application.Model
 
         public static string GetPolicyName()
         {
-            return "PolicayName_" + GetNumber(11111, 999999);
+            return "PolicyName_" + GetNumber(11111, 999999);
         }
 
         private static readonly Random Random = new Random();

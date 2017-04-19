@@ -126,13 +126,7 @@
     <Compile Include="Application\Model\RemoveLogicalDeviceRequest.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Config\App.GatedCheckin.config">
-      <SubType>Designer</SubType>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Config\App.ToolsProd.config">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    <None Include="app.config" />
     <None Include="Resources\xsd\application\1.0\AggregateEvent.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -254,6 +248,7 @@
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="ThirdParty\Newtonsoft.Json.dll" />
     <Content Include="ThirdParty\Newtonsoft.Json.xml" />

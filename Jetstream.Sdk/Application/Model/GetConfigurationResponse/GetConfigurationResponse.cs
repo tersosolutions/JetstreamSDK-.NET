@@ -1052,5 +1052,8 @@ namespace TersoSolutions.Jetstream.SDK.Application.Model.Deserialized.GetConfigu
 
         /// <remarks/>
         AP,
+
+        /// <remarks/>
+        USGOV
     }
 }

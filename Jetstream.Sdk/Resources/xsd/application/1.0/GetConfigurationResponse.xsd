@@ -86,6 +86,7 @@
 															<xs:enumeration value="EU"/>
 															<xs:enumeration value="US"/>
 															<xs:enumeration value="AP"/>
+                              <xs:enumeration value="USGOV"/>
 														</xs:restriction>
 													</xs:simpleType>
 												</xs:attribute>

@@ -1,4 +1,4 @@
-namespace TersoSolutions.Jetstream.SDK.Application.Model
+﻿namespace TersoSolutions.Jetstream.SDK.Application.Model
 {
     public interface IJetstreamServiceClient
     {

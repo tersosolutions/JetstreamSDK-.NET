@@ -1,29 +1,57 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using TersoSolutions.Jetstream.SDK.Application.Model;
 using TersoSolutions.Jetstream.SDK.DeviceSpecificCommands.TersoEnclosures;
 
 namespace TersoSolutions.Jetstream.SDK.Tests.Application.Model
 {
     [TestClass]
+    [ExcludeFromCodeCoverage]
     public class JetstreamServiceClientTests
     {
 
         public static string LogicalDeviceId;
         private static string _policyId = "";
-
-        public JetstreamServiceClientTests()
+        
+        [TestInitialize]
+        public void Setup()
         {
-            if (String.IsNullOrEmpty(LogicalDeviceId))
-            {
-                LogicalDeviceId = JetstreamConfiguration.GetLogicalDeviceId();
-            }
+            LogicalDeviceId = JetstreamConfiguration.GetLogicalDeviceId();
 
+            // construct a Jetstream service client
+            JetstreamServiceClient client = new JetstreamServiceClient(JetstreamConfiguration.Url, JetstreamConfiguration.ApplicationAccessKey);
+
+            // create the request object
+            AddLogicalDeviceRequest request = new AddLogicalDeviceRequest();
+            request.DeviceSerialNumber = JetstreamConfiguration.GetDeviceSerialNumber();
+            request.LogicalDeviceId = LogicalDeviceId;
+            request.Region = Regions.US;
+            request.DeviceDefinitionId = "55227180-be25-4ecc-886e-38c60970666c";
+
+            // call the Jetstream AddLogicalDevice ReST endpoint
+            client.AddLogicalDevice(request);
+        }
+
+        [TestCleanup]
+        public void Cleanup()
+        {
+            if (!String.IsNullOrEmpty(LogicalDeviceId))
+            {
+                JetstreamServiceClient client = new JetstreamServiceClient(JetstreamConfiguration.Url, JetstreamConfiguration.ApplicationAccessKey);
+
+                // create the RemoveLogicalDevice request   
+                RemoveLogicalDeviceRequest removeRequest = new RemoveLogicalDeviceRequest();
+                removeRequest.LogicalDeviceId = LogicalDeviceId;
+
+                // call the Jetstream RemoveLogicalDevice ReST endpoint   
+                client.RemoveLogicalDevice(removeRequest);
+            }
         }
 
         /// <summary>
-        /// Method used test method GetConfiguration
+        /// Method used test method AddLogicalDeviceTest
         /// </summary>
         [TestMethod]
         public void AddLogicalDeviceTest()
@@ -31,14 +59,23 @@ namespace TersoSolutions.Jetstream.SDK.Tests.Application.Model
             try
             {
                 // construct a Jetstream service client
-                JetstreamServiceClient client = new JetstreamServiceClient(JetstreamConfiguration.Url, JetstreamConfiguration.ApplicationAccessKey);
+                JetstreamServiceClient client = new JetstreamServiceClient(JetstreamConfiguration.Url,
+                    JetstreamConfiguration.ApplicationAccessKey);
 
+                //Remove the device created during initialize
+                RemoveLogicalDeviceRequest removeRequest = new RemoveLogicalDeviceRequest();
+                removeRequest.LogicalDeviceId = LogicalDeviceId;
+
+                // call the Jetstream RemoveLogicalDevice ReST endpoint   
+                client.RemoveLogicalDevice(removeRequest);
+
+                // Re-add it to test
                 // create the request object
                 AddLogicalDeviceRequest request = new AddLogicalDeviceRequest();
-                request.DeviceSerialNumber = JetstreamConfiguration.GetDeviceSerailNumber();
+                request.DeviceSerialNumber = JetstreamConfiguration.GetDeviceSerialNumber();
                 request.LogicalDeviceId = LogicalDeviceId;
                 request.Region = Regions.US;
-                request.DeviceDefinitionId = "5b6da680-fe54-41e3-968a-bd2ba1e23ebf";
+                request.DeviceDefinitionId = "55227180-be25-4ecc-886e-38c60970666c";
 
                 // call the Jetstream AddLogicalDevice ReST endpoint
                 AddLogicalDeviceResponse response = client.AddLogicalDevice(request);
@@ -91,7 +128,7 @@ namespace TersoSolutions.Jetstream.SDK.Tests.Application.Model
                 GetDeviceDefinitionsRequest request = new GetDeviceDefinitionsRequest();
 
                 // call the Jetstream GetDeviceDefinitions ReST endpoint
-                GetDeviceDefinitionsResponse response = client.GetDeviceDefinitions(request);
+                SDK.Application.Model.GetDeviceDefinitionsResponse response = client.GetDeviceDefinitions(request);
 
                 if (response.Body != null)
                 {
@@ -274,7 +311,7 @@ namespace TersoSolutions.Jetstream.SDK.Tests.Application.Model
             {
                 // create and configure the request object
                 AddPolicyRequest request = new AddPolicyRequest();
-                request.DeviceDefinitionId = "10f2bdb2-aa2f-44ea-8b74-0990f22b71c8";
+                request.DeviceDefinitionId = "55227180-be25-4ecc-886e-38c60970666c";
 
                 request.Name = JetstreamConfiguration.GetPolicyName();
                 var param = new List<Tuple<string, string>>
@@ -392,6 +429,25 @@ namespace TersoSolutions.Jetstream.SDK.Tests.Application.Model
             // construct a Jetstream service client
             JetstreamServiceClient client = new JetstreamServiceClient(JetstreamConfiguration.Url, JetstreamConfiguration.ApplicationAccessKey);
 
+            // Add device to policy, to remove later
+            // create and configure the request object
+            AddDeviceToPolicyRequest addRequest = new AddDeviceToPolicyRequest();
+            addRequest.LogicalDeviceId = LogicalDeviceId;
+
+            addRequest.PolicyId = _policyId;
+            var param = new List<Tuple<string, string>>
+                {
+                    Tuple.Create("DNS", "192.168.92.1"),
+                    Tuple.Create("Gateway", "192.168.92.100"),
+                    Tuple.Create("IP", "192.168.92.101"),
+                    Tuple.Create("Subnet", "255.255.255.0")
+                };
+
+            addRequest.OverrideParameters = param;
+
+            // call the Jetstream ReST endpoint 
+            client.AddDeviceToPolicy(addRequest);
+
             try
             {
                 // create and configure the request object
@@ -498,6 +554,7 @@ namespace TersoSolutions.Jetstream.SDK.Tests.Application.Model
 
                 // call the Jetstream RemoveLogicalDevice ReST endpoint   
                 client.RemoveLogicalDevice(removeRequest);
+                LogicalDeviceId = String.Empty;
             }
             catch (Exception ex)
             {

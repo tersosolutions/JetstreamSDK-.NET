@@ -37,7 +37,7 @@ namespace TersoSolutions.Jetstream.SDK.Application.Messages
         /// 
         /// </summary>
         public DateTime EventTime { get; set; }
-        
+
         /// <summary>
         /// 
         /// </summary>

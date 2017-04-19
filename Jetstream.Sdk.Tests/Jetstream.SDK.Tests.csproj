@@ -45,6 +45,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
@@ -59,8 +60,26 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Application\Messages\AggregateEventTests.cs" />
+    <Compile Include="Application\Messages\CommandCompletionEventTests.cs" />
+    <Compile Include="Application\Messages\CommandQueuedEventTests.cs" />
+    <Compile Include="Application\Messages\DeviceFailureEventTests.cs" />
+    <Compile Include="Application\Messages\DeviceRestoreEventTests.cs" />
+    <Compile Include="Application\Messages\HeartbeatEventTests.cs" />
+    <Compile Include="Application\Messages\LogEntryEventTests.cs" />
+    <Compile Include="Application\Messages\LogicalDeviceAddedEventTests.cs" />
+    <Compile Include="Application\Messages\LogicalDeviceRemovedEventTests.cs" />
+    <Compile Include="Application\Messages\ObjectEventTests.cs" />
+    <Compile Include="Application\Messages\SensorReadingEventTests.cs" />
     <Compile Include="Application\Model\JetstreamConfiguration.cs" />
     <Compile Include="Application\Model\JetstreamServiceClientTests.cs" />
+    <Compile Include="Application\Model\CommandResponse\CommandResponseTests.cs" />
+    <Compile Include="Application\Model\ConfigureResponse\ConfigureResponseTests.cs" />
+    <Compile Include="Application\Model\GetConfigurationResponse\GetConfigurationResponseTests.cs" />
+    <Compile Include="Application\Model\GetDeviceDefinitionsResponse\GetDeviceDefinitionsResponseTests.cs" />
+    <Compile Include="Application\Model\GetEventsResponse\GetEventsResponseTests.cs" />
+    <Compile Include="Application\Model\GetPoliciesResponse\GetPoliciesResponseTests.cs" />
+    <Compile Include="Device\JetstreamDeviceServiceClientTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -77,6 +96,9 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Application\Model\GetDeviceStatusResponse\" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

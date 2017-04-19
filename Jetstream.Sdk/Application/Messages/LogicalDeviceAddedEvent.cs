@@ -212,5 +212,7 @@ namespace TersoSolutions.Jetstream.SDK.Application.Messages.LogicalDeviceAddedEv
         EU,
         /// <remarks/>
         AP,
+        /// <remarks/>
+        USGOV
     }
 }
