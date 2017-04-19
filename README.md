@@ -5,13 +5,13 @@
 
 [Jetstream Tools - https://jetstreamrfid.com/tools](https://jetstreamrfid.com/tools)
  
-###Microsoft .NET Framework 4.5
+### Microsoft .NET Framework 4.5
 The SDK allows has functionality for making application API calls, simulating device calls and receiving messages when implemented in an application (check out our JetstreamSDK Windows Service repo).
 
-###Use the application or device API in a project
+### Use the application or device API in a project
 Add a reference to the `JetstreamSDK.dll`.
 
-###Implement in a Windows Service
+### Implement in a Windows Service
 1. Open the JetstreamSDK-WindowsService solutions in [this](https://github.com/tersosolutions/JetstreamSDK-WindowsService) repository.
 2. If you want to view how events are processed, add this SDK to the service and change the reference.
 3. Build it.
