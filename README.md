@@ -1,7 +1,7 @@
 ![Terso Solutions Logo](https://cdn.tersosolutions.com/github/TersoHorizontal_BlackGreen.png "Terso Solutions, Inc.")
 
 ## Jetstream SDK
-[Jetstream Documentation - https://jetstreamrfid.com/documentation/applicationapi/1.5](https://jetstreamrfid.com/documentation/applicationapi/1.5)
+[Jetstream Documentation - https://jetstreamrfid.com/documentation/](https://jetstreamrfid.com/documentation/)
 
 [Jetstream Tools - https://jetstreamrfid.com/tools](https://jetstreamrfid.com/tools)
  
@@ -19,6 +19,7 @@ Add a reference to the `JetstreamSDK.dll`.
 5. Process those events in the Windows service, managing inventory, access and more.
 
 ### Change History
+* v2.0 - May 25, 2017 - upgraded and redesigned SDK to support Jetstream version 2 endpoints and JSON.
 * v1.5 - October 14, 2015 - added support for the v1.5 endpoints
 * v1.4 - March 3, 2014
   * Added support for limit on GetEvents
@@ -28,7 +29,7 @@ Add a reference to the `JetstreamSDK.dll`.
 * v1.1 - October 31, 2012 - bug fixes
 
 ### License
-Copyright 2015 Terso Solutions, Inc.
+Copyright 2017 Terso Solutions, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at:
 [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0).
