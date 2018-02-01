@@ -30,7 +30,7 @@ Add a reference to the `JetstreamSDK.dll`.
 * v1.1 - October 31, 2012 - bug fixes
 
 ### License
-Copyright 2017 Terso Solutions, Inc.
+Copyright 2018 Terso Solutions, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at:
 [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0).
