@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JetstreamSdk", "JetstreamSdk\JetstreamSdk.csproj", "{943BFB0D-44D2-4F60-BCBC-12CE1F058AB8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jetstream.SDK", "JetstreamSdk\Jetstream.SDK.csproj", "{943BFB0D-44D2-4F60-BCBC-12CE1F058AB8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JetstreamSdkTests", "JetstreamSdkTests\JetstreamSdkTests.csproj", "{1D7C7048-99B9-4F22-B26E-5D06350B9D4C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jetstream.SDK.Tests", "JetstreamSdkTests\Jetstream.SDK.Tests.csproj", "{1D7C7048-99B9-4F22-B26E-5D06350B9D4C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

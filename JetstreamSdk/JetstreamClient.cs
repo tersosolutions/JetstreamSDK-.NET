@@ -1,9 +1,27 @@
-﻿using System;
+﻿/*
+    Copyright 2018 Terso Solutions, Inc.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+*/
+
+using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Text;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using TersoSolutions.Jetstream.SDK.Objects;
 using TersoSolutions.Jetstream.SDK.Objects.Events;
 
@@ -34,6 +52,7 @@ namespace TersoSolutions.Jetstream.SDK
         /// </summary>
         /// <param name="accessKey"></param>
         /// <param name="jetstreamApiUrl"></param>
+        /// <exception cref="ArgumentNullException"></exception>
         public JetstreamClient(string accessKey, string jetstreamApiUrl)
         {
             if (String.IsNullOrEmpty(jetstreamApiUrl)) throw new ArgumentNullException("jetstreamApiUrl");
@@ -51,7 +70,6 @@ namespace TersoSolutions.Jetstream.SDK
 
             _baseUri = jetstreamApiUrl;
             _accessKey = accessKey;
-
         }
 
         #endregion
@@ -70,11 +88,11 @@ namespace TersoSolutions.Jetstream.SDK
             // to the url
             var url = _baseUri + "events/" + limit + "?";
 
-            url += String.IsNullOrEmpty(searchDevice) ? String.Empty : "Device=" + searchDevice; // Add search string
-            url += String.IsNullOrEmpty(searchType) ? String.Empty : "&Type=" + searchType; // Add search string
-            url += String.IsNullOrEmpty(sortBy) ? String.Empty : "&Sort=" + sortBy; // Add sort string
+            url += String.IsNullOrEmpty(searchDevice) ? String.Empty : "device=" + searchDevice; // Add search string
+            url += String.IsNullOrEmpty(searchType) ? String.Empty : "&type=" + searchType; // Add search string
+            url += String.IsNullOrEmpty(sortBy) ? String.Empty : "&sort=" + sortBy; // Add sort string
 
-            return SendRequestToJetstream<String, EventsDto>(url, WebRequestMethods.Http.Get, "");
+            return SendRequestToJetstream<string, EventsDto>(url, WebRequestMethods.Http.Get, String.Empty);
         }
 
         /// <summary>
@@ -88,7 +106,7 @@ namespace TersoSolutions.Jetstream.SDK
             var url = _baseUri + "events";
 
             // Make call. If no error thrown, we assume successful
-            SendRequestToJetstream<DeleteEventsDto, String>(url, "DELETE", deleteEventsDto);
+            SendRequestToJetstream<DeleteEventsDto, string>(url, "DELETE", deleteEventsDto);
         }
 
         #endregion
@@ -104,7 +122,7 @@ namespace TersoSolutions.Jetstream.SDK
             string searchSetConfigValuesCommand = "", string searchGetEpcListCommand = "", string searchResetCommand = "", string searchUpdateFirmwareCommand = "", string sortBy = "")
         {
             // Append the device definitions resource location to the url.
-            var url = _baseUri + "DeviceDefinitions?";
+            var url = _baseUri + "devicedefinitions?";
 
             url += String.IsNullOrEmpty(searchName) ? String.Empty : "Name=" + searchName; // Add search string
             url += String.IsNullOrEmpty(searchFirmwareVersion) ? String.Empty : "&FirmwareVersion=" + searchFirmwareVersion; // Add search string
@@ -115,7 +133,7 @@ namespace TersoSolutions.Jetstream.SDK
             url += String.IsNullOrEmpty(searchUpdateFirmwareCommand) ? String.Empty : "&UpdateFirmwareCommand=" + searchUpdateFirmwareCommand; // Add search string
             url += String.IsNullOrEmpty(sortBy) ? String.Empty : "&Sort=" + sortBy; // Add sort string
 
-            return SendRequestToJetstream<String, List<DeviceDefinitionsDto>>(url, WebRequestMethods.Http.Get, "");
+            return SendRequestToJetstream<string, List<DeviceDefinitionsDto>>(url, WebRequestMethods.Http.Get, String.Empty);
         }
 
         /// <summary>
@@ -129,7 +147,7 @@ namespace TersoSolutions.Jetstream.SDK
             // Add the device definitions resource location to the url.
             var url = _baseUri + "devicedefinitions/" + deviceDefinitionName;
 
-            return SendRequestToJetstream<String, DeviceDefinitionsDto>(url, WebRequestMethods.Http.Get, "");
+            return SendRequestToJetstream<string, DeviceDefinitionsDto>(url, WebRequestMethods.Http.Get, String.Empty);
         }
 
         #endregion
@@ -157,13 +175,13 @@ namespace TersoSolutions.Jetstream.SDK
         public List<PoliciesDto> GetPolicies(string searchName = "", string searchDeviceDefinition = "", string sortBy = "")
         {
             // Append the policies resource location to the url.
-            var url = _baseUri + "Policies?";
+            var url = _baseUri + "policies?";
 
-            url += String.IsNullOrEmpty(searchName) ? String.Empty : "Name=" + searchName; // Add search string
-            url += String.IsNullOrEmpty(searchDeviceDefinition) ? String.Empty : "&DeviceDefinition=" + searchDeviceDefinition; // Add search string
-            url += String.IsNullOrEmpty(sortBy) ? String.Empty : "&SortBy=" + sortBy; // Add search string
+            url += String.IsNullOrEmpty(searchName) ? String.Empty : "name=" + searchName; // Add search string
+            url += String.IsNullOrEmpty(searchDeviceDefinition) ? String.Empty : "&devicedefinition=" + searchDeviceDefinition; // Add search string
+            url += String.IsNullOrEmpty(sortBy) ? String.Empty : "&sortby=" + sortBy; // Add search string
 
-            return SendRequestToJetstream<String, List<PoliciesDto>>(url, WebRequestMethods.Http.Get, "");
+            return SendRequestToJetstream<string, List<PoliciesDto>>(url, WebRequestMethods.Http.Get, String.Empty);
         }
 
         /// <summary>
@@ -177,7 +195,7 @@ namespace TersoSolutions.Jetstream.SDK
             // Add the policies resource location to the url.
             var url = _baseUri + "policies/" + policyName;
 
-            return SendRequestToJetstream<String, PoliciesDto>(url, WebRequestMethods.Http.Get, "");
+            return SendRequestToJetstream<string, PoliciesDto>(url, WebRequestMethods.Http.Get, String.Empty);
         }
 
         /// <summary>
@@ -190,7 +208,7 @@ namespace TersoSolutions.Jetstream.SDK
             var url = _baseUri + "policies/" + policyName;
 
             // Make call. If no error thrown, we assume successful
-            SendRequestToJetstream<String, String>(url, "DELETE", "");
+            SendRequestToJetstream<string, string>(url, "DELETE", "");
         }
 
         #endregion
@@ -221,8 +239,7 @@ namespace TersoSolutions.Jetstream.SDK
             var url = _baseUri + "devices/" + deviceName;
 
             // Make call. If no error thrown, we assume successful
-            SendRequestToJetstream<String, String>(url, "DELETE", "");
-
+            SendRequestToJetstream<string, string>(url, "DELETE", "");
         }
 
         /// <summary>
@@ -235,14 +252,14 @@ namespace TersoSolutions.Jetstream.SDK
         {
             // Append the devices resource location to the url.
             var url = _baseUri + "devices?";
-            url += String.IsNullOrEmpty(searchName) ? String.Empty : "Name=" + searchName; // Add search string
-            url += String.IsNullOrEmpty(searchSerialNumber) ? String.Empty : "&SerialNumber=" + searchSerialNumber; // Add search string
-            url += String.IsNullOrEmpty(searchDeviceDefinition) ? String.Empty : "&DeviceDefinition=" + searchDeviceDefinition; // Add search string
-            url += String.IsNullOrEmpty(searchRegion) ? String.Empty : "&Region=" + searchRegion; // Add search string
-            url += String.IsNullOrEmpty(searchPolicy) ? String.Empty : "&Policy=" + searchPolicy; // Add search string
-            url += String.IsNullOrEmpty(sortBy) ? String.Empty : "&Sort=" + sortBy; // Add sort string
+            url += String.IsNullOrEmpty(searchName) ? String.Empty : "name=" + searchName; // Add search string
+            url += String.IsNullOrEmpty(searchSerialNumber) ? String.Empty : "&serialnumber=" + searchSerialNumber; // Add search string
+            url += String.IsNullOrEmpty(searchDeviceDefinition) ? String.Empty : "&devicedefinition=" + searchDeviceDefinition; // Add search string
+            url += String.IsNullOrEmpty(searchRegion) ? String.Empty : "&region=" + searchRegion; // Add search string
+            url += String.IsNullOrEmpty(searchPolicy) ? String.Empty : "&policy=" + searchPolicy; // Add search string
+            url += String.IsNullOrEmpty(sortBy) ? String.Empty : "&sort=" + sortBy; // Add sort string
 
-            return SendRequestToJetstream<String, List<DevicesDto>>(url, WebRequestMethods.Http.Get, "");
+            return SendRequestToJetstream<string, List<DevicesDto>>(url, WebRequestMethods.Http.Get, String.Empty);
         }
 
         /// <summary>
@@ -254,7 +271,7 @@ namespace TersoSolutions.Jetstream.SDK
             // Append the devices resource location to the url.
             var url = _baseUri + "devices/" + deviceName;
 
-            return SendRequestToJetstream<String, DevicesDto>(url, WebRequestMethods.Http.Get, "");
+            return SendRequestToJetstream<string, DevicesDto>(url, WebRequestMethods.Http.Get, String.Empty);
         }
 
         /// <summary>
@@ -264,11 +281,11 @@ namespace TersoSolutions.Jetstream.SDK
         /// <returns>DeviceStatusDto</returns>
         public DeviceStatusDto GetDeviceStatus(string deviceName)
         {
-            var url = _baseUri + "devices/" + deviceName + "/Status";
+            var url = _baseUri + "devices/" + deviceName + "/status";
 
-            return SendRequestToJetstream<String, DeviceStatusDto>(url, WebRequestMethods.Http.Get, "");
+            return SendRequestToJetstream<string, DeviceStatusDto>(url, WebRequestMethods.Http.Get, String.Empty);
         }
-        
+
         #endregion
 
         #region Device Commands
@@ -280,9 +297,9 @@ namespace TersoSolutions.Jetstream.SDK
         /// <returns>CommandResponseDto</returns>
         public CommandResponseDto SendGetEpcListCommand(string deviceName)
         {
-            var url = _baseUri + "devices/" + deviceName + "/EPCList";
+            var url = _baseUri + "devices/" + deviceName + "/epclist";
 
-            return SendRequestToJetstream<String, CommandResponseDto>(url, WebRequestMethods.Http.Get, "");
+            return SendRequestToJetstream<string, CommandResponseDto>(url, WebRequestMethods.Http.Get, String.Empty);
         }
 
         /// <summary>
@@ -292,9 +309,9 @@ namespace TersoSolutions.Jetstream.SDK
         /// <returns>CommandResponseDto</returns>
         public CommandResponseDto SendResetCommand(string deviceName)
         {
-            var url = _baseUri + "devices/" + deviceName + "/Reset";
+            var url = _baseUri + "devices/" + deviceName + "/reset";
 
-            return SendRequestToJetstream<String, CommandResponseDto>(url, WebRequestMethods.Http.Post, "");
+            return SendRequestToJetstream<string, CommandResponseDto>(url, WebRequestMethods.Http.Post, String.Empty);
         }
 
         /// <summary>
@@ -306,7 +323,7 @@ namespace TersoSolutions.Jetstream.SDK
         /// <returns>CommandResponseDto</returns>
         public CommandResponseDto SendVersionCommand(string deviceName, VersionDto versionDto)
         {
-            var url = _baseUri + "devices/" + deviceName + "/Version";
+            var url = _baseUri + "devices/" + deviceName + "/version";
 
             return SendRequestToJetstream<VersionDto, CommandResponseDto>(url, WebRequestMethods.Http.Post, versionDto);
         }
@@ -319,7 +336,7 @@ namespace TersoSolutions.Jetstream.SDK
         /// <returns>CommandResponseDto</returns>
         public CommandResponseDto SendLockdownCommand(string deviceName, LockdownDto lockdownDto)
         {
-            var url = _baseUri + "devices/" + deviceName + "/Lockdown";
+            var url = _baseUri + "devices/" + deviceName + "/lockdown";
 
             return SendRequestToJetstream<LockdownDto, CommandResponseDto>(url, WebRequestMethods.Http.Post, lockdownDto);
         }
@@ -332,7 +349,7 @@ namespace TersoSolutions.Jetstream.SDK
         /// <returns>CommandResponseDto</returns>
         public CommandResponseDto SendUnlockDoorCommand(string deviceName, UnlockDoorDto unlockDoorDto)
         {
-            var url = _baseUri + "devices/" + deviceName + "/UnlockDoor";
+            var url = _baseUri + "devices/" + deviceName + "/unlockdoor";
 
             return SendRequestToJetstream<UnlockDoorDto, CommandResponseDto>(url, WebRequestMethods.Http.Post, unlockDoorDto);
         }
@@ -344,9 +361,9 @@ namespace TersoSolutions.Jetstream.SDK
         /// <returns>CommandResponseDto</returns>
         public CommandResponseDto SendGetAccessControlCommand(string deviceName)
         {
-            var url = _baseUri + "devices/" + deviceName + "/AccessControl";
+            var url = _baseUri + "devices/" + deviceName + "/accesscontrol";
 
-            return SendRequestToJetstream<String, CommandResponseDto>(url, WebRequestMethods.Http.Get, "");
+            return SendRequestToJetstream<string, CommandResponseDto>(url, WebRequestMethods.Http.Get, String.Empty);
         }
 
         /// <summary>
@@ -357,7 +374,7 @@ namespace TersoSolutions.Jetstream.SDK
         /// <returns>CommandResponseDto</returns>
         public CommandResponseDto SendPostAccessControlCommand(string deviceName, PostAccessControlDto postAccessControlDto)
         {
-            var url = _baseUri + "devices/" + deviceName + "/AccessControl";
+            var url = _baseUri + "devices/" + deviceName + "/accesscontrol";
 
             return SendRequestToJetstream<PostAccessControlDto, CommandResponseDto>(url, WebRequestMethods.Http.Post, postAccessControlDto);
         }
@@ -372,7 +389,7 @@ namespace TersoSolutions.Jetstream.SDK
         /// <returns>CommandResponseDto</returns>
         public CommandResponseDto SendPutAccessControlCommand(string deviceName, PutAccessControlDto putAccessControlDto)
         {
-            var url = _baseUri + "devices/" + deviceName + "/AccessControl";
+            var url = _baseUri + "devices/" + deviceName + "/accesscontrol";
 
             return SendRequestToJetstream<PutAccessControlDto, CommandResponseDto>(url, WebRequestMethods.Http.Put, putAccessControlDto);
         }
@@ -423,7 +440,7 @@ namespace TersoSolutions.Jetstream.SDK
             // Append the devices resource location to the url.
             var url = _baseUri + "devices/" + deviceName + "/policy";
 
-            return SendRequestToJetstream<String, DevicesPolicyDto>(url, WebRequestMethods.Http.Get, "");
+            return SendRequestToJetstream<string, DevicesPolicyDto>(url, WebRequestMethods.Http.Get, String.Empty);
         }
 
         /// <summary>
@@ -437,7 +454,7 @@ namespace TersoSolutions.Jetstream.SDK
             var url = _baseUri + "devices/" + deviceName + "/policy";
 
             // Make call and if no error is thrown we assume success
-            SendRequestToJetstream<String, String>(url, "DELETE", "");
+            SendRequestToJetstream<string, string>(url, "DELETE", "");
         }
 
         /// <summary>
@@ -450,7 +467,7 @@ namespace TersoSolutions.Jetstream.SDK
         public CommandResponseDto SyncDevicePolicy(string deviceName)
         {
             var url = _baseUri + "devices/" + deviceName + "/policy/sync";
-            return SendRequestToJetstream<String, CommandResponseDto>(url, WebRequestMethods.Http.Post, "");
+            return SendRequestToJetstream<string, CommandResponseDto>(url, WebRequestMethods.Http.Post, String.Empty);
         }
 
         /// <summary>
@@ -462,7 +479,7 @@ namespace TersoSolutions.Jetstream.SDK
         public CommandResponseDto GetSyncedDevicePolicy(string deviceName)
         {
             var url = _baseUri + "devices/" + deviceName + "/policy/sync";
-            return SendRequestToJetstream<String, CommandResponseDto>(url, WebRequestMethods.Http.Get, "");
+            return SendRequestToJetstream<string, CommandResponseDto>(url, WebRequestMethods.Http.Get, String.Empty);
         }
 
         #endregion
@@ -488,22 +505,50 @@ namespace TersoSolutions.Jetstream.SDK
             // Specify content type as JSON
             request.ContentType = "application/json";
             // Set the verb
-            request.Method = httpVerb; 
+            request.Method = httpVerb;
 
             // If it's not a GET request, set the body of the request
             if (!String.Equals(httpVerb, WebRequestMethods.Http.Get))
             {
                 // Set the body to an encoded object
-                request = CreateRequestBody(request, JsonConvert.SerializeObject(body)); 
+                request = CreateRequestBody(request, JsonConvert.SerializeObject(body));
             }
 
-            // Make call and get response
-            var response = request.GetResponse(); 
-            // ReSharper disable once AssignNullToNotNullAttribute
-            // Read response stream
-            var responseString = new StreamReader(response.GetResponseStream()).ReadToEnd();
-            // Return DTO returned from Jetstream
-            return JsonConvert.DeserializeObject<T2>(responseString, new EventDtoConverter()); 
+            try
+            {
+                // Make call and get response
+                var response = request.GetResponse();
+                
+                // Get response stream
+                // ReSharper disable once AssignNullToNotNullAttribute
+                var responseStreamReader = new StreamReader(response.GetResponseStream());
+                // Read response stream
+                var responseString = responseStreamReader.ReadToEnd();
+
+                // Close request and close stream
+                responseStreamReader.Close();
+                response.Close();
+
+                // Return DTO returned from Jetstream
+                return JsonConvert.DeserializeObject<T2>(responseString, new EventDtoConverter());
+            }
+            catch (WebException ex)
+            {
+                // Cast as a http web response, if possible
+                var httpResponse = ex.Response as HttpWebResponse;
+                if (httpResponse == null) throw;
+
+                // Grab the status code
+                var statusCode = httpResponse.StatusCode;
+                // ReSharper disable once AssignNullToNotNullAttribute
+                // Get the JSON of the response
+                var responseBody = new StreamReader(httpResponse.GetResponseStream()).ReadToEnd();
+                // Format the JSON body of the response to make a pretty error message
+                var formattedMessage = CreateErrorMessageFromJsonBody(responseBody);
+                // Create new Jetstream exception and throw it
+                var jetstreamException = new JetstreamException(statusCode, JsonConvert.SerializeObject(body), responseBody, formattedMessage, ex);
+                throw jetstreamException;
+            }
         }
 
         /// <summary>
@@ -523,6 +568,61 @@ namespace TersoSolutions.Jetstream.SDK
                 s.Write(postData, 0, postData.Length);
             }
             return request;
+        }
+
+        /// <summary>
+        /// Take the unformatted JSON of the response and 
+        /// create a prettier error message
+        /// </summary>
+        /// <param name="unformattedBody"></param>
+        /// <returns></returns>
+        private static string CreateErrorMessageFromJsonBody(string unformattedBody)
+        {
+            var formattedMessage = String.Empty;
+            var responseObject = new JObject();
+
+            // Try to cast the response as a JObject. It will work if the response is JSON.
+            try
+            {
+                responseObject = JsonConvert.DeserializeObject<JObject>(unformattedBody);
+            }
+            catch (Exception)
+            {
+                try
+                {
+                    // Response was not JSON. So just make it a string and return it.
+                    formattedMessage = JsonConvert.DeserializeObject<string>(unformattedBody);
+                    return formattedMessage;
+                }
+                // ReSharper disable once EmptyGeneralCatchClause
+                catch(Exception){}
+            }
+            
+
+            // Grab the message from the body, if it exists
+            if (responseObject["Message"] != null)
+            {
+                formattedMessage += responseObject["Message"].ToString();
+            }
+
+            // Grab and aggregate the model state errors, if they exist
+            if (responseObject["ModelState"] != null)
+            {
+                if (!String.IsNullOrEmpty(formattedMessage))
+                {
+                    formattedMessage += " | ";
+                }
+
+                // Take the ModelState section of the JSON and convert it to a JToken.
+                var modelStateJToken = responseObject["ModelState"];
+                // Take the JToken and convert it to a Dictionary<string, List<string>>
+                var modelStateDictionary = modelStateJToken.ToObject<Dictionary<string, List<string>>>();
+                // Go through each error and joing them onto the string with a comma between them
+                formattedMessage += String.Join(", ", modelStateDictionary.Values.Select(x => String.Join(", ", x)));
+            }
+
+            // Return the message
+            return formattedMessage;
         }
 
         #endregion

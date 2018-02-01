@@ -51,13 +51,14 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>ReferenceDLLs\Moq.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>ReferenceDLLs\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
-    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Net" />
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
@@ -72,9 +73,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\JetstreamSdk\JetstreamSdk.csproj">
+    <ProjectReference Include="..\JetstreamSdk\Jetstream.SDK.csproj">
       <Project>{943BFB0D-44D2-4F60-BCBC-12CE1F058AB8}</Project>
-      <Name>JetstreamSdk</Name>
+      <Name>Jetstream.SDK</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -1,10 +1,26 @@
-﻿using System;
+﻿/*
+    Copyright 2018 Terso Solutions, Inc.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+*/
+
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 using TersoSolutions.Jetstream.SDK.Objects;
@@ -52,18 +68,20 @@ namespace TersoSolutions.Jetstream.SDK.Tests
                 Assert.IsTrue(e.Message.Contains("accessKey"));
             }
         }
+
         #endregion
 
         #region Event Tests
+
         [TestMethod]
         public void ServiceClientTests_GetEventsWithoutSearchAndSortHappyPath()
         {
-            var heartbeatEvent = new HeartbeatEventDto()
+            var heartbeatEvent = new HeartbeatEventDto
             {
                 Device = "TestDevice",
                 EventId = Guid.NewGuid().ToString(),
-                EventTime = DateTime.Now.ToString(CultureInfo.InvariantCulture),
-                ReceivedTime = DateTime.Now.ToString(CultureInfo.InvariantCulture),
+                EventTime = DateTime.Now,
+                ReceivedTime = DateTime.Now,
                 Type = "HeartbeatEvent"
             };
             var eventsDto = new EventsDto
@@ -101,8 +119,8 @@ namespace TersoSolutions.Jetstream.SDK.Tests
                 {
                     Device = "TestDevice" + i,
                     EventId = Guid.NewGuid().ToString(),
-                    EventTime = DateTime.Now.ToString(CultureInfo.InvariantCulture),
-                    ReceivedTime = DateTime.Now.ToString(CultureInfo.InvariantCulture),
+                    EventTime = DateTime.Now,
+                    ReceivedTime = DateTime.Now,
                     Type = "HeartbeatEvent"
                 });
             }
@@ -128,9 +146,9 @@ namespace TersoSolutions.Jetstream.SDK.Tests
         #region Device Definition Tests
 
         [TestMethod]
-        public void ServiceClientTests_GetDeviceDefinitionssWithoutSearchAndSortHappyPath()
+        public void ServiceClientTests_GetDeviceDefinitionsWithoutSearchAndSortHappyPath()
         {
-            var deviceDefinitionDto = new DeviceDefinitionsDto()
+            var deviceDefinitionDto = new DeviceDefinitionsDto
             {
                 Name = "HelloWorld",
                 SetConfigValuesCommand = true,
@@ -164,7 +182,7 @@ namespace TersoSolutions.Jetstream.SDK.Tests
         [TestMethod]
         public void ServiceClientTests_GetDeviceDefinitionHappyPath()
         {
-            var deviceDefinitionDto = new DeviceDefinitionsDto()
+            var deviceDefinitionDto = new DeviceDefinitionsDto
             {
                 Name = "HelloWorld",
                 SetConfigValuesCommand = true,
@@ -200,7 +218,7 @@ namespace TersoSolutions.Jetstream.SDK.Tests
         [TestMethod]
         public void ServiceClientTests_GetPoliciesWithoutSearchAndSortHappyPath()
         {
-            var policyDto = new PoliciesDto()
+            var policyDto = new PoliciesDto
             {
                 Name = "HelloWorld",
                 DeviceDefinition = "TestDeviceDefinition",
@@ -223,7 +241,7 @@ namespace TersoSolutions.Jetstream.SDK.Tests
         [TestMethod]
         public void ServiceClientTests_GetPolicyHappyPath()
         {
-            var policyDto = new PoliciesDto()
+            var policyDto = new PoliciesDto
             {
                 Name = "HelloWorld",
                 DeviceDefinition = "TestDeviceDefinition",
@@ -244,7 +262,7 @@ namespace TersoSolutions.Jetstream.SDK.Tests
         [TestMethod]
         public void ServiceClientTests_AddPolicyHappyPath()
         {
-            var policyDto = new PoliciesDto()
+            var policyDto = new PoliciesDto
             {
                 Name = "HelloWorld",
                 DeviceDefinition = "TestDeviceDefinition",
@@ -269,7 +287,7 @@ namespace TersoSolutions.Jetstream.SDK.Tests
         [TestMethod]
         public void ServiceClientTests_GetDevicesWithoutSearchAndSortHappyPath()
         {
-            var deviceDto = new DevicesDto()
+            var deviceDto = new DevicesDto
             {
                 Name = "HelloWorld",
                 SerialNumber = "TestSerialNumber",
@@ -296,7 +314,8 @@ namespace TersoSolutions.Jetstream.SDK.Tests
         [TestMethod]
         public void ServiceClientTests_GetDeviceHappyPath()
         {
-            var deviceDto = new DevicesDto() { Name = "HelloWorld", SerialNumber = "TestSerialNumber", 
+            var deviceDto = new DevicesDto
+            { Name = "HelloWorld", SerialNumber = "TestSerialNumber", 
                 DeviceDefinition = "TestDeviceDefinition", Policy = "TestPolicy", Region = "TestRegion"};
             WebRequest.RegisterPrefix("test", new TestWebRequestCreate());
             TestWebRequestCreate.CreateTestRequest(JsonConvert.SerializeObject(deviceDto));
@@ -315,7 +334,7 @@ namespace TersoSolutions.Jetstream.SDK.Tests
         [TestMethod]
         public void ServiceClientTests_AddDeviceHappyPath()
         {
-            var deviceDto = new DevicesDto()
+            var deviceDto = new DevicesDto
             {
                 Name = "HelloWorld",
                 SerialNumber = "TestSerialNumber",
@@ -336,11 +355,11 @@ namespace TersoSolutions.Jetstream.SDK.Tests
             Assert.AreEqual(deviceDto.Policy, result.Policy);
             Assert.AreEqual(deviceDto.Region, result.Region);
         }
-        
+
         [TestMethod]
         public void ServiceClientTests_GetDeviceStatusHappyPath()
         {
-            var statusDto = new DeviceStatusDto()
+            var statusDto = new DeviceStatusDto
             {
                 WebSocketsEnabled = true
             };
@@ -361,7 +380,7 @@ namespace TersoSolutions.Jetstream.SDK.Tests
         [TestMethod]
         public void ServiceClientTests_SendGetEpcListCommandHappyPath()
         {
-            var commandResponse = new CommandResponseDto()
+            var commandResponse = new CommandResponseDto
             {
                 CommandId = Guid.NewGuid().ToString(),
                 Status = "Completed",
@@ -382,7 +401,7 @@ namespace TersoSolutions.Jetstream.SDK.Tests
         [TestMethod]
         public void ServiceClientTests_SendResetCommandHappyPath()
         {
-            var commandResponse = new CommandResponseDto()
+            var commandResponse = new CommandResponseDto
             {
                 CommandId = Guid.NewGuid().ToString(),
                 Status = "Completed",
@@ -408,7 +427,7 @@ namespace TersoSolutions.Jetstream.SDK.Tests
                 Component = "AGENT",
                 Url = "test://newfirmware.version"
             };
-            var commandResponse = new CommandResponseDto()
+            var commandResponse = new CommandResponseDto
             {
                 CommandId = Guid.NewGuid().ToString(),
                 Status = "Completed",
@@ -429,11 +448,11 @@ namespace TersoSolutions.Jetstream.SDK.Tests
         [TestMethod]
         public void ServiceClientTests_SendLockdownCommandHappyPath()
         {
-            var lockdown = new LockdownDto()
+            var lockdown = new LockdownDto
             {
                 Hours = 15
             };
-            var commandResponse = new CommandResponseDto()
+            var commandResponse = new CommandResponseDto
             {
                 CommandId = Guid.NewGuid().ToString(),
                 Status = "Completed",
@@ -454,11 +473,11 @@ namespace TersoSolutions.Jetstream.SDK.Tests
         [TestMethod]
         public void ServiceClientTests_SendUnlockDoorCommandHappyPath()
         {
-            var unlockDoor = new UnlockDoorDto()
+            var unlockDoor = new UnlockDoorDto
             {
                 AccessToken = "0000000000"
             };
-            var commandResponse = new CommandResponseDto()
+            var commandResponse = new CommandResponseDto
             {
                 CommandId = Guid.NewGuid().ToString(),
                 Status = "Completed",
@@ -479,7 +498,7 @@ namespace TersoSolutions.Jetstream.SDK.Tests
         [TestMethod]
         public void ServiceClientTests_SendGetAccessControlCommandHappyPath()
         {
-            var commandResponse = new CommandResponseDto()
+            var commandResponse = new CommandResponseDto
             {
                 CommandId = Guid.NewGuid().ToString(),
                 Status = "Completed",
@@ -500,12 +519,12 @@ namespace TersoSolutions.Jetstream.SDK.Tests
         [TestMethod]
         public void ServiceClientTests_SendPostAccessControlCommandHappyPath()
         {
-            var postAccess = new PostAccessControlDto()
+            var postAccess = new PostAccessControlDto
             {
                 Add = new List<string>(),
                 Remove = new List<string>()
             };
-            var commandResponse = new CommandResponseDto()
+            var commandResponse = new CommandResponseDto
             {
                 CommandId = Guid.NewGuid().ToString(),
                 Status = "Completed",
@@ -526,11 +545,11 @@ namespace TersoSolutions.Jetstream.SDK.Tests
         [TestMethod]
         public void ServiceClientTests_SendPutAccessControlCommandHappyPath()
         {
-            var putAccess = new PutAccessControlDto()
+            var putAccess = new PutAccessControlDto
             {
                 Passes = new List<string>()
             };
-            var commandResponse = new CommandResponseDto()
+            var commandResponse = new CommandResponseDto
             {
                 CommandId = Guid.NewGuid().ToString(),
                 Status = "Completed",
@@ -551,11 +570,11 @@ namespace TersoSolutions.Jetstream.SDK.Tests
         [TestMethod]
         public void ServiceClientTests_SendProprietaryCommandHappyPath()
         {
-            var propCommand = new ProprietaryCommandDto()
+            var propCommand = new ProprietaryCommandDto
             {
                 Parameters = new List<KeyValuePair<string, string>>()
             };
-            var commandResponse = new CommandResponseDto()
+            var commandResponse = new CommandResponseDto
             {
                 CommandId = Guid.NewGuid().ToString(),
                 Status = "Completed",
@@ -580,7 +599,7 @@ namespace TersoSolutions.Jetstream.SDK.Tests
         [TestMethod]
         public void ServiceClientTests_GetDevicePolicyHappyPath()
         {
-            var devicePolicyDto = new DevicesPolicyDto()
+            var devicePolicyDto = new DevicesPolicyDto
             {
                 Name = "HelloWorld",
                 Parameters = new Dictionary<string, string>()
@@ -598,7 +617,7 @@ namespace TersoSolutions.Jetstream.SDK.Tests
         [TestMethod]
         public void ServiceClientTests_AddDeviceToPolicyHappyPath()
         {
-            var devicePolicyDto = new DevicesPolicyDto()
+            var devicePolicyDto = new DevicesPolicyDto
             {
                 Name = "HelloWorld",
                 Parameters = new Dictionary<string, string>()
@@ -616,7 +635,7 @@ namespace TersoSolutions.Jetstream.SDK.Tests
         [TestMethod]
         public void ServiceClientTests_SyncDevicePolicyHappyPath()
         {
-            var commandResponse = new CommandResponseDto()
+            var commandResponse = new CommandResponseDto
             {
                 CommandId = Guid.NewGuid().ToString(),
                 Status = "Completed",
@@ -637,7 +656,7 @@ namespace TersoSolutions.Jetstream.SDK.Tests
         [TestMethod]
         public void ServiceClientTests_GetSyncedDevicePolicyHappyPath()
         {
-            var commandResponse = new CommandResponseDto()
+            var commandResponse = new CommandResponseDto
             {
                 CommandId = Guid.NewGuid().ToString(),
                 Status = "Completed",
@@ -659,6 +678,7 @@ namespace TersoSolutions.Jetstream.SDK.Tests
     }
 
     #region Helper Classes
+
     [TestClass]
     [ExcludeFromCodeCoverage]
     #pragma warning disable 1587
@@ -697,6 +717,7 @@ namespace TersoSolutions.Jetstream.SDK.Tests
             return request;
         }
     }
+
     [TestClass]
     [ExcludeFromCodeCoverage]
     public class TestWebRequest : WebRequest
@@ -719,13 +740,13 @@ namespace TersoSolutions.Jetstream.SDK.Tests
         /// with the response to return.</summary>
         public TestWebRequest(string response)
         {
-            _responseStream = new MemoryStream(System.Text.Encoding.UTF8.GetBytes(response));
+            _responseStream = new MemoryStream(Encoding.UTF8.GetBytes(response));
         }
 
         /// <summary>Returns the request contents as a string.</summary>
         public string ContentAsString()
         {
-            return System.Text.Encoding.UTF8.GetString(_requestStream.ToArray());
+            return Encoding.UTF8.GetString(_requestStream.ToArray());
         }
 
         /// <summary>See <see cref="WebRequest.GetRequestStream"/>.</summary>
@@ -740,6 +761,7 @@ namespace TersoSolutions.Jetstream.SDK.Tests
             return new TestWebResponse(_responseStream);
         }
     }
+
     [TestClass]
     [ExcludeFromCodeCoverage]
     public class TestWebResponse : WebResponse
@@ -759,5 +781,6 @@ namespace TersoSolutions.Jetstream.SDK.Tests
             return _responseStream;
         }
     }
+
     #endregion
 }

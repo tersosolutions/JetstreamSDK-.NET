@@ -19,6 +19,7 @@ Add a reference to the `JetstreamSDK.dll`.
 5. Process those events in the Windows service, managing inventory, access and more.
 
 ### Change History
+* v2.1 - February 1, 2018 - added a JetstreamException class for ease of use, along with other improvements.
 * v2.0 - May 25, 2017 - upgraded and redesigned SDK to support Jetstream version 2 endpoints and JSON.
 * v1.5 - October 14, 2015 - added support for the v1.5 endpoints
 * v1.4 - March 3, 2014
