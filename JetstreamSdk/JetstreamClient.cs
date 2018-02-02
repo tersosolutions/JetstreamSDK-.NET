@@ -498,11 +498,18 @@ namespace TersoSolutions.Jetstream.SDK
             }
 
             // Make call and get response
-            var response = request.GetResponse(); 
+            var response = request.GetResponse();
+
+            // Get response stream
             // ReSharper disable once AssignNullToNotNullAttribute
+            var responseStreamReader = new StreamReader(response.GetResponseStream());
             // Read response stream
-            var responseString = new StreamReader(response.GetResponseStream()).ReadToEnd();
-            // Return DTO returned from Jetstream
+            var responseString = responseStreamReader.ReadToEnd();
+
+            // Close request and close stream
+            responseStreamReader.Close();
+            response.Close();
+            
             return JsonConvert.DeserializeObject<T2>(responseString, new EventDtoConverter()); 
         }
 
