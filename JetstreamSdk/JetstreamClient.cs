@@ -481,6 +481,9 @@ namespace TersoSolutions.Jetstream.SDK
         /// <returns>T</returns>
         private T2 SendRequestToJetstream<T1, T2>(string requestUri, string httpVerb, T1 body)
         {
+            // Set security to TLS 1.2
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+            
             // Create request
             var request = WebRequest.Create(requestUri);
             // Add access key to header
