@@ -331,6 +331,8 @@ namespace TersoSolutions.Jetstream.Application
         /// </returns>
         private static object[] SendToJetStream(String url, String body)
         {
+            //Adds TLS 1.2 support
+            ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072; 
             HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(url);
             try
             {
