@@ -14,31 +14,27 @@
   limitations under the License.
 */
 
-using System.Collections.Generic;
-
 namespace TersoSolutions.Jetstream.SDK.Objects
 {
     /// <summary>
-    /// A data transfer object that 
-    /// defines a policy and its properties
+    /// A data transfer object that passes
+    /// needed information to perform an application update
     /// </summary>
-    public class PoliciesDto
+    public class ApplicationVersionDto
     {
         /// <summary>
-        /// The name of the policy
+        /// The URL at which the software update is available
         /// </summary>
-        public string Name { get; set; }
+        public string Url { get; set; }
 
         /// <summary>
-        /// Referenced name of the device definition
-        /// to which the policy applies
+        /// Username used to access the software update
         /// </summary>
-        public string DeviceDefinition { get; set; }
+        public string Username { get; set; }
 
         /// <summary>
-        /// Configuration parameters and their values
-        /// as described in a device definition. 
+        /// Password used to access the software update
         /// </summary>
-        public Dictionary<string, string> Parameters { get; set; }
+        public string Password { get; set; }
     }
 }

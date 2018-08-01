@@ -55,6 +55,8 @@
   <ItemGroup>
     <Compile Include="IJetstreamClient.cs" />
     <Compile Include="JetstreamClient.cs" />
+    <Compile Include="Objects\AppConfigValuesCommandDto.cs" />
+    <Compile Include="Objects\ApplicationVersionDto.cs" />
     <Compile Include="Objects\DeviceStatusDto.cs" />
     <Compile Include="Objects\Events\AggregateEventDto.cs" />
     <Compile Include="Objects\Events\CommandCompletionEventDto.cs" />

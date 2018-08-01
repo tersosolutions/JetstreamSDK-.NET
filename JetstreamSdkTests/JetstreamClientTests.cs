@@ -222,8 +222,7 @@ namespace TersoSolutions.Jetstream.SDK.Tests
             {
                 Name = "HelloWorld",
                 DeviceDefinition = "TestDeviceDefinition",
-                Parameters = new Dictionary<string, string>(),
-                ProprietaryCommands = new List<string>()
+                Parameters = new Dictionary<string, string>()
             };
             var policyList = new List<PoliciesDto> { policyDto };
 
@@ -245,8 +244,7 @@ namespace TersoSolutions.Jetstream.SDK.Tests
             {
                 Name = "HelloWorld",
                 DeviceDefinition = "TestDeviceDefinition",
-                Parameters = new Dictionary<string, string>(),
-                ProprietaryCommands = new List<string>()
+                Parameters = new Dictionary<string, string>()
             };
             WebRequest.RegisterPrefix("test", new TestWebRequestCreate());
             TestWebRequestCreate.CreateTestRequest(JsonConvert.SerializeObject(policyDto));
@@ -266,8 +264,7 @@ namespace TersoSolutions.Jetstream.SDK.Tests
             {
                 Name = "HelloWorld",
                 DeviceDefinition = "TestDeviceDefinition",
-                Parameters = new Dictionary<string, string>(),
-                ProprietaryCommands = new List<string>()
+                Parameters = new Dictionary<string, string>()
             };
             WebRequest.RegisterPrefix("test", new TestWebRequestCreate());
             TestWebRequestCreate.CreateTestRequest(JsonConvert.SerializeObject(policyDto));
@@ -567,13 +564,14 @@ namespace TersoSolutions.Jetstream.SDK.Tests
             Assert.AreEqual(commandResponse.Status, result.Status);
         }
 
+        /// <summary>
+        /// Verifies the sucessful compeletion of SendGetApplicationValues
+        /// </summary>
         [TestMethod]
-        public void ServiceClientTests_SendProprietaryCommandHappyPath()
+        public void ServiceClientTests_SendGetApplicationValues()
         {
-            var propCommand = new ProprietaryCommandDto
-            {
-                Parameters = new List<KeyValuePair<string, string>>()
-            };
+            //Assemble
+            var paramaters = new List<string>{"Name1","Name2","Name3"};
             var commandResponse = new CommandResponseDto
             {
                 CommandId = Guid.NewGuid().ToString(),
@@ -581,17 +579,93 @@ namespace TersoSolutions.Jetstream.SDK.Tests
                 ExceptionList = new List<KeyValuePair<string, string>>(),
                 OutputParameterList = new List<KeyValuePair<string, string>>()
             };
+
             WebRequest.RegisterPrefix("test", new TestWebRequestCreate());
             TestWebRequestCreate.CreateTestRequest(JsonConvert.SerializeObject(commandResponse));
 
+            //Act
             var service = new JetstreamClient(_accessKey, "test://MyUrl");
-            var result = service.SendProprietaryCommand("TestDevice", "TestCommand", propCommand);
+            var result = service.SendGetApplicationValues(paramaters, "TestDevice");
 
+            //Assert
             Assert.IsNotNull(result);
             Assert.AreEqual(commandResponse.CommandId, result.CommandId);
             Assert.AreEqual(commandResponse.Status, result.Status);
+
         }
 
+        /// <summary>
+        /// Verifies the successful completion of SendSetApplicationValues
+        /// </summary>
+        [TestMethod]
+        public void ServiceClientTests_SendSetApplicationValues()
+        {
+            //Assemble
+            var commandResponse = new CommandResponseDto
+            {
+                CommandId = Guid.NewGuid().ToString(),
+                Status = "Completed",
+                ExceptionList = new List<KeyValuePair<string, string>>(),
+                OutputParameterList = new List<KeyValuePair<string, string>>()
+            };
+
+            var appConfig = new AppConfigValuesCommandDto
+            {
+                Parameters = new List<KeyValuePair<string, string>>
+                {
+                    new KeyValuePair<string, string>("Test","Test")
+                }
+            };
+
+            WebRequest.RegisterPrefix("test", new TestWebRequestCreate());
+            TestWebRequestCreate.CreateTestRequest(JsonConvert.SerializeObject(commandResponse));
+
+            //Act
+            var service = new JetstreamClient(_accessKey, "test://MyUrl");
+            var result = service.SendSetApplicationValues(appConfig, "TestDevice");
+
+            //Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual(commandResponse.CommandId, result.CommandId);
+            Assert.AreEqual(commandResponse.Status, result.Status);
+
+        }
+
+        /// <summary>
+        /// Verifies the sucessful compeletion of SendUpdateApplicationVersion
+        /// </summary>
+        [TestMethod]
+        public void ServiceClientTests_SendUpdateApplicationVersion()
+        {
+            //Assemble
+            var commandResponse = new CommandResponseDto
+            {
+                CommandId = Guid.NewGuid().ToString(),
+                Status = "Completed",
+                ExceptionList = new List<KeyValuePair<string, string>>(),
+                OutputParameterList = new List<KeyValuePair<string, string>>()
+            };
+
+            var appVersion = new ApplicationVersionDto
+            {
+                Url = "test.com",
+                Username = "User1",
+                Password = "TestPass"
+            };
+
+            WebRequest.RegisterPrefix("test", new TestWebRequestCreate());
+            TestWebRequestCreate.CreateTestRequest(JsonConvert.SerializeObject(commandResponse));
+
+            //Act
+            var service = new JetstreamClient(_accessKey, "test://MyUrl");
+            var result = service.SendUpdateApplicationVersion(appVersion, "TestDevice");
+
+            //Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual(commandResponse.CommandId, result.CommandId);
+            Assert.AreEqual(commandResponse.Status, result.Status);
+
+        }
         #endregion
 
         #region Device Policy Tests

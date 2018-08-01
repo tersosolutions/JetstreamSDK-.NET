@@ -19,26 +19,15 @@ using System.Collections.Generic;
 namespace TersoSolutions.Jetstream.SDK.Objects
 {
     /// <summary>
-    /// A data transfer object that 
-    /// defines a policy and its properties
+    /// A data transfer object used to 
+    /// set the applications configuration values.
     /// </summary>
-    public class PoliciesDto
+    public class AppConfigValuesCommandDto
     {
         /// <summary>
-        /// The name of the policy
+        /// A list of parameters and 
+        /// the values that they are to be set to.
         /// </summary>
-        public string Name { get; set; }
-
-        /// <summary>
-        /// Referenced name of the device definition
-        /// to which the policy applies
-        /// </summary>
-        public string DeviceDefinition { get; set; }
-
-        /// <summary>
-        /// Configuration parameters and their values
-        /// as described in a device definition. 
-        /// </summary>
-        public Dictionary<string, string> Parameters { get; set; }
+        public List<KeyValuePair<string, string>> Parameters { get; set; }
     }
 }

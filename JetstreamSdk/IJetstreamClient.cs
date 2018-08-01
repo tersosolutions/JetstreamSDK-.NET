@@ -184,18 +184,6 @@ namespace TersoSolutions.Jetstream.SDK
         CommandResponseDto SendPutAccessControlCommand(string deviceName, PutAccessControlDto putAccessControlDto);
 
         /// <summary>
-        /// Queues a proprietary command, whose name matches the
-        /// user specified strings in the policy, queues a 
-        /// CommandQueuedEvent, and returns a command response
-        /// </summary>
-        /// <param name="deviceName"></param>
-        /// <param name="commandName"></param>
-        /// <param name="commandParameters"></param>
-        /// <returns></returns>
-        CommandResponseDto SendProprietaryCommand(string deviceName, string commandName,
-            ProprietaryCommandDto commandParameters);
-
-        /// <summary>
         /// Creates a POST request to the /devices/{deviceName}/policy
         /// endpoint to add a device to one of your application's policies.
         /// </summary>
@@ -235,5 +223,31 @@ namespace TersoSolutions.Jetstream.SDK
         /// <param name="deviceName"></param>
         /// <returns>CommandResponseDto</returns>
         CommandResponseDto GetSyncedDevicePolicy(string deviceName);
+
+        /// <summary>
+        /// Queues a device command to 
+        /// retrieve the specified parameters
+        /// </summary>
+        /// <param name="parameters"></param>
+        /// <param name="deviceName"></param>
+        /// <returns></returns>
+        CommandResponseDto SendGetApplicationValues(List<string> parameters, string deviceName);
+
+        /// <summary>
+        /// Queues a device command to 
+        /// set the specified parameters
+        /// </summary>
+        /// <param name="appConfigValuesDto"></param>
+        /// <param name="deviceName"></param>
+        /// <returns></returns>
+        CommandResponseDto SendSetApplicationValues(AppConfigValuesCommandDto appConfigValuesDto, string deviceName);
+
+        /// <summary>
+        /// Send an UpdateAppFirmwareCommand to the device
+        /// </summary>
+        /// <param name="appVersion"></param>
+        /// <param name="deviceName"></param>
+        /// <returns></returns>
+        CommandResponseDto SendUpdateApplicationVersion(ApplicationVersionDto appVersion, string deviceName);
     }
 }
