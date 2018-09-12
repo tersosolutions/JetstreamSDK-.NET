@@ -14,6 +14,7 @@
   limitations under the License.
 */
 
+using System;
 using System.Collections.Generic;
 
 namespace TersoSolutions.Jetstream.SDK.Objects.Events
@@ -52,6 +53,6 @@ namespace TersoSolutions.Jetstream.SDK.Objects.Events
         /// <summary>
         /// Time of logging
         /// </summary>
-        public string LogTime { get; set; }
+        public DateTime LogTime { get; set; }
     }
 }
