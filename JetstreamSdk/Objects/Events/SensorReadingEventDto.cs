@@ -47,6 +47,6 @@ namespace TersoSolutions.Jetstream.SDK.Objects.Events
         /// <summary>
         /// The time when the sensor reading was made
         /// </summary>
-        public DateTime ReadingTime { get; set; }
+        public string ReadingTime { get; set; }
     }
 }
