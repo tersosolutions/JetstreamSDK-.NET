@@ -2,11 +2,9 @@
 
 ## Jetstream SDK
 [Jetstream Documentation - https://jetstreamrfid.com/documentation/](https://jetstreamrfid.com/documentation/)
-
-[Jetstream Tools - https://jetstreamrfid.com/tools](https://jetstreamrfid.com/tools)
  
 ### Microsoft .NET Framework 4.5
-The SDK allows has functionality for making application API calls, simulating device calls and receiving messages when implemented in an application (check out our JetstreamSDK Windows Service repo).
+The SDK has functionality for making application API calls, simulating device calls and receiving messages when implemented in an application (check out our JetstreamSDK Windows Service repo).
 
 ### Use the application or device API in a project
 Add a reference to the `JetstreamSDK.dll`.
