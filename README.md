@@ -1,4 +1,4 @@
-![Terso Solutions Logo](http://www.tersosolutions.com/wp-content/uploads/2011/11/TERSOvect_GreenBlobWhiteText.png "Terso Solutions, Inc.")
+![Terso Solutions Logo](https://cdn.tersosolutions.com/github/TersoHorizontal_BlackGreen.png "Terso Solutions, Inc.")
 
 ## Jetstream SDK
 [Jetstream Documentation and Tools - https://jetstreamrfid.com](https://jetstreamrfid.com)
