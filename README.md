@@ -1,7 +1,7 @@
 ![Terso Solutions Logo](https://cdn.tersosolutions.com/github/TersoHorizontal_BlackGreen.png "Terso Solutions, Inc.")
 
 ## Jetstream SDK
-[Jetstream Documentation - https://jetstreamrfid.com/documentation/applicationapi/](https://jetstreamrfid.com/documentation/applicationapi/)
+[Jetstream Documentation - https://jetstreamrfid.com/documentation/applicationapi/2](https://jetstreamrfid.com/documentation/applicationapi/2)
  
 ### Microsoft .NET Framework 4.5
 The SDK has functionality for making application API calls, simulating device calls and receiving messages when implemented in an application (check out our JetstreamSDK Windows Service repo).
