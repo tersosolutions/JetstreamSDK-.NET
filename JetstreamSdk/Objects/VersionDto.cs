@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright 2018 Terso Solutions, Inc.
+    Copyright 2019 Terso Solutions, Inc.
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@
 namespace TersoSolutions.Jetstream.SDK.Objects
 {
     /// <summary>
-    /// DTO telling the device to update the version
+    /// A data transfer object containing properties for updating the version
     /// of a specified component. Acts as a firmware upgrade.
     /// </summary>
     public class VersionDto

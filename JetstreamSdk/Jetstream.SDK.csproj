@@ -53,12 +53,17 @@
     <Reference Include="System.Net" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enums.cs" />
     <Compile Include="IJetstreamClient.cs" />
     <Compile Include="JetstreamClient.cs" />
     <Compile Include="Objects\AppConfigValuesCommandDto.cs" />
+    <Compile Include="Objects\AliasDto.cs" />
     <Compile Include="Objects\ApplicationVersionDto.cs" />
     <Compile Include="Objects\DeviceStatusDto.cs" />
     <Compile Include="Objects\Events\AggregateEventDto.cs" />
+    <Compile Include="Objects\Events\AliasRemovedEventDto.cs" />
+    <Compile Include="Objects\Events\AliasModifiedEventDto.cs" />
+    <Compile Include="Objects\Events\AliasAddedEventDto.cs" />
     <Compile Include="Objects\Events\CommandCompletionEventDto.cs" />
     <Compile Include="Objects\Events\CommandQueuedEventDto.cs" />
     <Compile Include="Objects\CommandResponseDto.cs" />
@@ -67,19 +72,21 @@
     <Compile Include="Objects\Events\DeviceEventDto.cs" />
     <Compile Include="Objects\DevicesDto.cs" />
     <Compile Include="Objects\DevicesPolicyDto.cs" />
+    <Compile Include="Objects\Events\DeviceModifiedEventDto.cs" />
+    <Compile Include="Objects\Events\DeviceCredentialsAddedEventDto.cs" />
+    <Compile Include="Objects\Events\DeviceCredentialsModifiedEventDto.cs" />
+    <Compile Include="Objects\Events\DeviceCredentialsRemovedEventDto.cs" />
     <Compile Include="Objects\Events\EventDto.cs" />
     <Compile Include="Objects\EventsDto.cs" />
+    <Compile Include="Objects\Events\BusinessProcessEventDto.cs" />
     <Compile Include="Objects\Events\HeartbeatEventDto.cs" />
     <Compile Include="Objects\Events\LogEntryEventDto.cs" />
-    <Compile Include="Objects\Events\LogicalDeviceAddedEventDto.cs" />
-    <Compile Include="Objects\Events\LogicalDeviceRemovedEventDto.cs" />
+    <Compile Include="Objects\Events\DeviceAddedEventDto.cs" />
+    <Compile Include="Objects\Events\DeviceRemovedEventDto.cs" />
     <Compile Include="Objects\Events\ObjectEventDto.cs" />
     <Compile Include="Objects\LockdownDto.cs" />
     <Compile Include="Objects\PoliciesDto.cs" />
-    <Compile Include="Objects\PostAccessControlDto.cs" />
-    <Compile Include="Objects\ProprietaryCommandDto.cs" />
     <Compile Include="Objects\Events\SensorReadingEventDto.cs" />
-    <Compile Include="Objects\PutAccessControlDto.cs" />
     <Compile Include="Objects\UnlockDoorDto.cs" />
     <Compile Include="Objects\JetstreamException.cs" />
     <Compile Include="Objects\VersionDto.cs" />
@@ -91,7 +98,6 @@
   <ItemGroup />
   <ItemGroup>
     <Content Include="ReferenceDLLs\Newtonsoft.Json.dll" />
-    <Content Include="ReferenceDLLs\Newtonsoft.Json.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

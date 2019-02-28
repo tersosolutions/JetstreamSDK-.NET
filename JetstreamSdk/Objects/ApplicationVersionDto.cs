@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright 2018 Terso Solutions, Inc.
+    Copyright 2019 Terso Solutions, Inc.
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -17,8 +17,7 @@
 namespace TersoSolutions.Jetstream.SDK.Objects
 {
     /// <summary>
-    /// A data transfer object that passes
-    /// needed information to perform an application update
+    /// A data transfer object containing properties for an application update
     /// </summary>
     public class ApplicationVersionDto
     {

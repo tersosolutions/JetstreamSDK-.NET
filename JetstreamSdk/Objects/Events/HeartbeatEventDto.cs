@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright 2018 Terso Solutions, Inc.
+    Copyright 2019 Terso Solutions, Inc.
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -17,8 +17,8 @@
 namespace TersoSolutions.Jetstream.SDK.Objects.Events
 {
     /// <summary>
-    /// Empty DTO, but uses inheritance to carry fields.
-    /// Used for typing/casting of events.
+    /// The Heartbeat Event is generated periodically by a device.
+    /// This event just confirms that the device is still connected.
     /// </summary>
     public class HeartbeatEventDto : DeviceEventDto
     {

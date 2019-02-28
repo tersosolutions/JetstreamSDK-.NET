@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright 2018 Terso Solutions, Inc.
+    Copyright 2019 Terso Solutions, Inc.
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@
 namespace TersoSolutions.Jetstream.SDK.Objects
 {
     /// <summary>
-    /// Object with various device status information
+    /// A data transfer object containing properties for the status of a device
     /// </summary>
     public class DeviceStatusDto
     {

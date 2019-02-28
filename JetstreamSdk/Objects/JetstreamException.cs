@@ -4,7 +4,7 @@ using System.Net;
 namespace TersoSolutions.Jetstream.SDK.Objects
 {
     /// <summary>
-    /// Object that handles holding exception info from Jetstream calls
+    /// A data transfer object containing properties for an exception from Jetstream calls.
     /// </summary>
     public class JetstreamException : Exception
     {

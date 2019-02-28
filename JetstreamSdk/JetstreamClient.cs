@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright 2018 Terso Solutions, Inc.
+    Copyright 2019 Terso Solutions, Inc.
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -37,7 +37,7 @@ namespace TersoSolutions.Jetstream.SDK
         #region Fields
 
         // The version of Jetstream to use
-        private const string JetstreamVersion = "2";
+        private const string JetstreamVersion = "3";
         // The root of the Jetstream API in URL form
         private readonly string _baseUri;
         // The access key to use in Jetstream calls
@@ -55,8 +55,8 @@ namespace TersoSolutions.Jetstream.SDK
         /// <exception cref="ArgumentNullException"></exception>
         public JetstreamClient(string accessKey, string jetstreamApiUrl)
         {
-            if (String.IsNullOrEmpty(jetstreamApiUrl)) throw new ArgumentNullException("jetstreamApiUrl");
-            if (String.IsNullOrEmpty(accessKey)) throw new ArgumentNullException("accessKey");
+            if (string.IsNullOrEmpty(jetstreamApiUrl)) throw new ArgumentNullException("jetstreamApiUrl");
+            if (string.IsNullOrEmpty(accessKey)) throw new ArgumentNullException("accessKey");
 
             // normalize the url with a trail /
             jetstreamApiUrl = jetstreamApiUrl.Trim();
@@ -77,9 +77,13 @@ namespace TersoSolutions.Jetstream.SDK
         #region Events Methods
 
         /// <summary>
-        /// Makes a GET request to the /events REST endpoint to retrieve 
+        /// Makes a GET request to the /events endpoint to retrieve 
         /// a series of events
         /// </summary>
+        /// <param name="limit"></param>
+        /// <param name="searchDevice"></param>
+        /// <param name="searchType"></param>
+        /// <param name="sortBy"></param>
         /// <returns>EventsDto</returns>
         public EventsDto GetEvents(int limit = 100, string searchDevice = "", string searchType = "", string sortBy = "")
         {
@@ -88,15 +92,20 @@ namespace TersoSolutions.Jetstream.SDK
             // to the url
             var url = _baseUri + "events/" + limit + "?";
 
-            url += String.IsNullOrEmpty(searchDevice) ? String.Empty : "device=" + searchDevice; // Add search string
-            url += String.IsNullOrEmpty(searchType) ? String.Empty : "&type=" + searchType; // Add search string
-            url += String.IsNullOrEmpty(sortBy) ? String.Empty : "&sort=" + sortBy; // Add sort string
+            var queryParams = new Dictionary<string, string>
+            {
+                {"device", searchDevice}, 
+                {"type", searchType}, 
+                {"sort", sortBy}
+            };
 
-            return SendRequestToJetstream<string, EventsDto>(url, WebRequestMethods.Http.Get, String.Empty);
+            url += BuildQueryString(queryParams);
+
+            return SendRequestToJetstream<string, EventsDto>(url, WebRequestMethods.Http.Get, string.Empty);
         }
 
         /// <summary>
-        /// Creates and sends a DELETE request to the /events REST endpoint that will
+        /// Makes a DELETE request to the /events endpoint that will
         /// delete events based on the batch id or array of event ids parameters.
         /// </summary>
         /// <param name="deleteEventsDto"></param>
@@ -114,26 +123,43 @@ namespace TersoSolutions.Jetstream.SDK
         #region Device Definition Methods
 
         /// <summary>
-        /// Executes a GET request to the /devicedefinitions REST endpoint. Returns a list of device definitions
+        /// Makes a GET request to the /devicedefinitions endpoint. Returns a list of device definitions
         /// in the body of the response.
         /// </summary>
+        /// <param name="searchId"></param>
+        /// <param name="searchName"></param>
+        /// <param name="searchFirmwareVersion"></param>
+        /// <param name="searchGetConfigValuesCommand"></param>
+        /// <param name="searchSetConfigValuesCommand"></param>
+        /// <param name="searchGetEpcListCommand"></param>
+        /// <param name="searchResetCommand"></param>
+        /// <param name="searchUpdateFirmwareCommand"></param>
+        /// <param name="sortBy"></param>
         /// <returns>List of DeviceDefinitionsDto</returns>
-        public List<DeviceDefinitionsDto> GetDeviceDefinitions(string searchName = "", string searchFirmwareVersion = "", string searchGetConfigValuesCommand = "", 
+        public List<DeviceDefinitionsDto> GetDeviceDefinitions(string searchId = "", string searchName = "", string searchFirmwareVersion = "", string searchGetConfigValuesCommand = "", 
             string searchSetConfigValuesCommand = "", string searchGetEpcListCommand = "", string searchResetCommand = "", string searchUpdateFirmwareCommand = "", string sortBy = "")
         {
             // Append the device definitions resource location to the url.
             var url = _baseUri + "devicedefinitions?";
 
-            url += String.IsNullOrEmpty(searchName) ? String.Empty : "Name=" + searchName; // Add search string
-            url += String.IsNullOrEmpty(searchFirmwareVersion) ? String.Empty : "&FirmwareVersion=" + searchFirmwareVersion; // Add search string
-            url += String.IsNullOrEmpty(searchGetConfigValuesCommand) ? String.Empty : "&GetConfigValuesCommand=" + searchGetConfigValuesCommand; // Add search string
-            url += String.IsNullOrEmpty(searchSetConfigValuesCommand) ? String.Empty : "&SetConfigValuesCommand=" + searchSetConfigValuesCommand; // Add search string
-            url += String.IsNullOrEmpty(searchGetEpcListCommand) ? String.Empty : "&GetEpcListCommand=" + searchGetEpcListCommand; // Add search string
-            url += String.IsNullOrEmpty(searchResetCommand) ? String.Empty : "&ResetCommand=" + searchResetCommand; // Add search string
-            url += String.IsNullOrEmpty(searchUpdateFirmwareCommand) ? String.Empty : "&UpdateFirmwareCommand=" + searchUpdateFirmwareCommand; // Add search string
-            url += String.IsNullOrEmpty(sortBy) ? String.Empty : "&Sort=" + sortBy; // Add sort string
+            // builds a dictionary to hold parameters
+            var queryParams = new Dictionary<string, string>
+            {
+                {"id", searchId},
+                {"Name", searchName},
+                {"FirmwareVersion", searchFirmwareVersion},
+                {"GetConfigValuesCommand", searchGetConfigValuesCommand},
+                {"SetConfigValuesCommand", searchSetConfigValuesCommand},
+                {"UpdateFirmwareCommand", searchUpdateFirmwareCommand},
+                {"GetEpcListCommand", searchGetEpcListCommand},
+                {"ResetCommand", searchResetCommand},
+                {"Sort", sortBy}
+            };
 
-            return SendRequestToJetstream<string, List<DeviceDefinitionsDto>>(url, WebRequestMethods.Http.Get, String.Empty);
+            // Adds query string if there is one to the url
+            url += BuildQueryString(queryParams);
+
+            return SendRequestToJetstream<string, List<DeviceDefinitionsDto>>(url, WebRequestMethods.Http.Get, string.Empty);
         }
 
         /// <summary>
@@ -147,7 +173,32 @@ namespace TersoSolutions.Jetstream.SDK
             // Add the device definitions resource location to the url.
             var url = _baseUri + "devicedefinitions/" + deviceDefinitionName;
 
-            return SendRequestToJetstream<string, DeviceDefinitionsDto>(url, WebRequestMethods.Http.Get, String.Empty);
+            return SendRequestToJetstream<string, DeviceDefinitionsDto>(url, WebRequestMethods.Http.Get, string.Empty);
+        }
+
+        /// <summary>
+        /// Makes a GET request to the /devicedefinitions/OldId/{guid} endpoint. Returns new device
+        /// definition object that contains the autogenerated integer id.
+        /// </summary>
+        /// <param name="oldId"></param>
+        /// <returns>DeviceDefinitionsDto</returns>
+        public DeviceDefinitionsDto GetNewDeviceDefinitionId(string oldId)
+        {
+            var url = _baseUri + "devicedefinitions/OldId/" + oldId;
+
+            return SendRequestToJetstream<string, DeviceDefinitionsDto>(url, WebRequestMethods.Http.Get, string.Empty);
+        }
+
+        #endregion
+
+        #region Region Methods
+
+        public List<string> GetRegions()
+        {
+            // Append the regions resource location to the url.
+            var url = _baseUri + "regions";
+            
+            return SendRequestToJetstream<string, List<string>>(url, WebRequestMethods.Http.Get, string.Empty);
         }
 
         #endregion
@@ -155,7 +206,8 @@ namespace TersoSolutions.Jetstream.SDK
         #region Policy Methods
 
         /// <summary>
-        /// Executes a POST request to the policy REST endpoint, adding a new policy to your application.
+        /// Makes a POST request to the /policies endpoint, adding a new policy.
+        /// If successful it returns information about the new policy.
         /// </summary>
         /// <param name="policy"></param>
         /// <returns>PoliciesDto</returns>
@@ -168,20 +220,33 @@ namespace TersoSolutions.Jetstream.SDK
         }
 
         /// <summary>
-        /// Executes a GET request to the /policies REST endpoint. Returns a list of policies
+        /// Makes a GET request to the /policies endpoint. Returns a list of policies
         /// in the body of the response.
         /// </summary>
+        /// <param name="searchId"></param>
+        /// <param name="searchName"></param>
+        /// <param name="searchDeviceDefinition"></param>
+        /// <param name="sortBy"></param>
         /// <returns>List of PoliciesDTO</returns>
-        public List<PoliciesDto> GetPolicies(string searchName = "", string searchDeviceDefinition = "", string sortBy = "")
+        public List<PoliciesDto> GetPolicies(string searchId = "", string searchName = "",
+            string searchDeviceDefinition = "", string sortBy = "")
         {
             // Append the policies resource location to the url.
             var url = _baseUri + "policies?";
 
-            url += String.IsNullOrEmpty(searchName) ? String.Empty : "name=" + searchName; // Add search string
-            url += String.IsNullOrEmpty(searchDeviceDefinition) ? String.Empty : "&devicedefinition=" + searchDeviceDefinition; // Add search string
-            url += String.IsNullOrEmpty(sortBy) ? String.Empty : "&sortby=" + sortBy; // Add search string
+            // builds a dictionary to hold parameters
+            var queryParams = new Dictionary<string, string>
+            {
+                {"id", searchId},
+                {"name", searchName},
+                {"devicedefinition", searchDeviceDefinition},
+                {"sortby", sortBy}
+            };
 
-            return SendRequestToJetstream<string, List<PoliciesDto>>(url, WebRequestMethods.Http.Get, String.Empty);
+            // Adds query string if there is one to the url
+            url += BuildQueryString(queryParams);
+
+            return SendRequestToJetstream<string, List<PoliciesDto>>(url, WebRequestMethods.Http.Get, string.Empty);
         }
 
         /// <summary>
@@ -195,11 +260,11 @@ namespace TersoSolutions.Jetstream.SDK
             // Add the policies resource location to the url.
             var url = _baseUri + "policies/" + policyName;
 
-            return SendRequestToJetstream<string, PoliciesDto>(url, WebRequestMethods.Http.Get, String.Empty);
+            return SendRequestToJetstream<string, PoliciesDto>(url, WebRequestMethods.Http.Get, string.Empty);
         }
 
         /// <summary>
-        /// Makes a DELETE request to the policy REST endpoint to delete an existing policy from your application.
+        /// Makes a DELETE request to the /policies/{Name} endpoint to delete an existing policy.
         /// </summary>
         /// <param name="policyName"></param>
         public void DeletePolicy(string policyName)
@@ -211,13 +276,126 @@ namespace TersoSolutions.Jetstream.SDK
             SendRequestToJetstream<string, string>(url, "DELETE", "");
         }
 
+        /// <summary>
+        /// Makes a PUT request to the /policies/{Name} endpoint to update an existing policy.
+        /// If successful it returns the current state of the policy.
+        /// </summary>
+        /// <param name="policy"></param>
+        /// <param name="policyName"></param>
+        /// <returns></returns>
+        public PoliciesDto UpdatePolicy(PoliciesDto policy, string policyName)
+        {
+            // Append the policies resource location to the url.
+            var url = _baseUri + "policies/" + policyName;
+
+            return SendRequestToJetstream<PoliciesDto, PoliciesDto>(url, WebRequestMethods.Http.Put, policy);
+        }
+        #endregion
+
+        #region Alias Methods
+
+        /// <summary>
+        /// Makes a POST request to the /aliases endpoint to create an alias. If successful it returns the device
+        /// included in the body of the POST request.
+        /// </summary>
+        /// <param name="alias"></param>
+        public AliasDto AddAlias(AliasDto alias)
+        {
+            // Append the alias resource location to the url.
+            var url = _baseUri + "aliases";
+
+            return SendRequestToJetstream<AliasDto, AliasDto>(url, WebRequestMethods.Http.Post, alias);
+        }
+
+        /// <summary>
+        /// Makes a PUT request to the /aliases/{Name} endpoint to create an alias. If successful it returns 
+        /// the current state of the alias in Jetstream.
+        /// </summary>
+        /// <param name="aliasName"></param>
+        /// <param name="aliasWithNewValues"></param>
+        public AliasDto ModifyAlias(string aliasName, AliasDto aliasWithNewValues)
+        {
+            // Append the alias resource location to the url.
+            var url = _baseUri + "aliases/" + aliasName;
+
+            return SendRequestToJetstream<AliasDto, AliasDto>(url, WebRequestMethods.Http.Put, aliasWithNewValues);
+        }
+
+        /// <summary>
+        /// Makes a GET request to the /aliases endpoint, returning all aliases.
+        /// </summary>
+        /// <param name="searchId"></param>
+        /// <param name="searchName"></param>
+        /// <param name="searchRegion"></param>
+        /// <param name="sortBy"></param>
+        /// <returns></returns>
+        public List<AliasDto> GetAliases(string searchId = "", string searchName = "", string searchRegion = "", string sortBy = "")
+        {
+            // Append the alias resource location to the url.
+            var url = _baseUri + "aliases?";
+
+            // builds a dictionary to hold parameters
+            var queryParams = new Dictionary<string, string>
+            {
+                {"id", searchId}, 
+                {"name", searchName}, 
+                {"region", searchRegion}, 
+                {"sort", sortBy}
+            };
+
+            // Adds query string if there is one to the url
+            url += BuildQueryString(queryParams);
+
+            return SendRequestToJetstream<string, List<AliasDto>>(url, WebRequestMethods.Http.Get, string.Empty);
+        }
+
+        /// <summary>
+        /// Makes a GET request to the /aliases/{Name} endpoint, asking for a 
+        /// specific alias by name. Returns the requested alias, if it exists.
+        /// </summary>
+        /// <param name="aliasName"></param>
+        /// <returns></returns>
+        public AliasDto GetAlias(string aliasName)
+        {
+            // Append the alias resource location to the url.
+            var url = _baseUri + "aliases/" + aliasName;
+
+            return SendRequestToJetstream<string, AliasDto>(url, WebRequestMethods.Http.Get, string.Empty);
+        }
+
+        /// <summary>
+        /// Makes a GET request to the aliases/property/names endpoint, returning the
+        /// names of all aliases. Does not return any other data on the aliases.
+        /// </summary>
+        /// <returns></returns>
+        public List<string> GetAliasNames()
+        {
+            // Append the alias resource location to the url.
+            var url = _baseUri + "aliases/property/names";
+
+            return SendRequestToJetstream<string, List<string>>(url, WebRequestMethods.Http.Get, string.Empty);
+        }
+
+        /// <summary>
+        /// Makes a DELETE request to the /aliases/{Name} endpoint, deleting
+        /// the requested alias.
+        /// </summary>
+        /// <param name="aliasName"></param>
+        public void DeleteAlias(string aliasName)
+        {
+            // Append the alias resource location to the url.
+            var url = _baseUri + "aliases/" + aliasName;
+
+            SendRequestToJetstream<string, string>(url, "DELETE", string.Empty);
+        }
+
         #endregion
 
         #region Device Methods
 
         /// <summary>
-        /// Makes a POST request to the /devices Jetstream REST endpoint. If successful it returns the device included
-        /// in the body of the POST request.
+        /// Makes a POST request to the /devices Jetstream endpoint to create a new device in your application.
+        /// If successful it returns the new device's information.
         /// </summary>
         /// <param name="device"></param>
         /// <returns>DevicesDto</returns>
@@ -230,7 +408,7 @@ namespace TersoSolutions.Jetstream.SDK
         }
 
         /// <summary>
-        /// Makes a DELETE request to the /devices/{deviceName} REST endpoint and removes a device from your application.
+        /// Makes a DELETE request to the /devices/{deviceName} endpoint and removes a device from your application.
         /// </summary>
         /// <param name="deviceName"></param>
         public void DeleteDevice(string deviceName)
@@ -243,39 +421,70 @@ namespace TersoSolutions.Jetstream.SDK
         }
 
         /// <summary>
-        /// Makes a GET request to the /devices REST endpoint, returning a list of devices and their properties.
-        /// Replaces the v1.5 GetConfiguration command
+        /// Makes a PUT request to the /devices/{deviceName} Jetstream endpoint to update an existing device.
+        /// If successful it returns the current state of the device in Jetstream.
         /// </summary>
+        /// <param name="deviceName"></param>
+        /// <param name="device"></param>
+        /// <returns>DevicesDto</returns>
+        public DevicesDto ModifyDevice(string deviceName, DevicesDto device)
+        {
+            // Append the devices resource location to the url.
+            var url = _baseUri + "devices/" + deviceName;
+
+            return SendRequestToJetstream<DevicesDto, DevicesDto>(url, WebRequestMethods.Http.Put, device);
+        }
+
+        /// <summary>
+        /// Makes a GET request to the /devices endpoint, returning a list of devices and their properties.
+        /// </summary>
+        /// <param name="searchId"></param>
+        /// <param name="searchName"></param>
+        /// <param name="searchSerialNumber"></param>
+        /// <param name="searchDeviceDefinition"></param>
+        /// <param name="searchRegion"></param>
+        /// <param name="searchPolicy"></param>
+        /// <param name="sortBy"></param>
         /// <returns>List of DevicesDto</returns>
-        public List<DevicesDto> GetDevices(string searchName = "", string searchSerialNumber = "", string searchDeviceDefinition = "", 
+        public List<DevicesDto> GetDevices(string searchId = "", string searchName = "", string searchSerialNumber = "", string searchDeviceDefinition = "", 
             string searchRegion = "", string searchPolicy = "", string sortBy = "")
         {
             // Append the devices resource location to the url.
             var url = _baseUri + "devices?";
-            url += String.IsNullOrEmpty(searchName) ? String.Empty : "name=" + searchName; // Add search string
-            url += String.IsNullOrEmpty(searchSerialNumber) ? String.Empty : "&serialnumber=" + searchSerialNumber; // Add search string
-            url += String.IsNullOrEmpty(searchDeviceDefinition) ? String.Empty : "&devicedefinition=" + searchDeviceDefinition; // Add search string
-            url += String.IsNullOrEmpty(searchRegion) ? String.Empty : "&region=" + searchRegion; // Add search string
-            url += String.IsNullOrEmpty(searchPolicy) ? String.Empty : "&policy=" + searchPolicy; // Add search string
-            url += String.IsNullOrEmpty(sortBy) ? String.Empty : "&sort=" + sortBy; // Add sort string
 
-            return SendRequestToJetstream<string, List<DevicesDto>>(url, WebRequestMethods.Http.Get, String.Empty);
+            // builds a dictionary to hold parameters
+            var queryParams = new Dictionary<string, string>
+            {
+                {"id", searchId},
+                {"name", searchName},
+                {"serialnumber", searchSerialNumber},
+                {"devicedefinition", searchDeviceDefinition},
+                {"region", searchRegion},
+                {"sort", sortBy}
+            };
+
+            // Adds query string if there is one to the url
+            url += BuildQueryString(queryParams);
+
+            return SendRequestToJetstream<string, List<DevicesDto>>(url, WebRequestMethods.Http.Get, string.Empty);
         }
 
         /// <summary>
-        /// Makes a GET request to the /devices/{name} REST endpoint, returning a specified device.
+        /// Makes a GET request to the /devices/{name} endpoint, returning a specified device.
         /// </summary>
+        /// <param name="deviceName"></param>
         /// <returns>DevicesDto</returns>
         public DevicesDto GetDevice(string deviceName)
         {
             // Append the devices resource location to the url.
             var url = _baseUri + "devices/" + deviceName;
 
-            return SendRequestToJetstream<string, DevicesDto>(url, WebRequestMethods.Http.Get, String.Empty);
+            return SendRequestToJetstream<string, DevicesDto>(url, WebRequestMethods.Http.Get, string.Empty);
         }
 
         /// <summary>
-        /// Get the device status
+        /// Makes a GET request to the /devices/{deviceName}/status endpoint
+        /// to retrieve the status of the specified device.
         /// </summary>
         /// <param name="deviceName"></param>
         /// <returns>DeviceStatusDto</returns>
@@ -283,7 +492,7 @@ namespace TersoSolutions.Jetstream.SDK
         {
             var url = _baseUri + "devices/" + deviceName + "/status";
 
-            return SendRequestToJetstream<string, DeviceStatusDto>(url, WebRequestMethods.Http.Get, String.Empty);
+            return SendRequestToJetstream<string, DeviceStatusDto>(url, WebRequestMethods.Http.Get, string.Empty);
         }
 
         #endregion
@@ -291,7 +500,8 @@ namespace TersoSolutions.Jetstream.SDK
         #region Device Commands
 
         /// <summary>
-        /// Send a GetEPCListCommand to the device
+        /// Makes a GET request to the /devices/{deviceName}/epclist endpoint.
+        /// This endpoint triggers a device to perform an Object Event scan.
         /// </summary>
         /// <param name="deviceName"></param>
         /// <returns>CommandResponseDto</returns>
@@ -299,11 +509,12 @@ namespace TersoSolutions.Jetstream.SDK
         {
             var url = _baseUri + "devices/" + deviceName + "/epclist";
 
-            return SendRequestToJetstream<string, CommandResponseDto>(url, WebRequestMethods.Http.Get, String.Empty);
+            return SendRequestToJetstream<string, CommandResponseDto>(url, WebRequestMethods.Http.Get, string.Empty);
         }
 
         /// <summary>
-        /// Send a ResetCommand to the device
+        /// Makes a Post request to the /devices/{deviceName}/reset endpoint.
+        /// This endpoint triggers the device to restart.
         /// </summary>
         /// <param name="deviceName"></param>
         /// <returns>CommandResponseDto</returns>
@@ -311,12 +522,12 @@ namespace TersoSolutions.Jetstream.SDK
         {
             var url = _baseUri + "devices/" + deviceName + "/reset";
 
-            return SendRequestToJetstream<string, CommandResponseDto>(url, WebRequestMethods.Http.Post, String.Empty);
+            return SendRequestToJetstream<string, CommandResponseDto>(url, WebRequestMethods.Http.Post, string.Empty);
         }
 
         /// <summary>
-        /// Send an UpdateFirmwareCommand to the device
-        /// to update the firmware version of the reader or agent
+        /// Makes a POST request to the /devices/{deviceName}/version endpoint.
+        /// This is used to update the firmware version of the reader or agent.
         /// </summary>
         /// <param name="deviceName"></param>
         /// <param name="versionDto"></param>
@@ -329,7 +540,8 @@ namespace TersoSolutions.Jetstream.SDK
         }
 
         /// <summary>
-        /// Send a LockdownCommand to the device
+        /// Makes a POST request to the /devices/{deviceName}/lockdown endpoint.
+        /// This endpoint triggers the device to go into lockdown.
         /// </summary>
         /// <param name="deviceName"></param>
         /// <param name="lockdownDto"></param>
@@ -342,7 +554,8 @@ namespace TersoSolutions.Jetstream.SDK
         }
 
         /// <summary>
-        /// Send a UnlockDoorCommand to the device
+        /// Makes a POST request to the /devices/{deviceName}/unlockdoor endpoint.
+        /// This endpoint triggers the door to unlock on a device.
         /// </summary>
         /// <param name="deviceName"></param>
         /// <param name="unlockDoorDto"></param>
@@ -353,50 +566,10 @@ namespace TersoSolutions.Jetstream.SDK
 
             return SendRequestToJetstream<UnlockDoorDto, CommandResponseDto>(url, WebRequestMethods.Http.Post, unlockDoorDto);
         }
-
+        
         /// <summary>
-        /// Send a GetPassesCommand to the device
-        /// </summary>
-        /// <param name="deviceName"></param>
-        /// <returns>CommandResponseDto</returns>
-        public CommandResponseDto SendGetAccessControlCommand(string deviceName)
-        {
-            var url = _baseUri + "devices/" + deviceName + "/accesscontrol";
-
-            return SendRequestToJetstream<string, CommandResponseDto>(url, WebRequestMethods.Http.Get, String.Empty);
-        }
-
-        /// <summary>
-        /// Send an UpdatePassesCommand to the device
-        /// </summary>
-        /// <param name="deviceName"></param>
-        /// <param name="postAccessControlDto"></param>
-        /// <returns>CommandResponseDto</returns>
-        public CommandResponseDto SendPostAccessControlCommand(string deviceName, PostAccessControlDto postAccessControlDto)
-        {
-            var url = _baseUri + "devices/" + deviceName + "/accesscontrol";
-
-            return SendRequestToJetstream<PostAccessControlDto, CommandResponseDto>(url, WebRequestMethods.Http.Post, postAccessControlDto);
-        }
-
-        /// <summary>
-        /// Send an UpdatePassesCommand to the device
-        /// that removes all passes on device before adding
-        /// whatever new specified passes are sent.
-        /// </summary>
-        /// <param name="deviceName"></param>
-        /// <param name="putAccessControlDto"></param>
-        /// <returns>CommandResponseDto</returns>
-        public CommandResponseDto SendPutAccessControlCommand(string deviceName, PutAccessControlDto putAccessControlDto)
-        {
-            var url = _baseUri + "devices/" + deviceName + "/accesscontrol";
-
-            return SendRequestToJetstream<PutAccessControlDto, CommandResponseDto>(url, WebRequestMethods.Http.Put, putAccessControlDto);
-        }
-
-        /// <summary>
-        /// Queues a device command to 
-        /// retrieve the specified parameters
+        /// Makes a GET request the /devices/{deviceName}/ApplicationValues endpoint.
+        /// This endpoint instructs the specified application on a device to return the current values for its configuration parameters.
         /// </summary>
         /// <param name="parameters"></param>
         /// <param name="deviceName"></param>
@@ -406,14 +579,14 @@ namespace TersoSolutions.Jetstream.SDK
             var joinedParameters = string.Join(",", parameters);
 
             // Append the resource to the url.
-            var url = _baseUri + "devices/" + deviceName + "/ApplicationValues?" + joinedParameters;
+            var url = _baseUri + "devices/" + deviceName + "/ApplicationValues?parameters=" + joinedParameters;
 
-            return SendRequestToJetstream<string, CommandResponseDto>(url, WebRequestMethods.Http.Get, String.Empty);
+            return SendRequestToJetstream<string, CommandResponseDto>(url, WebRequestMethods.Http.Get, string.Empty);
         }
 
         /// <summary>
-        /// Queues a device command to 
-        /// set the specified parameters
+        /// Makes a POST request the /devices/{deviceName}/ApplicationValues endpoint.
+        /// This endpoint instructs the specified application on a device to set the values for its configuration parameters.
         /// </summary>
         /// <param name="appConfigValuesDto"></param>
         /// <param name="deviceName"></param>
@@ -427,7 +600,8 @@ namespace TersoSolutions.Jetstream.SDK
         }
 
         /// <summary>
-        /// Send an UpdateAppFirmwareCommand to the device
+        /// Makes a POST request to the /devices/{deviceName}/ApplicationVersion endpoint.
+        /// This endpoint instructs the application running on a device to update using the url provided.
         /// </summary>
         /// <param name="appVersion"></param>
         /// <param name="deviceName"></param>
@@ -444,7 +618,7 @@ namespace TersoSolutions.Jetstream.SDK
 
         #region Device Policy
         /// <summary>
-        /// Creates a POST request to the /devices/{deviceName}/policy
+        /// Makes a POST request to the /devices/{deviceName}/policy
         /// endpoint to add a device to one of your application's policies.
         /// </summary>
         /// <param name="deviceName"></param>
@@ -459,7 +633,7 @@ namespace TersoSolutions.Jetstream.SDK
         }
 
         /// <summary>
-        /// Creates a GET request to the /devices/{deviceName}/policy
+        /// Makes a GET request to the /devices/{deviceName}/policy
         /// endpoint to get the device's policy, if there is one.
         /// </summary>
         /// <param name="deviceName"></param>
@@ -469,12 +643,12 @@ namespace TersoSolutions.Jetstream.SDK
             // Append the devices resource location to the url.
             var url = _baseUri + "devices/" + deviceName + "/policy";
 
-            return SendRequestToJetstream<string, DevicesPolicyDto>(url, WebRequestMethods.Http.Get, String.Empty);
+            return SendRequestToJetstream<string, DevicesPolicyDto>(url, WebRequestMethods.Http.Get, string.Empty);
         }
 
         /// <summary>
-        /// Sends a DELETE request to the /devices/{deviceName}/policy
-        /// REST endpoint to remove an existing device from a policy
+        /// Makes a DELETE request to the /devices/{deviceName}/policy
+        /// endpoint to remove an existing device from a policy.
         /// </summary>
         /// <param name="deviceName"></param>
         public void RemoveDeviceFromPolicy(string deviceName)
@@ -487,28 +661,161 @@ namespace TersoSolutions.Jetstream.SDK
         }
 
         /// <summary>
-        /// Sends the current device policy, if there is one,
-        /// parameters to the device.
-        /// Replaces SetConfigValuesCommand
+        /// Makes a POST request to the /devices/{deviceName}/policy/sync endpoint.
+        /// The endpoint causes the current device policy to be sent to the device.
         /// </summary>
         /// <param name="deviceName"></param>
         /// <returns>CommandResponseDto</returns>
         public CommandResponseDto SyncDevicePolicy(string deviceName)
         {
             var url = _baseUri + "devices/" + deviceName + "/policy/sync";
-            return SendRequestToJetstream<string, CommandResponseDto>(url, WebRequestMethods.Http.Post, String.Empty);
+            return SendRequestToJetstream<string, CommandResponseDto>(url, WebRequestMethods.Http.Post, string.Empty);
         }
 
         /// <summary>
-        /// Get the currently synced device policy, if there is one.
-        /// Replaces GetConfigValuesCommand
+        /// Makes a GET request to /devices/{deviceName}/policy/sync endpoint.
+        /// This endpoint causes the device to send back the current policy is it synced with if any.
         /// </summary>
         /// <param name="deviceName"></param>
         /// <returns>CommandResponseDto</returns>
         public CommandResponseDto GetSyncedDevicePolicy(string deviceName)
         {
             var url = _baseUri + "devices/" + deviceName + "/policy/sync";
-            return SendRequestToJetstream<string, CommandResponseDto>(url, WebRequestMethods.Http.Get, String.Empty);
+            return SendRequestToJetstream<string, CommandResponseDto>(url, WebRequestMethods.Http.Get, string.Empty);
+        }
+
+        #endregion
+
+        #region Device Credentials Commands
+
+        /// <summary>
+        /// Makes a POST request to the /devices/{deviceName}/credentials/{credentialType} endpoint,
+        /// appending the passed in credentials to the specified type's list.
+        /// Returns the current state of the credentials.
+        /// </summary>
+        /// <param name="deviceName"></param>
+        /// <param name="type"></param>
+        /// <param name="credentials"></param>
+        /// <returns></returns>
+        public List<string> AddDeviceCredentials(string deviceName, Enums.DeviceCredentialTypes type, List<string> credentials)
+        {
+            // Append the device credential resource location to the url.
+            var url = _baseUri + "devices/" + deviceName + "/credentials/" + Enum.GetName(typeof(Enums.DeviceCredentialTypes), type);
+
+            return SendRequestToJetstream<List<string>, List<string>>(url, WebRequestMethods.Http.Post, credentials);
+        }
+
+        /// <summary>
+        /// Makes a POST request to the /devices/{deviceName}/credentials/{credentialType} endpoint,
+        /// appending the passed in credentials to the specified type's dictionary.
+        /// Returns the current state of the credentials keys.
+        /// </summary>
+        /// <param name="deviceName"></param>
+        /// <param name="type"></param>
+        /// <param name="credentials"></param>
+        /// <returns></returns>
+        public List<string> AddDeviceCredentials(string deviceName, Enums.DeviceCredentialTypes type, Dictionary<string, string> credentials)
+        {
+            // Append the device credential resource location to the url.
+            var url = _baseUri + "devices/" + deviceName + "/credentials/" + Enum.GetName(typeof(Enums.DeviceCredentialTypes), type);
+
+            return SendRequestToJetstream<Dictionary<string, string>, List<string>>(url, WebRequestMethods.Http.Post, credentials);
+        }
+
+        /// <summary>
+        /// Makes a PUT request to the /devices/{deviceName}/credentials/{credentialType} endpoint,
+        /// overwriting the specified type's existing list with the passed in list.
+        /// Returns the current state of the credentials.
+        /// </summary>
+        /// <param name="deviceName"></param>
+        /// <param name="type"></param>
+        /// <param name="credentials"></param>
+        /// <returns></returns>
+        public List<string> ModifyDeviceCredentials(string deviceName, Enums.DeviceCredentialTypes type, List<string> credentials)
+        {
+            // Append the device credential resource location to the url.
+            var url = _baseUri + "devices/" + deviceName + "/credentials/" + Enum.GetName(typeof(Enums.DeviceCredentialTypes), type);
+
+            return SendRequestToJetstream<List<string>, List<string>>(url, WebRequestMethods.Http.Put, credentials);
+        }
+
+        /// <summary>
+        /// Makes a PUT request to the /devices/{deviceName}/credentials/{credentialType} endpoint, overwriting 
+        /// the specified type's existing dictionary with the passed in dictionary.
+        /// Returns the current state of the credentials keys.
+        /// </summary>
+        /// <param name="deviceName"></param>
+        /// <param name="type"></param>
+        /// <param name="credentials"></param>
+        /// <returns></returns>
+        public List<string> ModifyDeviceCredentials(string deviceName, Enums.DeviceCredentialTypes type, Dictionary<string, string> credentials)
+        {
+            // Append the device credential resource location to the url.
+            var url = _baseUri + "devices/" + deviceName + "/credentials/" + Enum.GetName(typeof(Enums.DeviceCredentialTypes), type);
+
+            return SendRequestToJetstream<Dictionary<string, string>, List<string>>(url, WebRequestMethods.Http.Put, credentials);
+        }
+
+        /// <summary>
+        /// Makes a GET request to the /devices/{deviceName}/credentials/{credentialType} endpoint,
+        /// returning the specified credentials (keys only, if dictionary) from the
+        /// specified type's existing list or dictionary.
+        /// </summary>
+        /// <param name="deviceName"></param>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public List<string> GetDeviceCredentials(string deviceName, Enums.DeviceCredentialTypes type)
+        {
+            // Append the device credential resource location to the url.
+            var url = _baseUri + "devices/" + deviceName + "/credentials/" + Enum.GetName(typeof(Enums.DeviceCredentialTypes), type);
+
+            return SendRequestToJetstream<string, List<string>>(url, WebRequestMethods.Http.Get, string.Empty);
+        }
+
+        /// <summary>
+        /// Makes a DELETE request to the /devices/{deviceName}/credentials/{credentialType} endpoint,
+        /// removing the specified credentials (by key, if dictionary) from the
+        /// specified type's existing list or dictionary.
+        /// Returns the current state of the credentials.
+        /// </summary>
+        /// <param name="deviceName"></param>
+        /// <param name="type"></param>
+        /// <param name="credentials"></param>
+        /// <returns></returns>
+        public List<string> DeleteDeviceCredentials(string deviceName, Enums.DeviceCredentialTypes type, List<string> credentials)
+        {
+            // Append the device credential resource location to the url.
+            var url = _baseUri + "devices/" + deviceName + "/credentials/" + Enum.GetName(typeof(Enums.DeviceCredentialTypes), type);
+
+            return SendRequestToJetstream<List<string>, List<string>>(url, "DELETE", credentials);
+        }
+
+        /// <summary>
+        /// Makes a POST request to the /devices/{deviceName}/credentials/sync sync endpoint,
+        /// sending a command to the specified device to update its credentials.
+        /// </summary>
+        /// <param name="deviceName"></param>
+        /// <returns></returns>
+        public CommandResponseDto SyncDeviceCredentials(string deviceName)
+        {
+            // Append the device credential resource location to the url.
+            var url = _baseUri + "devices/" + deviceName + "/credentials/sync";
+
+            return SendRequestToJetstream<string, CommandResponseDto>(url, WebRequestMethods.Http.Post, string.Empty);
+        }
+
+        /// <summary>
+        /// Makes a GET request to the /devices/{deviceName}/credentials/Sync sync endpoint,
+        /// returning the DateTime of the last credential sync.
+        /// </summary>
+        /// <param name="deviceName"></param>
+        /// <returns></returns>
+        public DateTime GetLastDeviceCredentialSyncTime(string deviceName)
+        {
+            // Append the device credential resource location to the url.
+            var url = _baseUri + "devices/" + deviceName + "/credentials/sync";
+
+            return SendRequestToJetstream<string, DateTime>(url, WebRequestMethods.Http.Get, string.Empty);
         }
 
         #endregion
@@ -540,7 +847,7 @@ namespace TersoSolutions.Jetstream.SDK
             request.Method = httpVerb;
 
             // If it's not a GET request, set the body of the request
-            if (!String.Equals(httpVerb, WebRequestMethods.Http.Get))
+            if (!string.Equals(httpVerb, WebRequestMethods.Http.Get))
             {
                 // Set the body to an encoded object
                 request = CreateRequestBody(request, JsonConvert.SerializeObject(body));
@@ -572,7 +879,6 @@ namespace TersoSolutions.Jetstream.SDK
 
                 // Grab the status code
                 var statusCode = httpResponse.StatusCode;
-                // ReSharper disable once AssignNullToNotNullAttribute
                 // Get the JSON of the response
                 var responseBody = new StreamReader(httpResponse.GetResponseStream()).ReadToEnd();
                 // Format the JSON body of the response to make a pretty error message
@@ -610,7 +916,7 @@ namespace TersoSolutions.Jetstream.SDK
         /// <returns></returns>
         private static string CreateErrorMessageFromJsonBody(string unformattedBody)
         {
-            var formattedMessage = String.Empty;
+            var formattedMessage = string.Empty;
             var responseObject = new JObject();
 
             // Try to cast the response as a JObject. It will work if the response is JSON.
@@ -626,8 +932,10 @@ namespace TersoSolutions.Jetstream.SDK
                     formattedMessage = JsonConvert.DeserializeObject<string>(unformattedBody);
                     return formattedMessage;
                 }
-                // ReSharper disable once EmptyGeneralCatchClause
-                catch(Exception){}
+                catch (Exception)
+                {
+                    // Swallowing it
+                }
             }
             
 
@@ -640,7 +948,7 @@ namespace TersoSolutions.Jetstream.SDK
             // Grab and aggregate the model state errors, if they exist
             if (responseObject["ModelState"] != null)
             {
-                if (!String.IsNullOrEmpty(formattedMessage))
+                if (!string.IsNullOrEmpty(formattedMessage))
                 {
                     formattedMessage += " | ";
                 }
@@ -649,14 +957,32 @@ namespace TersoSolutions.Jetstream.SDK
                 var modelStateJToken = responseObject["ModelState"];
                 // Take the JToken and convert it to a Dictionary<string, List<string>>
                 var modelStateDictionary = modelStateJToken.ToObject<Dictionary<string, List<string>>>();
-                // Go through each error and joing them onto the string with a comma between them
-                formattedMessage += String.Join(", ", modelStateDictionary.Values.Select(x => String.Join(", ", x)));
+                // Go through each error and join them onto the string with a comma between them
+                formattedMessage += string.Join(", ", modelStateDictionary.Values.Select(x => string.Join(", ", x)));
             }
 
             // Return the message
             return formattedMessage;
         }
 
+        /// <summary>
+        /// Builds a query string based on the
+        /// parameters that are passed in.
+        /// Ignores empty values.
+        /// </summary>
+        /// <param name="queryParams">Dictionary of parameter
+        /// name and the value to be assigned to it</param>
+        /// <returns>a string that represents the formatted query string</returns>
+        private static string BuildQueryString(Dictionary<string, string> queryParams)
+        {
+            // Sets up a list of formatted query string values
+            var listOfParams = (from p in queryParams
+                where !string.IsNullOrEmpty(p.Value)
+                select string.Format("{0}={1}", p.Key.ToLower(), p.Value)).ToList();
+
+            // returns the query string
+            return string.Join("&", listOfParams);
+        }
         #endregion
     }
 }

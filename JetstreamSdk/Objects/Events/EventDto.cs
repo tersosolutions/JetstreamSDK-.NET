@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright 2018 Terso Solutions, Inc.
+    Copyright 2019 Terso Solutions, Inc.
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -15,6 +15,7 @@
 */
 
 using System;
+using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -24,7 +25,7 @@ namespace TersoSolutions.Jetstream.SDK.Objects.Events
     /// The base Event DTO that all events inherit.
     /// Handles EventId and EventTime assignment.
     /// </summary>
-    public abstract class EventDto
+    public class EventDto
     {
         /// <summary>
         /// Type of Jetstream Event
@@ -40,6 +41,17 @@ namespace TersoSolutions.Jetstream.SDK.Objects.Events
         /// Time that the event occurred
         /// </summary>
         public DateTime EventTime { get; set; }
+
+        /// <summary>
+        /// The version of the event
+        /// </summary>
+        public int Version { get; set; }
+
+        /// <summary>
+        /// Any fields that don't map to the DTO go here
+        /// </summary>
+        [JsonExtensionData]
+        public IDictionary<string, JToken> AdditionalData;
     }
 
     /// <summary>
@@ -77,9 +89,14 @@ namespace TersoSolutions.Jetstream.SDK.Objects.Events
                 // Get the type object from the string
                 var fullType = Type.GetType(fullTypeString);
 
-                // ReSharper disable once AssignNullToNotNullAttribute
-                // Create an instance of the type. We don't care that fullType
-                // can be null since we have a catch statement.
+                // If the full type isn't found, cast into an EventDto
+                // and have the AdditionalData field handle unknown fields
+                if (fullType == null)
+                {
+                    return new EventDto();
+                }
+
+                // Return the new instance of the type
                 return (EventDto)Activator.CreateInstance(fullType);
             }
             catch (Exception e)

@@ -86,9 +86,7 @@
   <ItemGroup>
     <Content Include="ReferenceDLLs\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll" />
     <Content Include="ReferenceDLLs\Moq.dll" />
-    <Content Include="ReferenceDLLs\Moq.xml" />
     <Content Include="ReferenceDLLs\Newtonsoft.Json.dll" />
-    <Content Include="ReferenceDLLs\Newtonsoft.Json.xml" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

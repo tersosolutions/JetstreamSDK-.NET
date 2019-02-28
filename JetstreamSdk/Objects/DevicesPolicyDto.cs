@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright 2018 Terso Solutions, Inc.
+    Copyright 2019 Terso Solutions, Inc.
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -19,8 +19,7 @@ using System.Collections.Generic;
 namespace TersoSolutions.Jetstream.SDK.Objects
 {
     /// <summary>
-    /// Summarizes data to be communicated about
-    /// a device policy
+    /// A data transfer object containing properties for a device's policy.
     /// </summary>
     public class DevicesPolicyDto
     {
