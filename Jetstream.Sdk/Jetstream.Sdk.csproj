@@ -1,0 +1,44 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup Label="Globals">
+    <SccProjectName>SAK</SccProjectName>
+    <SccProvider>SAK</SccProvider>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccLocalPath>SAK</SccLocalPath>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0;net472;</TargetFrameworks>
+    <RootNamespace>TersoSolutions.Jetstream.Sdk</RootNamespace>
+    <AssemblyName>Jetstream.Sdk</AssemblyName>
+    <Version>3.2.0</Version>
+    <Authors>Terso Solutions, Inc.</Authors>
+    <Company>Terso Solutions, Inc.</Company>
+    <Copyright>Copyright © Terso Solutions, Inc. 2019</Copyright>
+    <Description>The Jetstream SDK has functionality for making application API calls and receiving messages when implemented in an application.</Description>
+    <PackageIconUrl>https://cdn.tersosolutions.com/nuget/logo150.png</PackageIconUrl>
+    <PackageProjectUrl>https://www.jetstreamrfid.com</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/tersosolutions/JetstreamSDK-.NET</RepositoryUrl>
+    <PackageLicenseUrl>https://raw.githubusercontent.com/tersosolutions/JetstreamSDK-.NET/master/LICENSE</PackageLicenseUrl>
+    <License>Apache-2.0</License>
+    <AssemblyVersion>3.2.0</AssemblyVersion>
+    <FileVersion>3.2.0</FileVersion>
+  </PropertyGroup>
+
+  <!-- common NuGet package refs that affect all projects -->
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Options" Version="2.2.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
+  </ItemGroup>
+
+  <!-- .NET Standard 2.0 references, compilation flags and build options -->
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard2.0'">
+    <DefineConstants>NETCORE;NETSTANDARD;NETSTANDARD2_0</DefineConstants>
+  </PropertyGroup>
+
+  <!-- .NET 4.7.2 references, compilation flags and build options -->
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'net472'">
+    <DefineConstants>NET472;NETFULL</DefineConstants>
+  </PropertyGroup>
+
+</Project>

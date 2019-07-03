@@ -3,13 +3,17 @@
 ## Jetstream SDK
 [Jetstream Documentation - https://jetstreamrfid.com/documentation/applicationapi/3](https://jetstreamrfid.com/documentation/applicationapi/3)
  
-### Microsoft .NET Framework 4.5.1
+### Microsoft .NET Framework 4.7.2 / Standard 2.0
 The SDK has functionality for making application API calls, simulating device calls and receiving messages when implemented in an application.
 
 ### Use the application or device API in a project
-Add a reference to the `JetstreamSDK.dll`.
+Add a reference to the `JetstreamSDK.dll` or search for Jetstream.Sdk on NuGet
 
 ### Change History
+* v3.1 - April 23, 2019
+  * Target .NET standard 2.0 and Framework 4.7.2
+  * Added support for deploying to NuGet and GitHub from VSTS
+  * Created license file
 * v3.0 - February 28, 2019 - added support for Jetstream v3. See API documentation for more details.
 * v2.3 - September 12, 2018 - changed SensorReadingEvent and LogEntryEvent fields to be DateTimes instead of strings.
 * v2.2 - August 1, 2018 - added Set and Get AppConfigValues and deprecated Proprietary Commands.
@@ -22,11 +26,3 @@ Add a reference to the `JetstreamSDK.dll`.
 * v1.3 - October 29, 2013 - bug fixes
 * v1.2 - September 27, 2013 - added support for v1.2 get/remove events methods
 * v1.1 - October 31, 2012 - bug fixes
-
-### License
-Copyright 2019 Terso Solutions, Inc.
-
-Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at:
-[http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0).
-
-Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.

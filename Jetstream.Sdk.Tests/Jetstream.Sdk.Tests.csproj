@@ -1,0 +1,49 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup Label="Globals">
+    <SccProjectName></SccProjectName>
+    <SccProvider></SccProvider>
+    <SccAuxPath></SccAuxPath>
+    <SccLocalPath></SccLocalPath>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <RootNamespace>TersoSolutions.Jetstream.Sdk.Tests</RootNamespace>
+    <AssemblyName>Jetstream.Sdk.Tests</AssemblyName>
+    <IsPackable>false</IsPackable>
+    <Version>3.1.0</Version>
+    <Description>Unit tests for the Jetstream SDK</Description>
+    <Authors>Terso Solutions, Inc.</Authors>
+    <Copyright>Copyright © Terso Solutions, Inc. 2019</Copyright>
+    <Company>Terso Solutions, Inc.</Company>
+    <PackageIconUrl>http://cdn.tersosolutions.com/nuget/logo150.png</PackageIconUrl>
+    <PackageProjectUrl>https://www.jetstreamrfid.com</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/tersosolutions/JetstreamSDK-.NET</RepositoryUrl>
+    <PackageLicenseUrl>https://raw.githubusercontent.com/tersosolutions/JetstreamSDK-.NET/master/LICENSE</PackageLicenseUrl>
+    <License>Apache-2.0</License>
+  </PropertyGroup>
+
+  <!-- common NuGet package refs that affect all projects -->
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.1.1" />
+    <PackageReference Include="MSTest.TestAdapter" Version="1.4.0" />
+    <PackageReference Include="MSTest.TestFramework" Version="1.4.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Jetstream.Sdk\Jetstream.Sdk.csproj" />
+  </ItemGroup>
+
+  <!-- .NET Standard 2.0 references, compilation flags and build options -->
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard2.0'">
+    <DefineConstants>NETCORE;NETSTANDARD;NETSTANDARD2_0</DefineConstants>
+  </PropertyGroup>
+
+  <!-- .NET 4.7.2 references, compilation flags and build options -->
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'net472'">
+    <DefineConstants>NET472;NETFULL</DefineConstants>
+  </PropertyGroup>
+
+</Project>
