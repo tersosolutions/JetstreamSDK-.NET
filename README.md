@@ -10,6 +10,16 @@ The SDK has functionality for making application API calls, simulating device ca
 Add a reference to the `JetstreamSDK.dll` or search for Jetstream.Sdk on NuGet
 
 ### Change History
+* v3.4 - June 23, 2022
+  * Add sonar ruleset
+  * Add client factory for DI purposes
+  * Add status event DTO
+  * Improve tests
+  * Update methods to be async tasks
+  * Update library depedencies to latest
+  * Remove Framework 4.7 support since standard 2.0 can be used in framework and higher
+* v3.2 - July 23, 2020
+  * Update calls to be asynchronyous
 * v3.1 - April 23, 2019
   * Target .NET standard 2.0 and Framework 4.7.2
   * Added support for deploying to NuGet and GitHub from VSTS

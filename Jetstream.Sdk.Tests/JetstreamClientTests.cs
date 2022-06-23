@@ -1,5 +1,5 @@
 /*
-    Copyright 2019 Terso Solutions, Inc.
+    Copyright 2022 Terso Solutions, Inc.
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -21,6 +21,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 using TersoSolutions.Jetstream.Sdk.Objects;
@@ -75,7 +76,7 @@ namespace TersoSolutions.Jetstream.Sdk.Tests
         #region Event Tests
 
         [TestMethod]
-        public void ServiceClientTests_GetEventsWithoutSearchAndSortHappyPath()
+        public async Task ServiceClientTests_GetEventsWithoutSearchAndSortHappyPath()
         {
             var heartbeatEvent = new HeartbeatEventDto
             {
@@ -96,7 +97,7 @@ namespace TersoSolutions.Jetstream.Sdk.Tests
             TestWebRequestCreate.CreateTestRequest(JsonConvert.SerializeObject(eventsDto));
 
             var service = new JetstreamClient(_accessKey, "test://MyUrl");
-            var result = service.GetEvents();
+            var result = await service.GetEventsAsync();
 
             Assert.IsNotNull(result);
             Assert.AreEqual(eventsDto.Count, result.Count);
@@ -110,7 +111,7 @@ namespace TersoSolutions.Jetstream.Sdk.Tests
         }
 
         [TestMethod]
-        public void ServiceClientTests_GetEventsManyWithoutSearchAndSortHappyPath()
+        public async Task ServiceClientTests_GetEventsManyWithoutSearchAndSortHappyPath()
         {
             var listOfEvents = new List<EventDto>();
 
@@ -136,7 +137,7 @@ namespace TersoSolutions.Jetstream.Sdk.Tests
             TestWebRequestCreate.CreateTestRequest(JsonConvert.SerializeObject(eventsDto));
 
             var service = new JetstreamClient(_accessKey, "test://MyUrl");
-            var result = service.GetEvents();
+            var result = await service.GetEventsAsync();
 
             Assert.IsNotNull(result);
             Assert.AreEqual(eventsDto.Count, result.Count);
@@ -148,7 +149,7 @@ namespace TersoSolutions.Jetstream.Sdk.Tests
         #region Device Definition Tests
 
         [TestMethod]
-        public void ServiceClientTests_GetDeviceDefinitionsWithoutSearchAndSortHappyPath()
+        public async Task ServiceClientTests_GetDeviceDefinitionsWithoutSearchAndSortHappyPath()
         {
             var deviceDefinitionDto = new DeviceDefinitionsDto
             {
@@ -169,7 +170,7 @@ namespace TersoSolutions.Jetstream.Sdk.Tests
             TestWebRequestCreate.CreateTestRequest(JsonConvert.SerializeObject(deviceList));
 
             var service = new JetstreamClient(_accessKey, "test://MyUrl");
-            var result = service.GetDeviceDefinitions();
+            var result = await service.GetDeviceDefinitionsAsync();
 
             Assert.IsNotNull(result);
             Assert.AreEqual(deviceDefinitionDto.Name, result.First().Name);
@@ -182,7 +183,7 @@ namespace TersoSolutions.Jetstream.Sdk.Tests
         }
 
         [TestMethod]
-        public void ServiceClientTests_GetDeviceDefinitionHappyPath()
+        public async Task ServiceClientTests_GetDeviceDefinitionHappyPath()
         {
             var deviceDefinitionDto = new DeviceDefinitionsDto
             {
@@ -201,7 +202,7 @@ namespace TersoSolutions.Jetstream.Sdk.Tests
             TestWebRequestCreate.CreateTestRequest(JsonConvert.SerializeObject(deviceDefinitionDto));
 
             var service = new JetstreamClient(_accessKey, "test://MyUrl");
-            var result = service.GetDeviceDefinition("HelloWorld");
+            var result = await service.GetDeviceDefinitionAsync("HelloWorld");
 
             Assert.IsNotNull(result);
             Assert.AreEqual(deviceDefinitionDto.Name, result.Name);
@@ -218,7 +219,7 @@ namespace TersoSolutions.Jetstream.Sdk.Tests
         /// based on the old id (GUID)
         /// </summary>
         [TestMethod]
-        public void ServiceClientTests_GetNewDeviceDefinitionId()
+        public async Task ServiceClientTests_GetNewDeviceDefinitionId()
         {
             var deviceDefinitionDto = new DeviceDefinitionsDto
             {
@@ -240,7 +241,7 @@ namespace TersoSolutions.Jetstream.Sdk.Tests
 
             var service = new JetstreamClient(_accessKey, "test://MyUrl");
 
-            var result = service.GetNewDeviceDefinitionId(Guid.NewGuid().ToString());
+            var result = await service.GetNewDeviceDefinitionIdAsync(Guid.NewGuid().ToString());
 
             Assert.IsNotNull(result);
             Assert.AreEqual(deviceDefinitionDto.Name, result.Name);
@@ -252,7 +253,7 @@ namespace TersoSolutions.Jetstream.Sdk.Tests
         #region Region tests
 
         [TestMethod]
-        public void ServiceClientTests_GetRegionsHappyPath()
+        public async Task ServiceClientTests_GetRegionsHappyPath()
         {
             var regionList = new List<string> { "US", "EU", "AP" };
 
@@ -260,7 +261,7 @@ namespace TersoSolutions.Jetstream.Sdk.Tests
             TestWebRequestCreate.CreateTestRequest(JsonConvert.SerializeObject(regionList));
 
             var service = new JetstreamClient(_accessKey, "test://MyUrl");
-            var result = service.GetRegions();
+            var result = await service.GetRegionsAsync();
 
             Assert.IsNotNull(result);
             Assert.AreEqual(regionList[0], result[0]);
@@ -273,7 +274,7 @@ namespace TersoSolutions.Jetstream.Sdk.Tests
         #region Policy Tests
 
         [TestMethod]
-        public void ServiceClientTests_GetPoliciesWithoutSearchAndSortHappyPath()
+        public async Task ServiceClientTests_GetPoliciesWithoutSearchAndSortHappyPath()
         {
             var policyDto = new PoliciesDto
             {
@@ -287,7 +288,7 @@ namespace TersoSolutions.Jetstream.Sdk.Tests
             TestWebRequestCreate.CreateTestRequest(JsonConvert.SerializeObject(policyList));
 
             var service = new JetstreamClient(_accessKey, "test://MyUrl");
-            var result = service.GetPolicies();
+            var result = await service.GetPoliciesAsync();
 
             Assert.IsNotNull(result);
             Assert.AreEqual(policyDto.Name, result.First().Name);
@@ -295,7 +296,7 @@ namespace TersoSolutions.Jetstream.Sdk.Tests
         }
 
         [TestMethod]
-        public void ServiceClientTests_GetPolicyHappyPath()
+        public async Task ServiceClientTests_GetPolicyHappyPath()
         {
             var policyDto = new PoliciesDto
             {
@@ -307,7 +308,7 @@ namespace TersoSolutions.Jetstream.Sdk.Tests
             TestWebRequestCreate.CreateTestRequest(JsonConvert.SerializeObject(policyDto));
 
             var service = new JetstreamClient(_accessKey, "test://MyUrl");
-            var result = service.GetPolicy("HelloWorld");
+            var result = await service.GetPolicyAsync("HelloWorld");
 
             Assert.IsNotNull(result);
             Assert.AreEqual(policyDto.Name, result.Name);
@@ -315,7 +316,7 @@ namespace TersoSolutions.Jetstream.Sdk.Tests
         }
 
         [TestMethod]
-        public void ServiceClientTests_AddPolicyHappyPath()
+        public async Task ServiceClientTests_AddPolicyHappyPath()
         {
             var policyDto = new PoliciesDto
             {
@@ -327,7 +328,7 @@ namespace TersoSolutions.Jetstream.Sdk.Tests
             TestWebRequestCreate.CreateTestRequest(JsonConvert.SerializeObject(policyDto));
 
             var service = new JetstreamClient(_accessKey, "test://MyUrl");
-            var result = service.AddPolicy(policyDto);
+            var result = await service.AddPolicyAsync(policyDto);
 
             Assert.IsNotNull(result);
             Assert.AreEqual(policyDto.Name, result.Name);
@@ -338,7 +339,7 @@ namespace TersoSolutions.Jetstream.Sdk.Tests
         /// Tests the update policy call
         /// </summary>
         [TestMethod]
-        public void ServiceClientTests_UpdatePolicyHappyPath()
+        public async Task ServiceClientTests_UpdatePolicyHappyPath()
         {
             var policyDto = new PoliciesDto
             {
@@ -352,7 +353,7 @@ namespace TersoSolutions.Jetstream.Sdk.Tests
             TestWebRequestCreate.CreateTestRequest(JsonConvert.SerializeObject(policyDto));
 
             var service = new JetstreamClient(_accessKey, "test://MyUrl");
-            var result = service.UpdatePolicy(policyDto, "HelloWord");
+            var result = await service.UpdatePolicyAsync(policyDto, "HelloWord");
 
             Assert.IsNotNull(result);
             Assert.AreEqual(policyDto.Id, result.Id);
@@ -368,7 +369,7 @@ namespace TersoSolutions.Jetstream.Sdk.Tests
         /// Unit test for Alias methods
         /// </summary>
         [TestMethod]
-        public void ServiceClientTests_AddAliasHappyPath()
+        public async Task ServiceClientTests_AddAliasHappyPath()
         {
             var aliasDto = new AliasDto
             {
@@ -380,7 +381,7 @@ namespace TersoSolutions.Jetstream.Sdk.Tests
             TestWebRequestCreate.CreateTestRequest(JsonConvert.SerializeObject(aliasDto));
 
             var service = new JetstreamClient(_accessKey, "test://MyUrl");
-            var result = service.AddAlias(aliasDto);
+            var result = await service.AddAliasAsync(aliasDto);
 
             Assert.IsNotNull(result);
             Assert.AreEqual(aliasDto.Name, result.Name);
@@ -390,7 +391,7 @@ namespace TersoSolutions.Jetstream.Sdk.Tests
         /// Unit test for Alias methods
         /// </summary>
         [TestMethod]
-        public void ServiceClientTests_ModifyAliasHappyPath()
+        public async Task ServiceClientTests_ModifyAliasHappyPath()
         {
             var aliasDto = new AliasDto
             {
@@ -402,7 +403,7 @@ namespace TersoSolutions.Jetstream.Sdk.Tests
             TestWebRequestCreate.CreateTestRequest(JsonConvert.SerializeObject(aliasDto));
 
             var service = new JetstreamClient(_accessKey, "test://MyUrl");
-            var result = service.AddAlias(aliasDto);
+            var result = await service.AddAliasAsync(aliasDto);
 
             Assert.IsNotNull(result);
             Assert.AreEqual(aliasDto.Name, result.Name);
@@ -412,7 +413,7 @@ namespace TersoSolutions.Jetstream.Sdk.Tests
         /// Unit test for Alias methods
         /// </summary>
         [TestMethod]
-        public void ServiceClientTests_GetAliasesHappyPath()
+        public async Task ServiceClientTests_GetAliasesHappyPath()
         {
             var aliases = new List<AliasDto>
             {
@@ -427,7 +428,7 @@ namespace TersoSolutions.Jetstream.Sdk.Tests
             TestWebRequestCreate.CreateTestRequest(JsonConvert.SerializeObject(aliases));
 
             var service = new JetstreamClient(_accessKey, "test://MyUrl");
-            var result = service.GetAliases();
+            var result = await service.GetAliasesAsync();
 
             Assert.IsNotNull(result);
             Assert.AreEqual(aliases.Count, result.Count);
@@ -437,7 +438,7 @@ namespace TersoSolutions.Jetstream.Sdk.Tests
         /// Unit test for Alias methods
         /// </summary>
         [TestMethod]
-        public void ServiceClientTests_GetAliasHappyPath()
+        public async Task ServiceClientTests_GetAliasHappyPath()
         {
             var aliasDto = new AliasDto
             {
@@ -449,7 +450,7 @@ namespace TersoSolutions.Jetstream.Sdk.Tests
             TestWebRequestCreate.CreateTestRequest(JsonConvert.SerializeObject(aliasDto));
 
             var service = new JetstreamClient(_accessKey, "test://MyUrl");
-            var result = service.GetAlias("TestAlias");
+            var result = await service.GetAliasAsync("TestAlias");
 
             Assert.IsNotNull(result);
             Assert.AreEqual(aliasDto.Name, result.Name);
@@ -459,14 +460,14 @@ namespace TersoSolutions.Jetstream.Sdk.Tests
         /// Unit test for Alias methods
         /// </summary>
         [TestMethod]
-        public void ServiceClientTests_GetAliasNamesHappyPath()
+        public async Task ServiceClientTests_GetAliasNamesHappyPath()
         {
             var aliasNames = new List<string> { "TestAlias" };
             WebRequest.RegisterPrefix("test", new TestWebRequestCreate());
             TestWebRequestCreate.CreateTestRequest(JsonConvert.SerializeObject(aliasNames));
 
             var service = new JetstreamClient(_accessKey, "test://MyUrl");
-            var result = service.GetAliasNames();
+            var result = await service.GetAliasNamesAsync();
 
             Assert.IsNotNull(result);
         }
@@ -476,7 +477,7 @@ namespace TersoSolutions.Jetstream.Sdk.Tests
         #region Device Tests
 
         [TestMethod]
-        public void ServiceClientTests_GetDevicesWithoutSearchAndSortHappyPath()
+        public async Task ServiceClientTests_GetDevicesWithoutSearchAndSortHappyPath()
         {
             var deviceDto = new DevicesDto
             {
@@ -492,7 +493,7 @@ namespace TersoSolutions.Jetstream.Sdk.Tests
             TestWebRequestCreate.CreateTestRequest(JsonConvert.SerializeObject(deviceList));
 
             var service = new JetstreamClient(_accessKey, "test://MyUrl");
-            var result = service.GetDevices();
+            var result = await service.GetDevicesAsync();
 
             Assert.IsNotNull(result);
             Assert.AreEqual(deviceDto.Name, result.First().Name);
@@ -503,7 +504,7 @@ namespace TersoSolutions.Jetstream.Sdk.Tests
         }
 
         [TestMethod]
-        public void ServiceClientTests_GetDeviceHappyPath()
+        public async Task ServiceClientTests_GetDeviceHappyPath()
         {
             var deviceDto = new DevicesDto
             {
@@ -517,7 +518,7 @@ namespace TersoSolutions.Jetstream.Sdk.Tests
             TestWebRequestCreate.CreateTestRequest(JsonConvert.SerializeObject(deviceDto));
 
             var service = new JetstreamClient(_accessKey, "test://MyUrl");
-            var result = service.GetDevice("HelloWorld");
+            var result = await service.GetDeviceAsync("HelloWorld");
 
             Assert.IsNotNull(result);
             Assert.AreEqual(deviceDto.Name, result.Name);
@@ -528,7 +529,7 @@ namespace TersoSolutions.Jetstream.Sdk.Tests
         }
 
         [TestMethod]
-        public void ServiceClientTests_AddDeviceHappyPath()
+        public async Task ServiceClientTests_AddDeviceHappyPath()
         {
             var deviceDto = new DevicesDto
             {
@@ -542,7 +543,7 @@ namespace TersoSolutions.Jetstream.Sdk.Tests
             TestWebRequestCreate.CreateTestRequest(JsonConvert.SerializeObject(deviceDto));
 
             var service = new JetstreamClient(_accessKey, "test://MyUrl");
-            var result = service.AddDevice(deviceDto);
+            var result = await service.AddDeviceAsync(deviceDto);
 
             Assert.IsNotNull(result);
             Assert.AreEqual(deviceDto.Name, result.Name);
@@ -553,7 +554,7 @@ namespace TersoSolutions.Jetstream.Sdk.Tests
         }
 
         [TestMethod]
-        public void ServiceClientTests_GetDeviceStatusHappyPath()
+        public async Task ServiceClientTests_GetDeviceStatusHappyPath()
         {
             var statusDto = new DeviceStatusDto
             {
@@ -563,7 +564,7 @@ namespace TersoSolutions.Jetstream.Sdk.Tests
             TestWebRequestCreate.CreateTestRequest(JsonConvert.SerializeObject(statusDto));
 
             var service = new JetstreamClient(_accessKey, "test://MyUrl");
-            var result = service.GetDeviceStatus("HelloWorld");
+            var result = await service.GetDeviceStatusAsync("HelloWorld");
 
             Assert.IsNotNull(result);
             Assert.AreEqual(statusDto.WebSocketsEnabled, result.WebSocketsEnabled);
@@ -574,7 +575,7 @@ namespace TersoSolutions.Jetstream.Sdk.Tests
         #region Device Command Tests
 
         [TestMethod]
-        public void ServiceClientTests_SendGetEpcListCommandHappyPath()
+        public async Task ServiceClientTests_SendGetEpcListCommandHappyPath()
         {
             var commandResponse = new CommandResponseDto
             {
@@ -587,7 +588,7 @@ namespace TersoSolutions.Jetstream.Sdk.Tests
             TestWebRequestCreate.CreateTestRequest(JsonConvert.SerializeObject(commandResponse));
 
             var service = new JetstreamClient(_accessKey, "test://MyUrl");
-            var result = service.SendGetEpcListCommand("TestDevice");
+            var result = await service.SendGetEpcListCommandAsync("TestDevice");
 
             Assert.IsNotNull(result);
             Assert.AreEqual(commandResponse.CommandId, result.CommandId);
@@ -595,7 +596,7 @@ namespace TersoSolutions.Jetstream.Sdk.Tests
         }
 
         [TestMethod]
-        public void ServiceClientTests_SendResetCommandHappyPath()
+        public async Task ServiceClientTests_SendResetCommandHappyPath()
         {
             var commandResponse = new CommandResponseDto
             {
@@ -608,7 +609,7 @@ namespace TersoSolutions.Jetstream.Sdk.Tests
             TestWebRequestCreate.CreateTestRequest(JsonConvert.SerializeObject(commandResponse));
 
             var service = new JetstreamClient(_accessKey, "test://MyUrl");
-            var result = service.SendResetCommand("TestDevice");
+            var result = await service.SendResetCommandAsync("TestDevice");
 
             Assert.IsNotNull(result);
             Assert.AreEqual(commandResponse.CommandId, result.CommandId);
@@ -616,7 +617,7 @@ namespace TersoSolutions.Jetstream.Sdk.Tests
         }
 
         [TestMethod]
-        public void ServiceClientTests_SendVersionCommandHappyPath()
+        public async Task ServiceClientTests_SendVersionCommandHappyPath()
         {
             var version = new VersionDto
             {
@@ -634,7 +635,7 @@ namespace TersoSolutions.Jetstream.Sdk.Tests
             TestWebRequestCreate.CreateTestRequest(JsonConvert.SerializeObject(commandResponse));
 
             var service = new JetstreamClient(_accessKey, "test://MyUrl");
-            var result = service.SendVersionCommand("TestDevice", version);
+            var result = await service.SendVersionCommandAsync("TestDevice", version);
 
             Assert.IsNotNull(result);
             Assert.AreEqual(commandResponse.CommandId, result.CommandId);
@@ -642,7 +643,7 @@ namespace TersoSolutions.Jetstream.Sdk.Tests
         }
 
         [TestMethod]
-        public void ServiceClientTests_SendLockdownCommandHappyPath()
+        public async Task ServiceClientTests_SendLockdownCommandHappyPath()
         {
             var lockdown = new LockdownDto
             {
@@ -659,7 +660,7 @@ namespace TersoSolutions.Jetstream.Sdk.Tests
             TestWebRequestCreate.CreateTestRequest(JsonConvert.SerializeObject(commandResponse));
 
             var service = new JetstreamClient(_accessKey, "test://MyUrl");
-            var result = service.SendLockdownCommand("TestDevice", lockdown);
+            var result = await service.SendLockdownCommandAsync("TestDevice", lockdown);
 
             Assert.IsNotNull(result);
             Assert.AreEqual(commandResponse.CommandId, result.CommandId);
@@ -667,7 +668,7 @@ namespace TersoSolutions.Jetstream.Sdk.Tests
         }
 
         [TestMethod]
-        public void ServiceClientTests_SendUnlockDoorCommandHappyPath()
+        public async Task ServiceClientTests_SendUnlockDoorCommandHappyPath()
         {
             var unlockDoor = new UnlockDoorDto
             {
@@ -684,7 +685,7 @@ namespace TersoSolutions.Jetstream.Sdk.Tests
             TestWebRequestCreate.CreateTestRequest(JsonConvert.SerializeObject(commandResponse));
 
             var service = new JetstreamClient(_accessKey, "test://MyUrl");
-            var result = service.SendUnlockDoorCommand("TestDevice", unlockDoor);
+            var result = await service.SendUnlockDoorCommandAsync("TestDevice", unlockDoor);
 
             Assert.IsNotNull(result);
             Assert.AreEqual(commandResponse.CommandId, result.CommandId);
@@ -695,7 +696,7 @@ namespace TersoSolutions.Jetstream.Sdk.Tests
         /// Verifies the successful completion of SendGetApplicationValues
         /// </summary>
         [TestMethod]
-        public void ServiceClientTests_SendGetApplicationValues()
+        public async Task ServiceClientTests_SendGetApplicationValues()
         {
             var parameters = new List<string> { "Name1", "Name2", "Name3" };
             var commandResponse = new CommandResponseDto
@@ -710,7 +711,7 @@ namespace TersoSolutions.Jetstream.Sdk.Tests
             TestWebRequestCreate.CreateTestRequest(JsonConvert.SerializeObject(commandResponse));
 
             var service = new JetstreamClient(_accessKey, "test://MyUrl");
-            var result = service.SendGetApplicationValues(parameters, "TestDevice");
+            var result = await service.SendGetApplicationValuesAsync(parameters, "TestDevice");
 
             Assert.IsNotNull(result);
             Assert.AreEqual(commandResponse.CommandId, result.CommandId);
@@ -722,7 +723,7 @@ namespace TersoSolutions.Jetstream.Sdk.Tests
         /// Verifies the successful completion of SendSetApplicationValues
         /// </summary>
         [TestMethod]
-        public void ServiceClientTests_SendSetApplicationValues()
+        public async Task ServiceClientTests_SendSetApplicationValues()
         {
             var commandResponse = new CommandResponseDto
             {
@@ -744,7 +745,7 @@ namespace TersoSolutions.Jetstream.Sdk.Tests
             TestWebRequestCreate.CreateTestRequest(JsonConvert.SerializeObject(commandResponse));
 
             var service = new JetstreamClient(_accessKey, "test://MyUrl");
-            var result = service.SendSetApplicationValues(appConfig, "TestDevice");
+            var result = await service.SendSetApplicationValuesAsync(appConfig, "TestDevice");
 
             Assert.IsNotNull(result);
             Assert.AreEqual(commandResponse.CommandId, result.CommandId);
@@ -755,7 +756,7 @@ namespace TersoSolutions.Jetstream.Sdk.Tests
         /// Verifies the successful completion of SendUpdateApplicationVersion
         /// </summary>
         [TestMethod]
-        public void ServiceClientTests_SendUpdateApplicationVersion()
+        public async Task ServiceClientTests_SendUpdateApplicationVersion()
         {
             var commandResponse = new CommandResponseDto
             {
@@ -776,7 +777,7 @@ namespace TersoSolutions.Jetstream.Sdk.Tests
             TestWebRequestCreate.CreateTestRequest(JsonConvert.SerializeObject(commandResponse));
 
             var service = new JetstreamClient(_accessKey, "test://MyUrl");
-            var result = service.SendUpdateApplicationVersion(appVersion, "TestDevice");
+            var result = await service.SendUpdateApplicationVersionAsync(appVersion, "TestDevice");
 
             Assert.IsNotNull(result);
             Assert.AreEqual(commandResponse.CommandId, result.CommandId);
@@ -788,7 +789,7 @@ namespace TersoSolutions.Jetstream.Sdk.Tests
         #region Device Policy Tests
 
         [TestMethod]
-        public void ServiceClientTests_GetDevicePolicyHappyPath()
+        public async Task ServiceClientTests_GetDevicePolicyHappyPath()
         {
             var devicePolicyDto = new DevicesPolicyDto
             {
@@ -799,14 +800,14 @@ namespace TersoSolutions.Jetstream.Sdk.Tests
             TestWebRequestCreate.CreateTestRequest(JsonConvert.SerializeObject(devicePolicyDto));
 
             var service = new JetstreamClient(_accessKey, "test://MyUrl");
-            var result = service.GetDevicePolicy("TestDevice");
+            var result = await service.GetDevicePolicyAsync("TestDevice");
 
             Assert.IsNotNull(result);
             Assert.AreEqual(devicePolicyDto.Name, result.Name);
         }
 
         [TestMethod]
-        public void ServiceClientTests_AddDeviceToPolicyHappyPath()
+        public async Task ServiceClientTests_AddDeviceToPolicyHappyPath()
         {
             var devicePolicyDto = new DevicesPolicyDto
             {
@@ -817,14 +818,14 @@ namespace TersoSolutions.Jetstream.Sdk.Tests
             TestWebRequestCreate.CreateTestRequest(JsonConvert.SerializeObject(devicePolicyDto));
 
             var service = new JetstreamClient(_accessKey, "test://MyUrl");
-            var result = service.AddDeviceToPolicy("TestDevice", devicePolicyDto);
+            var result = await service.AddDeviceToPolicyAsync("TestDevice", devicePolicyDto);
 
             Assert.IsNotNull(result);
             Assert.AreEqual(devicePolicyDto.Name, result.Name);
         }
 
         [TestMethod]
-        public void ServiceClientTests_SyncDevicePolicyHappyPath()
+        public async Task ServiceClientTests_SyncDevicePolicyHappyPath()
         {
             var commandResponse = new CommandResponseDto
             {
@@ -837,7 +838,7 @@ namespace TersoSolutions.Jetstream.Sdk.Tests
             TestWebRequestCreate.CreateTestRequest(JsonConvert.SerializeObject(commandResponse));
 
             var service = new JetstreamClient(_accessKey, "test://MyUrl");
-            var result = service.SyncDevicePolicy("TestDevice");
+            var result = await service.SyncDevicePolicyAsync("TestDevice");
 
             Assert.IsNotNull(result);
             Assert.AreEqual(commandResponse.CommandId, result.CommandId);
@@ -845,7 +846,7 @@ namespace TersoSolutions.Jetstream.Sdk.Tests
         }
 
         [TestMethod]
-        public void ServiceClientTests_GetSyncedDevicePolicyHappyPath()
+        public async Task ServiceClientTests_GetSyncedDevicePolicyHappyPath()
         {
             var commandResponse = new CommandResponseDto
             {
@@ -858,7 +859,7 @@ namespace TersoSolutions.Jetstream.Sdk.Tests
             TestWebRequestCreate.CreateTestRequest(JsonConvert.SerializeObject(commandResponse));
 
             var service = new JetstreamClient(_accessKey, "test://MyUrl");
-            var result = service.GetSyncedDevicePolicy("TestDevice");
+            var result = await service.GetSyncedDevicePolicyAsync("TestDevice");
 
             Assert.IsNotNull(result);
             Assert.AreEqual(commandResponse.CommandId, result.CommandId);
@@ -873,14 +874,14 @@ namespace TersoSolutions.Jetstream.Sdk.Tests
         /// Unit test for Device Credential methods
         /// </summary>
         [TestMethod]
-        public void ServiceClientTests_AddDeviceCredentialsBasicHappyPath()
+        public async Task ServiceClientTests_AddDeviceCredentialsBasicHappyPath()
         {
             var credentials = new List<string> { "1234567890", "0987654321" };
             WebRequest.RegisterPrefix("test", new TestWebRequestCreate());
             TestWebRequestCreate.CreateTestRequest(JsonConvert.SerializeObject(credentials));
 
             var service = new JetstreamClient(_accessKey, "test://MyUrl");
-            var result = service.AddDeviceCredentials("TestDevice", DeviceCredentialTypes.Basic, credentials);
+            var result = await service.AddDeviceCredentialsAsync("TestDevice", DeviceCredentialTypes.Basic, credentials);
 
             Assert.IsNotNull(result);
             Assert.AreEqual(credentials.Count, result.Count);
@@ -892,14 +893,14 @@ namespace TersoSolutions.Jetstream.Sdk.Tests
         /// Unit test for Device Credential methods
         /// </summary>
         [TestMethod]
-        public void ServiceClientTests_AddDeviceCredentialsPinHappyPath()
+        public async Task ServiceClientTests_AddDeviceCredentialsPinHappyPath()
         {
             var credentials = new Dictionary<string, string> { { "User1", "1234" }, { "User2", "5678" } };
             WebRequest.RegisterPrefix("test", new TestWebRequestCreate());
             TestWebRequestCreate.CreateTestRequest(JsonConvert.SerializeObject(credentials.Keys.ToList()));
 
             var service = new JetstreamClient(_accessKey, "test://MyUrl");
-            var result = service.AddDeviceCredentials("TestDevice", DeviceCredentialTypes.Pin, credentials);
+            var result = await service.AddDeviceCredentialsAsync("TestDevice", DeviceCredentialTypes.Pin, credentials);
 
             Assert.IsNotNull(result);
             Assert.AreEqual(credentials.Count, result.Count);
@@ -911,14 +912,14 @@ namespace TersoSolutions.Jetstream.Sdk.Tests
         /// Unit test for Device Credential methods
         /// </summary>
         [TestMethod]
-        public void ServiceClientTests_AddDeviceCredentialsUserHappyPath()
+        public async Task ServiceClientTests_AddDeviceCredentialsUserHappyPath()
         {
             var credentials = new Dictionary<string, string> { { "User1@stuff", "password1" }, { "User2@stuff", "mypassword" } };
             WebRequest.RegisterPrefix("test", new TestWebRequestCreate());
             TestWebRequestCreate.CreateTestRequest(JsonConvert.SerializeObject(credentials.Keys.ToList()));
 
             var service = new JetstreamClient(_accessKey, "test://MyUrl");
-            var result = service.AddDeviceCredentials("TestDevice", DeviceCredentialTypes.User, credentials);
+            var result = await service.AddDeviceCredentialsAsync("TestDevice", DeviceCredentialTypes.User, credentials);
 
             Assert.IsNotNull(result);
             Assert.AreEqual(credentials.Count, result.Count);
@@ -930,14 +931,14 @@ namespace TersoSolutions.Jetstream.Sdk.Tests
         /// Unit test for Device Credential methods
         /// </summary>
         [TestMethod]
-        public void ServiceClientTests_ModifyDeviceCredentialsBasicHappyPath()
+        public async Task ServiceClientTests_ModifyDeviceCredentialsBasicHappyPath()
         {
             var credentials = new List<string> { "1234567890", "0987654321" };
             WebRequest.RegisterPrefix("test", new TestWebRequestCreate());
             TestWebRequestCreate.CreateTestRequest(JsonConvert.SerializeObject(credentials));
 
             var service = new JetstreamClient(_accessKey, "test://MyUrl");
-            var result = service.ModifyDeviceCredentials("TestDevice", DeviceCredentialTypes.Basic, credentials);
+            var result = await service.ModifyDeviceCredentialsAsync("TestDevice", DeviceCredentialTypes.Basic, credentials);
 
             Assert.IsNotNull(result);
             Assert.AreEqual(credentials.Count, result.Count);
@@ -949,14 +950,14 @@ namespace TersoSolutions.Jetstream.Sdk.Tests
         /// Unit test for Device Credential methods
         /// </summary>
         [TestMethod]
-        public void ServiceClientTests_ModifyDeviceCredentialsPinHappyPath()
+        public async Task ServiceClientTests_ModifyDeviceCredentialsPinHappyPath()
         {
             var credentials = new Dictionary<string, string> { { "User1", "1234" }, { "User2", "5678" } };
             WebRequest.RegisterPrefix("test", new TestWebRequestCreate());
             TestWebRequestCreate.CreateTestRequest(JsonConvert.SerializeObject(credentials.Keys.ToList()));
 
             var service = new JetstreamClient(_accessKey, "test://MyUrl");
-            var result = service.ModifyDeviceCredentials("TestDevice", DeviceCredentialTypes.Pin, credentials);
+            var result = await service.ModifyDeviceCredentialsAsync("TestDevice", DeviceCredentialTypes.Pin, credentials);
 
             Assert.IsNotNull(result);
             Assert.AreEqual(credentials.Count, result.Count);
@@ -968,14 +969,14 @@ namespace TersoSolutions.Jetstream.Sdk.Tests
         /// Unit test for Device Credential methods
         /// </summary>
         [TestMethod]
-        public void ServiceClientTests_ModifyDeviceCredentialsUserHappyPath()
+        public async Task ServiceClientTests_ModifyDeviceCredentialsUserHappyPath()
         {
             var credentials = new Dictionary<string, string> { { "User1@stuff", "password1" }, { "User2@stuff", "mypassword" } };
             WebRequest.RegisterPrefix("test", new TestWebRequestCreate());
             TestWebRequestCreate.CreateTestRequest(JsonConvert.SerializeObject(credentials.Keys.ToList()));
 
             var service = new JetstreamClient(_accessKey, "test://MyUrl");
-            var result = service.ModifyDeviceCredentials("TestDevice", DeviceCredentialTypes.User, credentials);
+            var result = await service.ModifyDeviceCredentialsAsync("TestDevice", DeviceCredentialTypes.User, credentials);
 
             Assert.IsNotNull(result);
             Assert.AreEqual(credentials.Count, result.Count);
@@ -987,14 +988,14 @@ namespace TersoSolutions.Jetstream.Sdk.Tests
         /// Unit test for Device Credential methods
         /// </summary>
         [TestMethod]
-        public void ServiceClientTests_GetDeviceCredentialsBasicHappyPath()
+        public async Task ServiceClientTests_GetDeviceCredentialsBasicHappyPath()
         {
             var credentials = new List<string> { "1234567890", "0987654321" };
             WebRequest.RegisterPrefix("test", new TestWebRequestCreate());
             TestWebRequestCreate.CreateTestRequest(JsonConvert.SerializeObject(credentials));
 
             var service = new JetstreamClient(_accessKey, "test://MyUrl");
-            var result = service.GetDeviceCredentials("TestDevice", DeviceCredentialTypes.Basic);
+            var result = await service.GetDeviceCredentialsAsync("TestDevice", DeviceCredentialTypes.Basic);
 
             Assert.IsNotNull(result);
             Assert.AreEqual(credentials.Count, result.Count);
@@ -1006,14 +1007,14 @@ namespace TersoSolutions.Jetstream.Sdk.Tests
         /// Unit test for Device Credential methods
         /// </summary>
         [TestMethod]
-        public void ServiceClientTests_GetDeviceCredentialsPinHappyPath()
+        public async Task ServiceClientTests_GetDeviceCredentialsPinHappyPath()
         {
             var credentials = new List<string> { "User1", "User2" };
             WebRequest.RegisterPrefix("test", new TestWebRequestCreate());
             TestWebRequestCreate.CreateTestRequest(JsonConvert.SerializeObject(credentials));
 
             var service = new JetstreamClient(_accessKey, "test://MyUrl");
-            var result = service.GetDeviceCredentials("TestDevice", DeviceCredentialTypes.Pin);
+            var result = await service.GetDeviceCredentialsAsync("TestDevice", DeviceCredentialTypes.Pin);
 
             Assert.IsNotNull(result);
             Assert.AreEqual(credentials.Count, result.Count);
@@ -1025,14 +1026,14 @@ namespace TersoSolutions.Jetstream.Sdk.Tests
         /// Unit test for Device Credential methods
         /// </summary>
         [TestMethod]
-        public void ServiceClientTests_GetDeviceCredentialsUserHappyPath()
+        public async Task ServiceClientTests_GetDeviceCredentialsUserHappyPath()
         {
             var credentials = new List<string> { "User1@stuff", "User2@stuff" };
             WebRequest.RegisterPrefix("test", new TestWebRequestCreate());
             TestWebRequestCreate.CreateTestRequest(JsonConvert.SerializeObject(credentials));
 
             var service = new JetstreamClient(_accessKey, "test://MyUrl");
-            var result = service.GetDeviceCredentials("TestDevice", DeviceCredentialTypes.User);
+            var result = await service.GetDeviceCredentialsAsync("TestDevice", DeviceCredentialTypes.User);
 
             Assert.IsNotNull(result);
             Assert.AreEqual(credentials.Count, result.Count);
@@ -1044,14 +1045,14 @@ namespace TersoSolutions.Jetstream.Sdk.Tests
         /// Unit test for Device Credential methods
         /// </summary>
         [TestMethod]
-        public void ServiceClientTests_DeleteDeviceCredentialsBasicHappyPath()
+        public async Task ServiceClientTests_DeleteDeviceCredentialsBasicHappyPath()
         {
             var credentials = new List<string> { "1234567890", "0987654321" };
             WebRequest.RegisterPrefix("test", new TestWebRequestCreate());
             TestWebRequestCreate.CreateTestRequest(JsonConvert.SerializeObject(new List<string>()));
 
             var service = new JetstreamClient(_accessKey, "test://MyUrl");
-            var result = service.DeleteDeviceCredentials("TestDevice", DeviceCredentialTypes.Basic, credentials);
+            var result = await service.DeleteDeviceCredentialsAsync("TestDevice", DeviceCredentialTypes.Basic, credentials);
 
             Assert.IsNotNull(result);
             Assert.AreNotEqual(credentials.Count, result.Count);
@@ -1062,14 +1063,14 @@ namespace TersoSolutions.Jetstream.Sdk.Tests
         /// Unit test for Device Credential methods
         /// </summary>
         [TestMethod]
-        public void ServiceClientTests_DeleteDeviceCredentialsPinHappyPath()
+        public async Task ServiceClientTests_DeleteDeviceCredentialsPinHappyPath()
         {
             var credentials = new List<string> { "User1", "User2" };
             WebRequest.RegisterPrefix("test", new TestWebRequestCreate());
             TestWebRequestCreate.CreateTestRequest(JsonConvert.SerializeObject(new List<string>()));
 
             var service = new JetstreamClient(_accessKey, "test://MyUrl");
-            var result = service.DeleteDeviceCredentials("TestDevice", DeviceCredentialTypes.Pin, credentials);
+            var result = await service.DeleteDeviceCredentialsAsync("TestDevice", DeviceCredentialTypes.Pin, credentials);
 
             Assert.IsNotNull(result);
             Assert.AreNotEqual(credentials.Count, result.Count);
@@ -1080,14 +1081,14 @@ namespace TersoSolutions.Jetstream.Sdk.Tests
         /// Unit test for Device Credential methods
         /// </summary>
         [TestMethod]
-        public void ServiceClientTests_DeleteDeviceCredentialsUserHappyPath()
+        public async Task ServiceClientTests_DeleteDeviceCredentialsUserHappyPath()
         {
             var credentials = new List<string> { "User1@stuff", "User2@stuff" };
             WebRequest.RegisterPrefix("test", new TestWebRequestCreate());
             TestWebRequestCreate.CreateTestRequest(JsonConvert.SerializeObject(new List<string>()));
 
             var service = new JetstreamClient(_accessKey, "test://MyUrl");
-            var result = service.DeleteDeviceCredentials("TestDevice", DeviceCredentialTypes.User, credentials);
+            var result = await service.DeleteDeviceCredentialsAsync("TestDevice", DeviceCredentialTypes.User, credentials);
 
             Assert.IsNotNull(result);
             Assert.AreNotEqual(credentials.Count, result.Count);
@@ -1098,7 +1099,7 @@ namespace TersoSolutions.Jetstream.Sdk.Tests
         /// Unit test for Device Credential methods
         /// </summary>
         [TestMethod]
-        public void ServiceClientTests_SyncDeviceCredentialsHappyPath()
+        public async Task ServiceClientTests_SyncDeviceCredentialsHappyPath()
         {
             var commandResponse = new CommandResponseDto
             {
@@ -1111,7 +1112,7 @@ namespace TersoSolutions.Jetstream.Sdk.Tests
             TestWebRequestCreate.CreateTestRequest(JsonConvert.SerializeObject(commandResponse));
 
             var service = new JetstreamClient(_accessKey, "test://MyUrl");
-            var result = service.SyncDeviceCredentials("TestDevice");
+            var result = await service.SyncDeviceCredentialsAsync("TestDevice");
 
             Assert.IsNotNull(result);
             Assert.AreEqual(commandResponse.CommandId, result.CommandId);
@@ -1121,14 +1122,14 @@ namespace TersoSolutions.Jetstream.Sdk.Tests
         /// Unit test for Device Credential methods
         /// </summary>
         [TestMethod]
-        public void ServiceClientTests_GetLastDeviceCredentialSyncTimeHappyPath()
+        public async Task ServiceClientTests_GetLastDeviceCredentialSyncTimeHappyPath()
         {
             var syncTime = DateTime.UtcNow;
             WebRequest.RegisterPrefix("test", new TestWebRequestCreate());
             TestWebRequestCreate.CreateTestRequest(JsonConvert.SerializeObject(syncTime));
 
             var service = new JetstreamClient(_accessKey, "test://MyUrl");
-            var result = service.GetLastDeviceCredentialSyncTime("TestDevice");
+            var result = await service.GetLastDeviceCredentialSyncTimeAsync("TestDevice");
 
             Assert.IsNotNull(result);
             Assert.AreEqual(syncTime, result);
@@ -1223,12 +1224,24 @@ namespace TersoSolutions.Jetstream.Sdk.Tests
             return _requestStream;
         }
 
+        public override Task<Stream> GetRequestStreamAsync()
+        {
+            var r = GetRequestStream();
+            return Task.FromResult(r);
+        }
+
         /// <summary>
         /// See <see cref="WebRequest.GetResponse"/>.
         /// </summary>
         public override WebResponse GetResponse()
         {
             return new TestWebResponse(_responseStream);
+        }
+
+        public override Task<WebResponse> GetResponseAsync()
+        {
+            var r = GetResponse();
+            return Task.FromResult(r);
         }
     }
 

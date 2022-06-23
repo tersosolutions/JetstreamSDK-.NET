@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright 2019 Terso Solutions, Inc.
+    Copyright 2022 Terso Solutions, Inc.
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -16,12 +16,15 @@
 
 using System;
 using System.Net;
+using System.Runtime.Serialization;
+using System.Security.Permissions;
 
 namespace TersoSolutions.Jetstream.Sdk.Objects
 {
     /// <summary>
     /// A data transfer object containing properties for an exception from Jetstream calls.
     /// </summary>
+    [Serializable]
     public class JetstreamException : Exception
     {
         /// <summary>
@@ -48,11 +51,53 @@ namespace TersoSolutions.Jetstream.Sdk.Objects
         /// <param name="formattedMessage">We have to ask for a formatted message separately because we need to immediately pass it through to the base constructor.</param>
         /// <param name="innerException"></param>
         protected internal JetstreamException(HttpStatusCode statusCode, string requestBody, string responseBody, string formattedMessage, Exception innerException)
-            : base("Jetstream returned an error: " + statusCode + " - " + formattedMessage, innerException)
+            : base($"Jetstream returned an error: {statusCode} - {formattedMessage}", innerException)
         {
             StatusCode = statusCode;
             RequestBody = requestBody;
             ResponseBody = responseBody;
+        }
+
+        /// <summary>
+        /// Serializable constructor
+        /// </summary>
+        /// <remarks>
+        /// Without this constructor, deserialization will fail
+        /// </remarks>
+        /// <param name="info"></param>
+        /// <param name="context"></param>
+        /// <exception cref="SerializationException">The class name is null or <see cref="P:System.Exception.HResult"></see> is zero (0).</exception>
+        /// <exception cref="InvalidCastException">Multiple.</exception>
+        [SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
+        protected JetstreamException(SerializationInfo info, StreamingContext context)
+            : base(info, context)
+        {
+            StatusCode = (HttpStatusCode)info.GetValue("StatusCode", typeof(HttpStatusCode));
+            RequestBody = info.GetString("RequestBody");
+            ResponseBody = info.GetString("ResponseBody");
+        }
+
+        /// <summary>
+        /// Serialize function
+        /// </summary>
+        /// <remarks>
+        /// https://stackoverflow.com/a/100369/5217488
+        /// </remarks>
+        /// <param name="info"></param>
+        /// <param name="context"></param>
+        /// <exception cref="ArgumentNullException"><paramref name="info"/> is <see langword="null"/></exception>
+        /// <exception cref="SerializationException">Multiple.</exception>
+        [SecurityPermissionAttribute(SecurityAction.Demand, SerializationFormatter = true)]
+        public override void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            if (info == null) throw new ArgumentNullException(nameof(info));
+
+            info.AddValue("StatusCode", StatusCode);
+            info.AddValue("RequestBody", RequestBody);
+            info.AddValue("ResponseBody", ResponseBody);
+
+            // MUST call through to the base class to let it save its own state
+            base.GetObjectData(info, context);
         }
     }
 }

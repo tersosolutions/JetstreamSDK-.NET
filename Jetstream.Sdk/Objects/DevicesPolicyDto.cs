@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright 2019 Terso Solutions, Inc.
+    Copyright 2022 Terso Solutions, Inc.
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -14,6 +14,7 @@
   limitations under the License.
 */
 
+using System;
 using System.Collections.Generic;
 
 namespace TersoSolutions.Jetstream.Sdk.Objects
@@ -33,5 +34,15 @@ namespace TersoSolutions.Jetstream.Sdk.Objects
         /// are values to the setting for the device.
         /// </summary>
         public Dictionary<string, string> Parameters { get; set; }
+
+        /// <summary>
+        /// Last time that device policy was updated but not synced.
+        /// </summary>
+        public DateTime LastPolicyUpdate { get; set; }
+
+        /// <summary>
+        /// Last time that device policy was synced.
+        /// </summary>
+        public DateTime LastPolicySync { get; set; }
     }
 }

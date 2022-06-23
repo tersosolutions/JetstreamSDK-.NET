@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright 2019 Terso Solutions, Inc.
+    Copyright 2022 Terso Solutions, Inc.
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -20,6 +20,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -35,6 +36,7 @@ namespace TersoSolutions.Jetstream.Sdk
 
         private readonly IDisposable _optionsChangeToken;
 
+        private bool _isDisposed;
         // The version of Jetstream to use
         private const string JetstreamVersion = "3";
         // The root of the Jetstream API in URL form
@@ -118,11 +120,25 @@ namespace TersoSolutions.Jetstream.Sdk
         }
 
         /// <summary>
-        /// Destructor
+        /// Clean up internal things
         /// </summary>
         public void Dispose()
         {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        /// <summary>
+        /// Clean up internal things
+        /// </summary>
+        /// <param name="disposing"></param>
+        protected virtual void Dispose(bool disposing)
+        {
+            if (_isDisposed) return;
+
             _optionsChangeToken?.Dispose();
+
+            _isDisposed = true;
         }
 
         #endregion
@@ -130,7 +146,7 @@ namespace TersoSolutions.Jetstream.Sdk
         #region Events Methods
 
         /// <inheritdoc />
-        public EventsDto GetEvents(int limit = 100, string searchDevice = "", string searchType = "", string sortBy = "")
+        public Task<EventsDto> GetEventsAsync(int limit = 100, string searchDevice = "", string searchType = "", string sortBy = "")
         {
             // Append the events resource location to the url and add the maximum limit of events to return to the url
             var requestPath = "events/" + limit;
@@ -144,17 +160,17 @@ namespace TersoSolutions.Jetstream.Sdk
 
             requestPath += BuildQueryString(queryParams);
 
-            return SendRequestToJetstream<string, EventsDto>(requestPath, WebRequestMethods.Http.Get, string.Empty);
+            return SendRequestToJetstreamAsync<string, EventsDto>(requestPath, WebRequestMethods.Http.Get, string.Empty);
         }
 
         /// <inheritdoc />
-        public void DeleteEvents(DeleteEventsDto deleteEventsDto)
+        public Task DeleteEventsAsync(DeleteEventsDto deleteEventsDto)
         {
             // Append the events resource location to the url.
             const string requestPath = "events";
 
             // Make call. If no error thrown, we assume successful
-            SendRequestToJetstream<DeleteEventsDto, string>(requestPath, "DELETE", deleteEventsDto);
+            return SendRequestToJetstreamAsync<DeleteEventsDto, string>(requestPath, "DELETE", deleteEventsDto);
         }
 
         #endregion
@@ -162,7 +178,7 @@ namespace TersoSolutions.Jetstream.Sdk
         #region Device Definition Methods
 
         /// <inheritdoc />
-        public List<DeviceDefinitionsDto> GetDeviceDefinitions(string searchId = "", string searchName = "", string searchFirmwareVersion = "", string searchGetConfigValuesCommand = "",
+        public Task<List<DeviceDefinitionsDto>> GetDeviceDefinitionsAsync(string searchId = "", string searchName = "", string searchFirmwareVersion = "", string searchGetConfigValuesCommand = "",
             string searchSetConfigValuesCommand = "", string searchGetEpcListCommand = "", string searchResetCommand = "", string searchUpdateFirmwareCommand = "", string sortBy = "")
         {
             // Append the device definitions resource location to the url.
@@ -185,24 +201,24 @@ namespace TersoSolutions.Jetstream.Sdk
             // Adds query string if there is one to the url
             requestPath += BuildQueryString(queryParams);
 
-            return SendRequestToJetstream<string, List<DeviceDefinitionsDto>>(requestPath, WebRequestMethods.Http.Get, string.Empty);
+            return SendRequestToJetstreamAsync<string, List<DeviceDefinitionsDto>>(requestPath, WebRequestMethods.Http.Get, string.Empty);
         }
 
         /// <inheritdoc />
-        public DeviceDefinitionsDto GetDeviceDefinition(string deviceDefinitionName)
+        public Task<DeviceDefinitionsDto> GetDeviceDefinitionAsync(string deviceDefinitionName)
         {
             // Add the device definitions resource location to the url.
             var requestPath = "devicedefinitions/" + deviceDefinitionName;
 
-            return SendRequestToJetstream<string, DeviceDefinitionsDto>(requestPath, WebRequestMethods.Http.Get, string.Empty);
+            return SendRequestToJetstreamAsync<string, DeviceDefinitionsDto>(requestPath, WebRequestMethods.Http.Get, string.Empty);
         }
 
         /// <inheritdoc />
-        public DeviceDefinitionsDto GetNewDeviceDefinitionId(string oldId)
+        public Task<DeviceDefinitionsDto> GetNewDeviceDefinitionIdAsync(string oldId)
         {
             var requestPath = "devicedefinitions/OldId/" + oldId;
 
-            return SendRequestToJetstream<string, DeviceDefinitionsDto>(requestPath, WebRequestMethods.Http.Get, string.Empty);
+            return SendRequestToJetstreamAsync<string, DeviceDefinitionsDto>(requestPath, WebRequestMethods.Http.Get, string.Empty);
         }
 
         #endregion
@@ -210,12 +226,12 @@ namespace TersoSolutions.Jetstream.Sdk
         #region Region Methods
 
         /// <inheritdoc />
-        public List<string> GetRegions()
+        public Task<List<string>> GetRegionsAsync()
         {
             // Append the regions resource location to the url.
             const string requestPath = "regions";
 
-            return SendRequestToJetstream<string, List<string>>(requestPath, WebRequestMethods.Http.Get, string.Empty);
+            return SendRequestToJetstreamAsync<string, List<string>>(requestPath, WebRequestMethods.Http.Get, string.Empty);
         }
 
         #endregion
@@ -223,16 +239,16 @@ namespace TersoSolutions.Jetstream.Sdk
         #region Policy Methods
 
         /// <inheritdoc />
-        public PoliciesDto AddPolicy(PoliciesDto policy)
+        public Task<PoliciesDto> AddPolicyAsync(PoliciesDto policy)
         {
             // Append the policies resource location to the url.
             const string requestPath = "policies";
 
-            return SendRequestToJetstream<PoliciesDto, PoliciesDto>(requestPath, WebRequestMethods.Http.Post, policy);
+            return SendRequestToJetstreamAsync<PoliciesDto, PoliciesDto>(requestPath, WebRequestMethods.Http.Post, policy);
         }
 
         /// <inheritdoc />
-        public List<PoliciesDto> GetPolicies(string searchId = "", string searchName = "", string searchDeviceDefinition = "", string sortBy = "")
+        public Task<List<PoliciesDto>> GetPoliciesAsync(string searchId = "", string searchName = "", string searchDeviceDefinition = "", string sortBy = "")
         {
             // Append the policies resource location to the url.
             var requestPath = "policies";
@@ -249,35 +265,35 @@ namespace TersoSolutions.Jetstream.Sdk
             // Adds query string if there is one to the url
             requestPath += BuildQueryString(queryParams);
 
-            return SendRequestToJetstream<string, List<PoliciesDto>>(requestPath, WebRequestMethods.Http.Get, string.Empty);
+            return SendRequestToJetstreamAsync<string, List<PoliciesDto>>(requestPath, WebRequestMethods.Http.Get, string.Empty);
         }
 
         /// <inheritdoc />
-        public PoliciesDto GetPolicy(string policyName)
+        public Task<PoliciesDto> GetPolicyAsync(string policyName)
         {
             // Add the policies resource location to the url.
             var requestPath = "policies/" + policyName;
 
-            return SendRequestToJetstream<string, PoliciesDto>(requestPath, WebRequestMethods.Http.Get, string.Empty);
+            return SendRequestToJetstreamAsync<string, PoliciesDto>(requestPath, WebRequestMethods.Http.Get, string.Empty);
         }
 
         /// <inheritdoc />
-        public void DeletePolicy(string policyName)
+        public Task DeletePolicyAsync(string policyName)
         {
             // Append the policies resource location to the url.
             var requestPath = "policies/" + policyName;
 
             // Make call. If no error thrown, we assume successful
-            SendRequestToJetstream<string, string>(requestPath, "DELETE", "");
+            return SendRequestToJetstreamAsync<string, string>(requestPath, "DELETE", "");
         }
 
         /// <inheritdoc />
-        public PoliciesDto UpdatePolicy(PoliciesDto policy, string policyName)
+        public Task<PoliciesDto> UpdatePolicyAsync(PoliciesDto policy, string policyName)
         {
             // Append the policies resource location to the url.
             var requestPath = "policies/" + policyName;
 
-            return SendRequestToJetstream<PoliciesDto, PoliciesDto>(requestPath, WebRequestMethods.Http.Put, policy);
+            return SendRequestToJetstreamAsync<PoliciesDto, PoliciesDto>(requestPath, WebRequestMethods.Http.Put, policy);
         }
 
         #endregion
@@ -285,25 +301,25 @@ namespace TersoSolutions.Jetstream.Sdk
         #region Alias Methods
 
         /// <inheritdoc />
-        public AliasDto AddAlias(AliasDto alias)
+        public Task<AliasDto> AddAliasAsync(AliasDto alias)
         {
             // Append the alias resource location to the url.
             const string requestPath = "aliases";
 
-            return SendRequestToJetstream<AliasDto, AliasDto>(requestPath, WebRequestMethods.Http.Post, alias);
+            return SendRequestToJetstreamAsync<AliasDto, AliasDto>(requestPath, WebRequestMethods.Http.Post, alias);
         }
 
         /// <inheritdoc />
-        public AliasDto ModifyAlias(string aliasName, AliasDto aliasWithNewValues)
+        public Task<AliasDto> ModifyAliasAsync(string aliasName, AliasDto aliasWithNewValues)
         {
             // Append the alias resource location to the url.
             var requestPath = "aliases/" + aliasName;
 
-            return SendRequestToJetstream<AliasDto, AliasDto>(requestPath, WebRequestMethods.Http.Put, aliasWithNewValues);
+            return SendRequestToJetstreamAsync<AliasDto, AliasDto>(requestPath, WebRequestMethods.Http.Put, aliasWithNewValues);
         }
 
         /// <inheritdoc />
-        public List<AliasDto> GetAliases(string searchId = "", string searchName = "", string searchRegion = "", string sortBy = "")
+        public Task<List<AliasDto>> GetAliasesAsync(string searchId = "", string searchName = "", string searchRegion = "", string sortBy = "")
         {
             // Append the alias resource location to the url.
             var requestPath = "aliases";
@@ -320,34 +336,34 @@ namespace TersoSolutions.Jetstream.Sdk
             // Adds query string if there is one to the url
             requestPath += BuildQueryString(queryParams);
 
-            return SendRequestToJetstream<string, List<AliasDto>>(requestPath, WebRequestMethods.Http.Get, string.Empty);
+            return SendRequestToJetstreamAsync<string, List<AliasDto>>(requestPath, WebRequestMethods.Http.Get, string.Empty);
         }
 
         /// <inheritdoc />
-        public AliasDto GetAlias(string aliasName)
+        public Task<AliasDto> GetAliasAsync(string aliasName)
         {
             // Append the alias resource location to the url.
             var requestPath = "aliases/" + aliasName;
 
-            return SendRequestToJetstream<string, AliasDto>(requestPath, WebRequestMethods.Http.Get, string.Empty);
+            return SendRequestToJetstreamAsync<string, AliasDto>(requestPath, WebRequestMethods.Http.Get, string.Empty);
         }
 
         /// <inheritdoc />
-        public List<string> GetAliasNames()
+        public Task<List<string>> GetAliasNamesAsync()
         {
             // Append the alias resource location to the url.
             const string requestPath = "aliases/property/names";
 
-            return SendRequestToJetstream<string, List<string>>(requestPath, WebRequestMethods.Http.Get, string.Empty);
+            return SendRequestToJetstreamAsync<string, List<string>>(requestPath, WebRequestMethods.Http.Get, string.Empty);
         }
 
         /// <inheritdoc />
-        public void DeleteAlias(string aliasName)
+        public Task DeleteAliasAsync(string aliasName)
         {
             // Append the alias resource location to the url.
             var requestPath = "aliases/" + aliasName;
 
-            SendRequestToJetstream<string, string>(requestPath, "DELETE", string.Empty);
+            return SendRequestToJetstreamAsync<string, string>(requestPath, "DELETE", string.Empty);
         }
 
         #endregion
@@ -355,35 +371,35 @@ namespace TersoSolutions.Jetstream.Sdk
         #region Device Methods
 
         /// <inheritdoc />
-        public DevicesDto AddDevice(DevicesDto device)
+        public Task<DevicesDto> AddDeviceAsync(DevicesDto device)
         {
             // Append the devices resource location to the url.
             const string requestPath = "devices/";
 
-            return SendRequestToJetstream<DevicesDto, DevicesDto>(requestPath, WebRequestMethods.Http.Post, device);
+            return SendRequestToJetstreamAsync<DevicesDto, DevicesDto>(requestPath, WebRequestMethods.Http.Post, device);
         }
 
         /// <inheritdoc />
-        public void DeleteDevice(string deviceName)
+        public Task DeleteDeviceAsync(string deviceName)
         {
             // Append the devices resource location to the url.
             var requestPath = "devices/" + deviceName;
 
             // Make call. If no error thrown, we assume successful
-            SendRequestToJetstream<string, string>(requestPath, "DELETE", "");
+            return SendRequestToJetstreamAsync<string, string>(requestPath, "DELETE", "");
         }
 
         /// <inheritdoc />
-        public DevicesDto ModifyDevice(string deviceName, DevicesDto device)
+        public Task<DevicesDto> ModifyDeviceAsync(string deviceName, DevicesDto device)
         {
             // Append the devices resource location to the url.
             var requestPath = "devices/" + deviceName;
 
-            return SendRequestToJetstream<DevicesDto, DevicesDto>(requestPath, WebRequestMethods.Http.Put, device);
+            return SendRequestToJetstreamAsync<DevicesDto, DevicesDto>(requestPath, WebRequestMethods.Http.Put, device);
         }
 
         /// <inheritdoc />
-        public List<DevicesDto> GetDevices(string searchId = "", string searchName = "", string searchSerialNumber = "", string searchDeviceDefinition = "",
+        public Task<List<DevicesDto>> GetDevicesAsync(string searchId = "", string searchName = "", string searchSerialNumber = "", string searchDeviceDefinition = "",
             string searchRegion = "", string searchPolicy = "", string sortBy = "")
         {
             // Append the devices resource location to the url.
@@ -403,24 +419,24 @@ namespace TersoSolutions.Jetstream.Sdk
             // Adds query string if there is one to the url
             requestPath += BuildQueryString(queryParams);
 
-            return SendRequestToJetstream<string, List<DevicesDto>>(requestPath, WebRequestMethods.Http.Get, string.Empty);
+            return SendRequestToJetstreamAsync<string, List<DevicesDto>>(requestPath, WebRequestMethods.Http.Get, string.Empty);
         }
 
         /// <inheritdoc />
-        public DevicesDto GetDevice(string deviceName)
+        public Task<DevicesDto> GetDeviceAsync(string deviceName)
         {
             // Append the devices resource location to the url.
             var requestPath = "devices/" + deviceName;
 
-            return SendRequestToJetstream<string, DevicesDto>(requestPath, WebRequestMethods.Http.Get, string.Empty);
+            return SendRequestToJetstreamAsync<string, DevicesDto>(requestPath, WebRequestMethods.Http.Get, string.Empty);
         }
 
         /// <inheritdoc />
-        public DeviceStatusDto GetDeviceStatus(string deviceName)
+        public Task<DeviceStatusDto> GetDeviceStatusAsync(string deviceName)
         {
             var requestPath = "devices/" + deviceName + "/status";
 
-            return SendRequestToJetstream<string, DeviceStatusDto>(requestPath, WebRequestMethods.Http.Get, string.Empty);
+            return SendRequestToJetstreamAsync<string, DeviceStatusDto>(requestPath, WebRequestMethods.Http.Get, string.Empty);
         }
 
         #endregion
@@ -428,72 +444,72 @@ namespace TersoSolutions.Jetstream.Sdk
         #region Device Commands
 
         /// <inheritdoc />
-        public CommandResponseDto SendGetEpcListCommand(string deviceName)
+        public Task<CommandResponseDto> SendGetEpcListCommandAsync(string deviceName)
         {
             var requestPath = "devices/" + deviceName + "/epclist";
 
-            return SendRequestToJetstream<string, CommandResponseDto>(requestPath, WebRequestMethods.Http.Get, string.Empty);
+            return SendRequestToJetstreamAsync<string, CommandResponseDto>(requestPath, WebRequestMethods.Http.Get, string.Empty);
         }
 
         /// <inheritdoc />
-        public CommandResponseDto SendResetCommand(string deviceName)
+        public Task<CommandResponseDto> SendResetCommandAsync(string deviceName)
         {
             var requestPath = "devices/" + deviceName + "/reset";
 
-            return SendRequestToJetstream<string, CommandResponseDto>(requestPath, WebRequestMethods.Http.Post, string.Empty);
+            return SendRequestToJetstreamAsync<string, CommandResponseDto>(requestPath, WebRequestMethods.Http.Post, string.Empty);
         }
 
         /// <inheritdoc />
-        public CommandResponseDto SendVersionCommand(string deviceName, VersionDto versionDto)
+        public Task<CommandResponseDto> SendVersionCommandAsync(string deviceName, VersionDto versionDto)
         {
             var requestPath = "devices/" + deviceName + "/version";
 
-            return SendRequestToJetstream<VersionDto, CommandResponseDto>(requestPath, WebRequestMethods.Http.Post, versionDto);
+            return SendRequestToJetstreamAsync<VersionDto, CommandResponseDto>(requestPath, WebRequestMethods.Http.Post, versionDto);
         }
 
         /// <inheritdoc />
-        public CommandResponseDto SendLockdownCommand(string deviceName, LockdownDto lockdownDto)
+        public Task<CommandResponseDto> SendLockdownCommandAsync(string deviceName, LockdownDto lockdownDto)
         {
             var requestPath = "devices/" + deviceName + "/lockdown";
 
-            return SendRequestToJetstream<LockdownDto, CommandResponseDto>(requestPath, WebRequestMethods.Http.Post, lockdownDto);
+            return SendRequestToJetstreamAsync<LockdownDto, CommandResponseDto>(requestPath, WebRequestMethods.Http.Post, lockdownDto);
         }
 
         /// <inheritdoc />
-        public CommandResponseDto SendUnlockDoorCommand(string deviceName, UnlockDoorDto unlockDoorDto)
+        public Task<CommandResponseDto> SendUnlockDoorCommandAsync(string deviceName, UnlockDoorDto unlockDoorDto)
         {
             var requestPath = "devices/" + deviceName + "/unlockdoor";
 
-            return SendRequestToJetstream<UnlockDoorDto, CommandResponseDto>(requestPath, WebRequestMethods.Http.Post, unlockDoorDto);
+            return SendRequestToJetstreamAsync<UnlockDoorDto, CommandResponseDto>(requestPath, WebRequestMethods.Http.Post, unlockDoorDto);
         }
 
         /// <inheritdoc />
-        public CommandResponseDto SendGetApplicationValues(List<string> parameters, string deviceName)
+        public Task<CommandResponseDto> SendGetApplicationValuesAsync(List<string> parameters, string deviceName)
         {
             var joinedParameters = string.Join(",", parameters);
 
             // Append the resource to the url.
             var requestPath = "devices/" + deviceName + "/applicationvalues?parameters=" + joinedParameters;
 
-            return SendRequestToJetstream<string, CommandResponseDto>(requestPath, WebRequestMethods.Http.Get, string.Empty);
+            return SendRequestToJetstreamAsync<string, CommandResponseDto>(requestPath, WebRequestMethods.Http.Get, string.Empty);
         }
 
         /// <inheritdoc />
-        public CommandResponseDto SendSetApplicationValues(AppConfigValuesCommandDto appConfigValuesDto, string deviceName)
+        public Task<CommandResponseDto> SendSetApplicationValuesAsync(AppConfigValuesCommandDto appConfigValuesDto, string deviceName)
         {
             // Append the resource to the url.
             var url = "devices/" + deviceName + "/applicationvalues";
 
-            return SendRequestToJetstream<AppConfigValuesCommandDto, CommandResponseDto>(url, WebRequestMethods.Http.Post, appConfigValuesDto);
+            return SendRequestToJetstreamAsync<AppConfigValuesCommandDto, CommandResponseDto>(url, WebRequestMethods.Http.Post, appConfigValuesDto);
         }
 
         /// <inheritdoc />
-        public CommandResponseDto SendUpdateApplicationVersion(ApplicationVersionDto appVersion, string deviceName)
+        public Task<CommandResponseDto> SendUpdateApplicationVersionAsync(ApplicationVersionDto appVersion, string deviceName)
         {
             // Append the resource to the url.
             var requestPath = "devices/" + deviceName + "/applicationversion";
 
-            return SendRequestToJetstream<ApplicationVersionDto, CommandResponseDto>(requestPath, WebRequestMethods.Http.Post, appVersion);
+            return SendRequestToJetstreamAsync<ApplicationVersionDto, CommandResponseDto>(requestPath, WebRequestMethods.Http.Post, appVersion);
         }
 
         #endregion
@@ -501,45 +517,45 @@ namespace TersoSolutions.Jetstream.Sdk
         #region Device Policy
 
         /// <inheritdoc />
-        public DevicesPolicyDto AddDeviceToPolicy(string deviceName, DevicesPolicyDto devicesPolicy)
+        public Task<DevicesPolicyDto> AddDeviceToPolicyAsync(string deviceName, DevicesPolicyDto devicesPolicy)
         {
             // Append the devices resource location to the url.
             var requestPath = "devices/" + deviceName + "/policy";
 
-            return SendRequestToJetstream<DevicesPolicyDto, DevicesPolicyDto>(requestPath, WebRequestMethods.Http.Post, devicesPolicy);
+            return SendRequestToJetstreamAsync<DevicesPolicyDto, DevicesPolicyDto>(requestPath, WebRequestMethods.Http.Post, devicesPolicy);
         }
 
         /// <inheritdoc />
-        public DevicesPolicyDto GetDevicePolicy(string deviceName)
+        public Task<DevicesPolicyDto> GetDevicePolicyAsync(string deviceName)
         {
             // Append the devices resource location to the url.
             var requestPath = "devices/" + deviceName + "/policy";
 
-            return SendRequestToJetstream<string, DevicesPolicyDto>(requestPath, WebRequestMethods.Http.Get, string.Empty);
+            return SendRequestToJetstreamAsync<string, DevicesPolicyDto>(requestPath, WebRequestMethods.Http.Get, string.Empty);
         }
 
         /// <inheritdoc />
-        public void RemoveDeviceFromPolicy(string deviceName)
+        public Task RemoveDeviceFromPolicyAsync(string deviceName)
         {
             // Append the devices resource location to the url.
             var requestPath = "devices/" + deviceName + "/policy";
 
             // Make call and if no error is thrown we assume success
-            SendRequestToJetstream<string, string>(requestPath, "DELETE", "");
+            return SendRequestToJetstreamAsync<string, string>(requestPath, "DELETE", "");
         }
 
         /// <inheritdoc />
-        public CommandResponseDto SyncDevicePolicy(string deviceName)
+        public Task<CommandResponseDto> SyncDevicePolicyAsync(string deviceName)
         {
             var requestPath = "devices/" + deviceName + "/policy/sync";
-            return SendRequestToJetstream<string, CommandResponseDto>(requestPath, WebRequestMethods.Http.Post, string.Empty);
+            return SendRequestToJetstreamAsync<string, CommandResponseDto>(requestPath, WebRequestMethods.Http.Post, string.Empty);
         }
 
         /// <inheritdoc />
-        public CommandResponseDto GetSyncedDevicePolicy(string deviceName)
+        public Task<CommandResponseDto> GetSyncedDevicePolicyAsync(string deviceName)
         {
             var requestPath = "devices/" + deviceName + "/policy/sync";
-            return SendRequestToJetstream<string, CommandResponseDto>(requestPath, WebRequestMethods.Http.Get, string.Empty);
+            return SendRequestToJetstreamAsync<string, CommandResponseDto>(requestPath, WebRequestMethods.Http.Get, string.Empty);
         }
 
         #endregion
@@ -547,75 +563,75 @@ namespace TersoSolutions.Jetstream.Sdk
         #region Device Credentials Commands
 
         /// <inheritdoc />
-        public List<string> AddDeviceCredentials(string deviceName, DeviceCredentialTypes type, List<string> credentials)
+        public Task<List<string>> AddDeviceCredentialsAsync(string deviceName, DeviceCredentialTypes type, List<string> credentials)
         {
             // Append the device credential resource location to the url.
             var requestPath = "devices/" + deviceName + "/credentials/" + Enum.GetName(typeof(DeviceCredentialTypes), type);
 
-            return SendRequestToJetstream<List<string>, List<string>>(requestPath, WebRequestMethods.Http.Post, credentials);
+            return SendRequestToJetstreamAsync<List<string>, List<string>>(requestPath, WebRequestMethods.Http.Post, credentials);
         }
 
         /// <inheritdoc />
-        public List<string> AddDeviceCredentials(string deviceName, DeviceCredentialTypes type, Dictionary<string, string> credentials)
+        public Task<List<string>> AddDeviceCredentialsAsync(string deviceName, DeviceCredentialTypes type, Dictionary<string, string> credentials)
         {
             // Append the device credential resource location to the url.
             var requestPath = "devices/" + deviceName + "/credentials/" + Enum.GetName(typeof(DeviceCredentialTypes), type);
 
-            return SendRequestToJetstream<Dictionary<string, string>, List<string>>(requestPath, WebRequestMethods.Http.Post, credentials);
+            return SendRequestToJetstreamAsync<Dictionary<string, string>, List<string>>(requestPath, WebRequestMethods.Http.Post, credentials);
         }
 
         /// <inheritdoc />
-        public List<string> ModifyDeviceCredentials(string deviceName, DeviceCredentialTypes type, List<string> credentials)
+        public Task<List<string>> ModifyDeviceCredentialsAsync(string deviceName, DeviceCredentialTypes type, List<string> credentials)
         {
             // Append the device credential resource location to the url.
             var requestPath = "devices/" + deviceName + "/credentials/" + Enum.GetName(typeof(DeviceCredentialTypes), type);
 
-            return SendRequestToJetstream<List<string>, List<string>>(requestPath, WebRequestMethods.Http.Put, credentials);
+            return SendRequestToJetstreamAsync<List<string>, List<string>>(requestPath, WebRequestMethods.Http.Put, credentials);
         }
 
         /// <inheritdoc />
-        public List<string> ModifyDeviceCredentials(string deviceName, DeviceCredentialTypes type, Dictionary<string, string> credentials)
+        public Task<List<string>> ModifyDeviceCredentialsAsync(string deviceName, DeviceCredentialTypes type, Dictionary<string, string> credentials)
         {
             // Append the device credential resource location to the url.
             var requestPath = "devices/" + deviceName + "/credentials/" + Enum.GetName(typeof(DeviceCredentialTypes), type);
 
-            return SendRequestToJetstream<Dictionary<string, string>, List<string>>(requestPath, WebRequestMethods.Http.Put, credentials);
+            return SendRequestToJetstreamAsync<Dictionary<string, string>, List<string>>(requestPath, WebRequestMethods.Http.Put, credentials);
         }
 
         /// <inheritdoc />
-        public List<string> GetDeviceCredentials(string deviceName, DeviceCredentialTypes type)
+        public Task<List<string>> GetDeviceCredentialsAsync(string deviceName, DeviceCredentialTypes type)
         {
             // Append the device credential resource location to the url.
             var requestPath = "devices/" + deviceName + "/credentials/" + Enum.GetName(typeof(DeviceCredentialTypes), type);
 
-            return SendRequestToJetstream<string, List<string>>(requestPath, WebRequestMethods.Http.Get, string.Empty);
+            return SendRequestToJetstreamAsync<string, List<string>>(requestPath, WebRequestMethods.Http.Get, string.Empty);
         }
 
         /// <inheritdoc />
-        public List<string> DeleteDeviceCredentials(string deviceName, DeviceCredentialTypes type, List<string> credentials)
+        public Task<List<string>> DeleteDeviceCredentialsAsync(string deviceName, DeviceCredentialTypes type, List<string> credentials)
         {
             // Append the device credential resource location to the url.
             var requestPath = "devices/" + deviceName + "/credentials/" + Enum.GetName(typeof(DeviceCredentialTypes), type);
 
-            return SendRequestToJetstream<List<string>, List<string>>(requestPath, "DELETE", credentials);
+            return SendRequestToJetstreamAsync<List<string>, List<string>>(requestPath, "DELETE", credentials);
         }
 
         /// <inheritdoc />
-        public CommandResponseDto SyncDeviceCredentials(string deviceName)
+        public Task<CommandResponseDto> SyncDeviceCredentialsAsync(string deviceName)
         {
             // Append the device credential resource location to the url.
             var requestPath = "devices/" + deviceName + "/credentials/sync";
 
-            return SendRequestToJetstream<string, CommandResponseDto>(requestPath, WebRequestMethods.Http.Post, string.Empty);
+            return SendRequestToJetstreamAsync<string, CommandResponseDto>(requestPath, WebRequestMethods.Http.Post, string.Empty);
         }
 
         /// <inheritdoc />
-        public DateTime? GetLastDeviceCredentialSyncTime(string deviceName)
+        public Task<DateTime?> GetLastDeviceCredentialSyncTimeAsync(string deviceName)
         {
             // Append the device credential resource location to the url.
             var requestPath = "devices/" + deviceName + "/credentials/sync";
 
-            return SendRequestToJetstream<string, DateTime?>(requestPath, WebRequestMethods.Http.Get, string.Empty);
+            return SendRequestToJetstreamAsync<string, DateTime?>(requestPath, WebRequestMethods.Http.Get, string.Empty);
         }
 
         #endregion
@@ -631,13 +647,13 @@ namespace TersoSolutions.Jetstream.Sdk
         /// <param name="body">Any body to add to the request</param>
         /// <param name="httpVerb">HTTP verb to use</param>
         /// <returns>T</returns>
-        private T2 SendRequestToJetstream<T1, T2>(string requestPath, string httpVerb, T1 body)
+        private async Task<T2> SendRequestToJetstreamAsync<T1, T2>(string requestPath, string httpVerb, T1 body)
         {
             // Set security to TLS 1.2
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
 
             // Setup url
-            var url = new Uri(_baseUri + JetstreamVersion + "/" + requestPath);
+            var url = new Uri($"{_baseUri}{JetstreamVersion}/{requestPath}");
 
             // Create request
             var request = WebRequest.Create(url);
@@ -654,17 +670,17 @@ namespace TersoSolutions.Jetstream.Sdk
             if (!string.Equals(httpVerb, WebRequestMethods.Http.Get))
             {
                 // Set the body to an encoded object
-                request = CreateRequestBody(request, JsonConvert.SerializeObject(body));
+                request = await CreateRequestBodyAsync(request, JsonConvert.SerializeObject(body)).ConfigureAwait(false);
             }
 
             try
             {
                 // Make call and get response
-                var response = request.GetResponse();
+                var response = await request.GetResponseAsync().ConfigureAwait(false);
                 // Get response stream
                 var responseStreamReader = new StreamReader(response.GetResponseStream() ?? throw new InvalidOperationException("Response stream is null"));
                 // Read response stream
-                var responseString = responseStreamReader.ReadToEnd();
+                var responseString = await responseStreamReader.ReadToEndAsync().ConfigureAwait(false);
 
                 // Close request and close stream
                 responseStreamReader.Close();
@@ -681,11 +697,17 @@ namespace TersoSolutions.Jetstream.Sdk
                 // Grab the status code
                 var statusCode = httpResponse.StatusCode;
                 // Get the JSON of the response
-                var responseBody = new StreamReader(httpResponse.GetResponseStream() ?? throw new InvalidOperationException("Response stream is null", e)).ReadToEnd();
+                var responseStreamReader = new StreamReader(httpResponse.GetResponseStream() ?? throw new InvalidOperationException("Response stream is null", e));
+                // Read response stream
+                var responseString = await responseStreamReader.ReadToEndAsync().ConfigureAwait(false);
+
+                // Close request and close stream
+                responseStreamReader.Close();
+
                 // Format the JSON body of the response to make a pretty error message
-                var formattedMessage = CreateErrorMessageFromJsonBody(responseBody);
+                var formattedMessage = CreateErrorMessageFromJsonBody(responseString);
                 // Create new Jetstream exception and throw it
-                var jetstreamException = new JetstreamException(statusCode, JsonConvert.SerializeObject(body), responseBody, formattedMessage, e);
+                var jetstreamException = new JetstreamException(statusCode, JsonConvert.SerializeObject(body), responseString, formattedMessage, e);
                 throw jetstreamException;
             }
         }
@@ -696,15 +718,16 @@ namespace TersoSolutions.Jetstream.Sdk
         /// <param name="request"></param>
         /// <param name="body"></param>
         /// <returns>WebRequest</returns>
-        private static WebRequest CreateRequestBody(WebRequest request, string body)
+        private static async Task<WebRequest> CreateRequestBodyAsync(WebRequest request, string body)
         {
             var postData = Encoding.Default.GetBytes(body);
 
             request.ContentLength = postData.Length;
 
-            using (var s = request.GetRequestStream())
+            using (var s = await request.GetRequestStreamAsync().ConfigureAwait(false))
             {
-                s.Write(postData, 0, postData.Length);
+                await s.WriteAsync(postData, 0, postData.Length).ConfigureAwait(false);
+                await s.FlushAsync().ConfigureAwait(false);
             }
             return request;
         }
@@ -779,7 +802,7 @@ namespace TersoSolutions.Jetstream.Sdk
                                 select $"{p.Key.ToLower()}={p.Value}").ToList();
 
             // Returns the query string
-            return "?" + string.Join("&", listOfParams);
+            return listOfParams.Any() ? "?" + string.Join("&", listOfParams) : string.Empty;
         }
 
         #endregion

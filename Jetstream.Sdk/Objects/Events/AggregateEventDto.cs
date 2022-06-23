@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright 2019 Terso Solutions, Inc.
+    Copyright 2022 Terso Solutions, Inc.
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -38,5 +38,10 @@ namespace TersoSolutions.Jetstream.Sdk.Objects.Events
         /// EPCs removed in this transaction
         /// </summary>
         public IList<string> Removes { get; set; }
+
+        /// <summary>
+        /// The Alias used by the device, if any
+        /// </summary>
+        public string Alias { get; set; }
     }
 }
