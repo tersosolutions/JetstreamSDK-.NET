@@ -25,6 +25,11 @@ namespace TersoSolutions.Jetstream.Sdk.Objects
     public class DevicesPolicyDto
     {
         /// <summary>
+        /// The ID of the policy
+        /// </summary>
+        public ulong Id { get; set; }
+
+        /// <summary>
         /// The name of a DevicesPolicyDto
         /// </summary>
         public string Name { get; set; }

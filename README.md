@@ -10,6 +10,8 @@ The SDK has functionality for making application API calls, simulating device ca
 Add a reference to the `JetstreamSDK.dll` or search for Jetstream.Sdk on NuGet
 
 ### Change History
+* v3.4.1 - June 29, 2022
+  * Add ID to device policy DTO
 * v3.4 - June 23, 2022
   * Add sonar ruleset
   * Add client factory for DI purposes
