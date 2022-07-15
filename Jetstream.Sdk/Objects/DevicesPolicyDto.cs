@@ -43,11 +43,11 @@ namespace TersoSolutions.Jetstream.Sdk.Objects
         /// <summary>
         /// Last time that device policy was updated but not synced.
         /// </summary>
-        public DateTime LastPolicyUpdate { get; set; }
+        public DateTime? LastPolicyUpdate { get; set; }
 
         /// <summary>
         /// Last time that device policy was synced.
         /// </summary>
-        public DateTime LastPolicySync { get; set; }
+        public DateTime? LastPolicySync { get; set; }
     }
 }
