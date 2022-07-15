@@ -413,6 +413,7 @@ namespace TersoSolutions.Jetstream.Sdk
                 {"serialnumber", searchSerialNumber},
                 {"devicedefinition", searchDeviceDefinition},
                 {"region", searchRegion},
+                {"policy", searchPolicy},
                 {"sort", sortBy}
             };
 
