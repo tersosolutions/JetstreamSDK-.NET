@@ -18,7 +18,7 @@
     <Product>Jetstream SDK Tests</Product>
     <Description>Unit tests for the Jetstream SDK</Description>
     <Authors>Terso Solutions, Inc.</Authors>
-    <Copyright>Copyright © Terso Solutions, Inc. 2022</Copyright>
+    <Copyright>Copyright © Terso Solutions, Inc. 2023</Copyright>
     <Company>Terso Solutions, Inc.</Company>
     <PackageIconUrl>http://cdn.tersosolutions.com/nuget/logo150.png</PackageIconUrl>
     <PackageProjectUrl>https://www.jetstreamrfid.com</PackageProjectUrl>
@@ -32,19 +32,19 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="coverlet.collector" Version="3.1.2">
+    <PackageReference Include="coverlet.collector" Version="3.2.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="coverlet.msbuild" Version="3.1.2">
+    <PackageReference Include="coverlet.msbuild" Version="3.2.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.2.0" />
-    <PackageReference Include="Moq" Version="4.18.1" />
-    <PackageReference Include="MSTest.TestAdapter" Version="2.2.10" />
-    <PackageReference Include="MSTest.TestFramework" Version="2.2.10" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.4.1" />
+    <PackageReference Include="Moq" Version="4.18.4" />
+    <PackageReference Include="MSTest.TestAdapter" Version="3.0.2" />
+    <PackageReference Include="MSTest.TestFramework" Version="3.0.2" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
   </ItemGroup>
 
   <ItemGroup>
