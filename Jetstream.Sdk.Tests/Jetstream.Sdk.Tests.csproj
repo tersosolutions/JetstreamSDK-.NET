@@ -1,14 +1,14 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup Label="Globals">
-    <SccProjectName></SccProjectName>
-    <SccProvider></SccProvider>
-    <SccAuxPath></SccAuxPath>
-    <SccLocalPath></SccLocalPath>
+    <SccProjectName>SAK</SccProjectName>
+    <SccProvider>SAK</SccProvider>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccLocalPath>SAK</SccLocalPath>
   </PropertyGroup>
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <RootNamespace>TersoSolutions.Jetstream.Sdk.Tests</RootNamespace>
     <AssemblyName>Jetstream.Sdk.Tests</AssemblyName>
     <ProjectGuid>{F76D7B76-9609-4794-BED8-EC10C233E10F}</ProjectGuid>
@@ -18,7 +18,7 @@
     <Product>Jetstream SDK Tests</Product>
     <Description>Unit tests for the Jetstream SDK</Description>
     <Authors>Terso Solutions, Inc.</Authors>
-    <Copyright>Copyright © Terso Solutions, Inc. 2023</Copyright>
+    <Copyright>Copyright © Terso Solutions, Inc. 2024</Copyright>
     <Company>Terso Solutions, Inc.</Company>
     <PackageIconUrl>http://cdn.tersosolutions.com/nuget/logo150.png</PackageIconUrl>
     <PackageProjectUrl>https://www.jetstreamrfid.com</PackageProjectUrl>
@@ -32,18 +32,18 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="coverlet.collector" Version="3.2.0">
+    <PackageReference Include="coverlet.collector" Version="6.0.2">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="coverlet.msbuild" Version="3.2.0">
+    <PackageReference Include="coverlet.msbuild" Version="6.0.2">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.5.0" />
-    <PackageReference Include="Moq" Version="4.18.4" />
-    <PackageReference Include="MSTest.TestAdapter" Version="3.0.2" />
-    <PackageReference Include="MSTest.TestFramework" Version="3.0.2" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
+    <PackageReference Include="Moq" Version="4.20.72" />
+    <PackageReference Include="MSTest.TestAdapter" Version="3.6.1" />
+    <PackageReference Include="MSTest.TestFramework" Version="3.6.1" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 

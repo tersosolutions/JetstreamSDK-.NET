@@ -10,6 +10,11 @@ The SDK has functionality for making application API calls, simulating device ca
 Add a reference to the `JetstreamSDK.dll` or search for Jetstream.Sdk on NuGet
 
 ### Change History
+* v4.1.0 - June 6, 2024
+  * Add option to get detailed policies
+  * Add option to send device configuration
+* v4.0.0 - June 6, 2024
+  * Upgrade to netstandard2.1
 * v3.4.3 - July 15, 2022
   * Fix DevicePolicyDto to allow null on LastPolicyUpdate and LastPolicySync
 * v3.4.2 - July 14, 2022

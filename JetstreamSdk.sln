@@ -39,12 +39,15 @@ Global
 		SolutionGuid = {42D26033-97E7-49BE-B1F4-5277AF30B5CD}
 	EndGlobalSection
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 2
+		SccNumberOfProjects = 3
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://dev.azure.com/tersosolutions
 		SccLocalPath0 = .
 		SccProjectUniqueName1 = Jetstream.Sdk\\Jetstream.Sdk.csproj
 		SccProjectName1 = Jetstream.Sdk
 		SccLocalPath1 = Jetstream.Sdk
+		SccProjectUniqueName2 = Jetstream.Sdk.Tests\\Jetstream.Sdk.Tests.csproj
+		SccProjectName2 = Jetstream.Sdk.Tests
+		SccLocalPath2 = Jetstream.Sdk.Tests
 	EndGlobalSection
 EndGlobal

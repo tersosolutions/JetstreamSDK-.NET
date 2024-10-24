@@ -278,6 +278,27 @@ namespace TersoSolutions.Jetstream.Sdk
         }
 
         /// <inheritdoc />
+        public Task<List<DetailedPoliciesDto>> GetDetailedPolicies(string searchId = "", string searchName = "", string searchDeviceDefinition = "", string sortBy = "")
+        {
+            // Append the policies resource location to the url.
+            var requestPath = "policies/all/details";
+
+            // builds a dictionary to hold parameters
+            var queryParams = new Dictionary<string, string>
+            {
+                {"id", searchId},
+                {"name", searchName},
+                {"devicedefinition", searchDeviceDefinition},
+                {"sortby", sortBy}
+            };
+
+            // Adds query string if there is one to the url
+            requestPath += BuildQueryString(queryParams);
+
+            return SendRequestToJetstreamAsync<string, List<DetailedPoliciesDto>>(requestPath, WebRequestMethods.Http.Get, string.Empty);
+        }
+
+        /// <inheritdoc />
         public Task DeletePolicyAsync(string policyName)
         {
             // Append the policies resource location to the url.
@@ -511,6 +532,15 @@ namespace TersoSolutions.Jetstream.Sdk
             var requestPath = "devices/" + deviceName + "/applicationversion";
 
             return SendRequestToJetstreamAsync<ApplicationVersionDto, CommandResponseDto>(requestPath, WebRequestMethods.Http.Post, appVersion);
+        }
+
+        /// <inheritdoc />
+        public Task<CommandResponseDto> SendDeviceConfigValues(Dictionary<string, string> configValues, string deviceName)
+        {
+            // Append the resource to the url.
+            var requestPath = "devices/" + deviceName + "/configuration";
+
+            return SendRequestToJetstreamAsync<Dictionary<string, string>, CommandResponseDto>(requestPath, WebRequestMethods.Http.Post, configValues);
         }
 
         #endregion

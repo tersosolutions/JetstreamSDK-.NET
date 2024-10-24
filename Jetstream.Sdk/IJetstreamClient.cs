@@ -119,6 +119,16 @@ namespace TersoSolutions.Jetstream.Sdk
         Task<PoliciesDto> GetPolicyAsync(string policyName);
 
         /// <summary>
+        /// Makes a get request to the detailed policy endpoint
+        /// </summary>
+        /// <param name="searchId"></param>
+        /// <param name="searchName"></param>
+        /// <param name="searchDeviceDefinition"></param>
+        /// <param name="sortBy"></param>
+        /// <returns></returns>
+        Task<List<DetailedPoliciesDto>> GetDetailedPolicies(string searchId = "", string searchName = "", string searchDeviceDefinition = "", string sortBy = "");
+
+        /// <summary>
         /// Makes a DELETE request to the /policies/{Name} endpoint to delete an existing policy.
         /// </summary>
         /// <param name="policyName"></param>
@@ -299,6 +309,15 @@ namespace TersoSolutions.Jetstream.Sdk
         /// <param name="deviceName"></param>
         /// <returns></returns>
         Task<CommandResponseDto> SendUpdateApplicationVersionAsync(ApplicationVersionDto appVersion, string deviceName);
+
+        /// <summary>
+        /// Makes a POST request to the /devices/{deviceName}/configuration endpoint.
+        /// This endpoints allows a user to set select device configuration settings.
+        /// </summary>
+        /// <param name="configValues"></param>
+        /// <param name="deviceName"></param>
+        /// <returns></returns>
+        Task<CommandResponseDto> SendDeviceConfigValues(Dictionary<string, string> configValues, string deviceName);
 
         #endregion
 

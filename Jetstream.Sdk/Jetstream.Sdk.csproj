@@ -8,14 +8,14 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0</TargetFrameworks>
+    <TargetFrameworks>netstandard2.1</TargetFrameworks>
     <RootNamespace>TersoSolutions.Jetstream.Sdk</RootNamespace>
     <AssemblyName>Jetstream.Sdk</AssemblyName>
     <ProjectGuid>{76870EAB-5C0C-4A12-98A9-08D9980E5B96}</ProjectGuid>
-    <Version>3.4.2</Version>
+    <Version>4.1.0</Version>
     <Authors>Terso Solutions, Inc.</Authors>
     <Company>Terso Solutions, Inc.</Company>
-    <Copyright>Copyright © Terso Solutions, Inc. 2023</Copyright>
+    <Copyright>Copyright © Terso Solutions, Inc. 2024</Copyright>
     <Product>Jetstream SDK</Product>
     <Description>The Jetstream SDK has functionality for making application API calls and receiving messages when implemented in an application.</Description>
     <PackageIconUrl>https://cdn.tersosolutions.com/nuget/logo150.png</PackageIconUrl>
@@ -23,9 +23,9 @@
     <RepositoryUrl>https://github.com/tersosolutions/JetstreamSDK-.NET</RepositoryUrl>
     <PackageLicenseUrl>https://raw.githubusercontent.com/tersosolutions/JetstreamSDK-.NET/master/LICENSE</PackageLicenseUrl>
     <License>Apache-2.0</License>
-    <AssemblyVersion>3.4.2</AssemblyVersion>
-    <FileVersion>3.4.2</FileVersion>
-    <CodeAnalysisRuleSet>..\.sonarlint\702cea68-8765-478e-b7ee-0d889be91080csharp.ruleset</CodeAnalysisRuleSet>
+    <AssemblyVersion>4.1.0</AssemblyVersion>
+    <FileVersion>4.1.0</FileVersion>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -33,17 +33,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <AdditionalFiles Include="..\.sonarlint\702cea68-8765-478e-b7ee-0d889be91080\CSharp\SonarLint.xml" Link="SonarLint.xml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.Options" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="8.0.2" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="SecurityCodeScan.VS2019" Version="5.6.7">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="SonarAnalyzer.CSharp" Version="8.55.0.65544">
+    <PackageReference Include="SonarAnalyzer.CSharp" Version="9.32.0.97167">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
